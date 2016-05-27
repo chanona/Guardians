@@ -1,0 +1,29 @@
+//KKK
+MinBox: -114.956 -65.9537 -135.978
+MaxBox: 114.956 24.562 50.8199
+
+//braker_run(no_armor)
+MinBox: -1360.86 -441.245 -3378.37
+MaxBox: 1609.56 371.347 338.48
+
+//Player_man_gun_idle2_1
+MinBox: -15.0833 -70 0
+MaxBox: 15.0833 70 23.344
+
+//breaker_idle_0
+MinBox: -1139.19 -478.774 -3435.31
+MaxBox: 1387.88 663.505 126.452
+
+//ÁøÇü
+##################################### MESH_DATA ######################################
+MaterialCount: 1
+VertexCount: 6922
+IndexCount: 28056
+BoneCount: 56
+AnimationClips: 1
+MinBox: 98.8307 -0.141665 20.6557
+MaxBox: -98.8157 215.127 -19.524
+
+#################################### SUBSET_DATA #####################################
+SubsetID: 0 FaceStart: 0 FaceCount: 9352
+

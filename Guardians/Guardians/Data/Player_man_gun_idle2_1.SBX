@@ -1,0 +1,505 @@
+##################################### MESH_DATA ######################################
+VertexCount: 24
+IndexCount: 36
+BoneCount: 59
+AnimationClips: 1
+
+#################################### VERTEX_DATA #####################################
+Pos: -15.0833 70 0
+Normal: 0 0 -1
+UV: 0.0399529 0.99
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+Pos: -15.0833 -70 0
+Normal: 0 0 -1
+UV: 0.96517 0.99
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+Pos: 15.0833 -70 0
+Normal: 0 0 -1
+UV: 0.96517 0.790638
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+Pos: 15.0833 70 0
+Normal: 0 0 -1
+UV: 0.0399529 0.790638
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+Pos: 15.0833 70 23.344
+Normal: 0 0 1
+UV: 0.96517 0.557431
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+Pos: 15.0833 -70 23.344
+Normal: 0 0 1
+UV: 0.0399529 0.557431
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+Pos: -15.0833 70 23.344
+Normal: 0 0 1
+UV: 0.96517 0.756793
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+Pos: -15.0833 -70 23.344
+Normal: 0 0 1
+UV: 0.0399529 0.756793
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+Pos: -15.0833 -70 23.344
+Normal: 0 -1 0
+UV: 0.0399529 0.164274
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+Pos: 15.0833 -70 23.344
+Normal: 0 -1 0
+UV: 0.239315 0.164274
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+Pos: 15.0833 -70 0
+Normal: 0 -1 0
+UV: 0.239315 0.00999999
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+Pos: -15.0833 -70 0
+Normal: 0 -1 0
+UV: 0.0399529 0.00999999
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+Pos: -15.0833 70 23.344
+Normal: -1 0 0
+UV: 0.0399529 0.34393
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+Pos: -15.0833 -70 23.344
+Normal: -1 0 0
+UV: 0.96517 0.34393
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+Pos: -15.0833 -70 0
+Normal: -1 0 0
+UV: 0.96517 0.189657
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+Pos: -15.0833 70 0
+Normal: -1 0 0
+UV: 0.0399529 0.189657
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+Pos: 15.0833 70 23.344
+Normal: 0 1 0
+UV: 0.264698 0.164274
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+Pos: -15.0833 70 23.344
+Normal: 0 1 0
+UV: 0.464061 0.164274
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+Pos: -15.0833 70 0
+Normal: 0 1 0
+UV: 0.464061 0.00999999
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+Pos: 15.0833 70 0
+Normal: 0 1 0
+UV: 0.264698 0.00999999
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+Pos: 15.0833 -70 23.344
+Normal: 1 0 0
+UV: 0.0399529 0.523587
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+Pos: 15.0833 70 23.344
+Normal: 1 0 0
+UV: 0.96517 0.523587
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+Pos: 15.0833 70 0
+Normal: 1 0 0
+UV: 0.96517 0.369313
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+Pos: 15.0833 -70 0
+Normal: 1 0 0
+UV: 0.0399529 0.369313
+BoneIndices: 46 0 0 0
+BoneWeights: 1 0 0 0
+
+
+##################################### INDEX_DATA  #####################################
+0 2 1
+2 0 3
+4 6 5
+6 7 5
+8 10 9
+8 11 10
+12 14 13
+12 15 14
+16 18 17
+16 19 18
+20 22 21
+20 23 22
+
+################################### BONE_HIERARCHY ###################################
+ParentIndexOfBone0: -1
+ParentIndexOfBone1: 0
+ParentIndexOfBone2: 1
+ParentIndexOfBone3: 2
+ParentIndexOfBone4: 3
+ParentIndexOfBone5: 4
+ParentIndexOfBone6: 5
+ParentIndexOfBone7: 6
+ParentIndexOfBone8: 7
+ParentIndexOfBone9: 8
+ParentIndexOfBone10: 9
+ParentIndexOfBone11: 10
+ParentIndexOfBone12: 11
+ParentIndexOfBone13: 12
+ParentIndexOfBone14: 9
+ParentIndexOfBone15: 14
+ParentIndexOfBone16: 15
+ParentIndexOfBone17: 16
+ParentIndexOfBone18: 9
+ParentIndexOfBone19: 18
+ParentIndexOfBone20: 19
+ParentIndexOfBone21: 20
+ParentIndexOfBone22: 9
+ParentIndexOfBone23: 22
+ParentIndexOfBone24: 23
+ParentIndexOfBone25: 24
+ParentIndexOfBone26: 5
+ParentIndexOfBone27: 26
+ParentIndexOfBone28: 27
+ParentIndexOfBone29: 28
+ParentIndexOfBone30: 29
+ParentIndexOfBone31: 30
+ParentIndexOfBone32: 31
+ParentIndexOfBone33: 32
+ParentIndexOfBone34: 29
+ParentIndexOfBone35: 34
+ParentIndexOfBone36: 35
+ParentIndexOfBone37: 36
+ParentIndexOfBone38: 29
+ParentIndexOfBone39: 38
+ParentIndexOfBone40: 39
+ParentIndexOfBone41: 40
+ParentIndexOfBone42: 29
+ParentIndexOfBone43: 42
+ParentIndexOfBone44: 43
+ParentIndexOfBone45: 44
+ParentIndexOfBone46: 29
+ParentIndexOfBone47: 5
+ParentIndexOfBone48: 47
+ParentIndexOfBone49: 2
+ParentIndexOfBone50: 49
+ParentIndexOfBone51: 50
+ParentIndexOfBone52: 51
+ParentIndexOfBone53: 52
+ParentIndexOfBone54: 2
+ParentIndexOfBone55: 54
+ParentIndexOfBone56: 55
+ParentIndexOfBone57: 56
+ParentIndexOfBone58: 57
+
+################################### OFFSET_MATRIX ###################################
+BoneOffSet0: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet1: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet2: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet3: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet4: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet5: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet6: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet7: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet8: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet9: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet10: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet11: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet12: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet13: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet14: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet15: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet16: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet17: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet18: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet19: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet20: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet21: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet22: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet23: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet24: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet25: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet26: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet27: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet28: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet29: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet30: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet31: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet32: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet33: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet34: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet35: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet36: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet37: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet38: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet39: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet40: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet41: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet42: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet43: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet44: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet45: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet46: -0.00498067 0.0338567 0.999415 0 0.999944 0.00968622 0.00465517 0 0.00952293 -0.999381 0.033903 0 -72.5179 12.5803 -0.845036 1 
+BoneOffSet47: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet48: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet49: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet50: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet51: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet52: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet53: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet54: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet55: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet56: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet57: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+BoneOffSet58: 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 
+
+################################## ANIMATION_CLIPS ##################################
+AnimationClip Take_001
+{
+	Bone 0: 0
+	{
+	}
+	Bone 1: 0
+	{
+	}
+	Bone 2: 0
+	{
+	}
+	Bone 3: 0
+	{
+	}
+	Bone 4: 0
+	{
+	}
+	Bone 5: 0
+	{
+	}
+	Bone 6: 0
+	{
+	}
+	Bone 7: 0
+	{
+	}
+	Bone 8: 0
+	{
+	}
+	Bone 9: 0
+	{
+	}
+	Bone 10: 0
+	{
+	}
+	Bone 11: 0
+	{
+	}
+	Bone 12: 0
+	{
+	}
+	Bone 13: 0
+	{
+	}
+	Bone 14: 0
+	{
+	}
+	Bone 15: 0
+	{
+	}
+	Bone 16: 0
+	{
+	}
+	Bone 17: 0
+	{
+	}
+	Bone 18: 0
+	{
+	}
+	Bone 19: 0
+	{
+	}
+	Bone 20: 0
+	{
+	}
+	Bone 21: 0
+	{
+	}
+	Bone 22: 0
+	{
+	}
+	Bone 23: 0
+	{
+	}
+	Bone 24: 0
+	{
+	}
+	Bone 25: 0
+	{
+	}
+	Bone 26: 0
+	{
+	}
+	Bone 27: 0
+	{
+	}
+	Bone 28: 0
+	{
+	}
+	Bone 29: 0
+	{
+	}
+	Bone 30: 0
+	{
+	}
+	Bone 31: 0
+	{
+	}
+	Bone 32: 0
+	{
+	}
+	Bone 33: 0
+	{
+	}
+	Bone 34: 0
+	{
+	}
+	Bone 35: 0
+	{
+	}
+	Bone 36: 0
+	{
+	}
+	Bone 37: 0
+	{
+	}
+	Bone 38: 0
+	{
+	}
+	Bone 39: 0
+	{
+	}
+	Bone 40: 0
+	{
+	}
+	Bone 41: 0
+	{
+	}
+	Bone 42: 0
+	{
+	}
+	Bone 43: 0
+	{
+	}
+	Bone 44: 0
+	{
+	}
+	Bone 45: 0
+	{
+	}
+	Bone 46: 36
+	{
+		Time: 0 T: 46.3762 242.107 -6.25258 S: -1 -1 -1 Q: 0.0126317 -0.864684 0.0122711 0.502007
+		Time: 0.0333333 T: 46.5909 242.066 -5.60231 S: -1 -1 -1 Q: 0.0128749 -0.864716 0.0113855 0.501967
+		Time: 0.0666667 T: 46.8225 242.012 -4.89914 S: -1 -1 -1 Q: 0.0131361 -0.86475 0.01043 0.501923
+		Time: 0.1 T: 47.0685 241.944 -4.15111 S: -1 -1 -1 Q: 0.0134132 -0.864784 0.00941749 0.501876
+		Time: 0.133333 T: 47.326 241.863 -3.36654 S: -1 -1 -1 Q: 0.0137024 -0.864819 0.00835851 0.501828
+		Time: 0.166667 T: 47.5922 241.766 -2.55382 S: -1 -1 -1 Q: 0.0140006 -0.864853 0.00726511 0.501777
+		Time: 0.2 T: 47.8643 241.655 -1.72161 S: -1 -1 -1 Q: 0.0143047 -0.864887 0.00614878 0.501725
+		Time: 0.233333 T: 48.1396 241.529 -0.87846 S: -1 -1 -1 Q: 0.0146111 -0.86492 0.00502083 0.501673
+		Time: 0.266667 T: 48.4151 241.39 -0.0332054 S: -1 -1 -1 Q: 0.0149172 -0.864951 0.00389243 0.50162
+		Time: 0.3 T: 48.6879 241.24 0.805222 S: -1 -1 -1 Q: 0.0152196 -0.86498 0.00277613 0.501568
+		Time: 0.333333 T: 48.9553 241.08 1.62803 S: -1 -1 -1 Q: 0.0155158 -0.865007 0.00168281 0.501517
+		Time: 0.366667 T: 49.2143 240.913 2.42615 S: -1 -1 -1 Q: 0.0158017 -0.865032 0.000624029 0.501467
+		Time: 0.4 T: 49.4621 240.743 3.19057 S: -1 -1 -1 Q: 0.0160748 -0.865055 -0.000388514 0.50142
+		Time: 0.433333 T: 49.6959 240.572 3.91235 S: -1 -1 -1 Q: 0.0163322 -0.865075 -0.00134336 0.501375
+		Time: 0.466667 T: 49.9127 240.405 4.58249 S: -1 -1 -1 Q: 0.0165705 -0.865093 -0.00222897 0.501333
+		Time: 0.5 T: 50.1098 240.246 5.19197 S: -1 -1 -1 Q: 0.0167867 -0.865108 -0.00303399 0.501295
+		Time: 0.533333 T: 50.2843 240.1 5.73196 S: -1 -1 -1 Q: 0.0169781 -0.865121 -0.0037468 0.501261
+		Time: 0.566667 T: 50.4334 239.971 6.19353 S: -1 -1 -1 Q: 0.0171414 -0.865132 -0.00435567 0.501232
+		Time: 0.6 T: 50.5542 239.863 6.56782 S: -1 -1 -1 Q: 0.0172737 -0.86514 -0.00484952 0.501209
+		Time: 0.633333 T: 50.644 239.781 6.84604 S: -1 -1 -1 Q: 0.017372 -0.865146 -0.00521653 0.501192
+		Time: 0.666667 T: 50.7 239.73 7.01941 S: -1 -1 -1 Q: 0.0174333 -0.86515 -0.00544504 0.501181
+		Time: 0.7 T: 50.7193 239.712 7.07911 S: -1 -1 -1 Q: 0.0174545 -0.865151 -0.00552364 0.501177
+		Time: 0.733333 T: 50.6764 239.751 6.94636 S: -1 -1 -1 Q: 0.0174076 -0.865148 -0.00534859 0.501185
+		Time: 0.766667 T: 50.5543 239.863 6.56781 S: -1 -1 -1 Q: 0.0172738 -0.86514 -0.00484968 0.501209
+		Time: 0.8 T: 50.3622 240.033 5.97312 S: -1 -1 -1 Q: 0.0170635 -0.865127 -0.00406491 0.501246
+		Time: 0.833333 T: 50.1098 240.246 5.19199 S: -1 -1 -1 Q: 0.0167867 -0.865108 -0.00303408 0.501295
+		Time: 0.866667 T: 49.8066 240.488 4.25443 S: -1 -1 -1 Q: 0.0164538 -0.865084 -0.00179557 0.501354
+		Time: 0.9 T: 49.4621 240.743 3.19055 S: -1 -1 -1 Q: 0.0160748 -0.865055 -0.000388525 0.50142
+		Time: 0.933333 T: 49.086 240.997 2.03077 S: -1 -1 -1 Q: 0.0156601 -0.86502 0.00114867 0.501492
+		Time: 0.966667 T: 48.6879 241.24 0.805252 S: -1 -1 -1 Q: 0.01522 -0.86498 0.00277637 0.501568
+		Time: 1 T: 48.2775 241.461 -0.455538 S: -1 -1 -1 Q: 0.0147646 -0.864935 0.00445615 0.501647
+		Time: 1.03333 T: 47.8644 241.655 -1.72155 S: -1 -1 -1 Q: 0.0143045 -0.864887 0.00614885 0.501725
+		Time: 1.06667 T: 47.4582 241.816 -2.96314 S: -1 -1 -1 Q: 0.0138505 -0.864836 0.00781543 0.501802
+		Time: 1.1 T: 47.0685 241.944 -4.15111 S: -1 -1 -1 Q: 0.0134132 -0.864784 0.0094175 0.501876
+		Time: 1.13333 T: 46.7047 242.04 -5.2568 S: -1 -1 -1 Q: 0.0130034 -0.864733 0.0109157 0.501945
+		Time: 1.16667 T: 46.3762 242.107 -6.25256 S: -1 -1 -1 Q: 0.0126317 -0.864684 0.0122711 0.502007
+	}
+	Bone 47: 0
+	{
+	}
+	Bone 48: 0
+	{
+	}
+	Bone 49: 0
+	{
+	}
+	Bone 50: 0
+	{
+	}
+	Bone 51: 0
+	{
+	}
+	Bone 52: 0
+	{
+	}
+	Bone 53: 0
+	{
+	}
+	Bone 54: 0
+	{
+	}
+	Bone 55: 0
+	{
+	}
+	Bone 56: 0
+	{
+	}
+	Bone 57: 0
+	{
+	}
+	Bone 58: 0
+	{
+	}
+}
