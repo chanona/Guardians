@@ -275,7 +275,7 @@ void CWorldManager::MonsterViewProcess(CClientSession * pOwnerSession)
 
 			pOwnerSession->OnceSend((char *)&put_pkt);
 
-			if (!target_monster->IsActive()) target_monster->Sleep();
+			if (!target_monster->IsActive()) target_monster->Awake();
 		}
 		else
 		{
