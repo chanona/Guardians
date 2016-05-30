@@ -22,7 +22,7 @@ bool CNetEngine::Start()
 
 	m_pWorkerThreads = make_unique<CWorkerThreads>();
 	m_pTimerThread = make_unique<CTimerThread>();
-	m_pHeartBeatThread = make_unique<CHeartBeatThread>();
+	//m_pHeartBeatThread = make_unique<CHeartBeatThread>();
 
 	if (WSAStartup(MAKEWORD(2, 2), &wsa) != 0)
 	{
@@ -48,11 +48,11 @@ bool CNetEngine::Start()
 		return false;
 	}
 
-	if (!m_pHeartBeatThread->Create())
-	{
-		printf("[DEBUG] HeartBeatThread() Error\n");
-		return false;
-	}
+	//if (!m_pHeartBeatThread->Create())
+	//{
+	//	printf("[DEBUG] HeartBeatThread() Error\n");
+	//	return false;
+	//}
 
 	if (!CreateListenSocket())
 	{
@@ -106,7 +106,7 @@ void CNetEngine::Run()
 
 	m_pTimerThread->WaitThreads();
 	m_pWorkerThreads->WaitThreads();
-	m_pHeartBeatThread->WaitThreads();
+	//m_pHeartBeatThread->WaitThreads();
 }
 
 void CNetEngine::Shutdown()
@@ -120,7 +120,7 @@ void CNetEngine::Shutdown()
 	// Threads
 	m_pTimerThread->Release();
 	m_pWorkerThreads->Release();
-	m_pHeartBeatThread->Release();
+	//m_pHeartBeatThread->Release();
 
 	// Socket and WinSocket
 	closesocket(m_hListenSocket);
@@ -218,7 +218,8 @@ void CNetEngine::Accept()
 			pMon->SetPosition(i * 50 , PLAYER_INIT_Y, j * 50);
 			pMon->SetWorld(WORLD_MANAGER->GetWorld(WORLD_TYPE::FOREST));
 			pMon->UpdateSector(pMon->GetPositionX() / SECTOR_WIDTH, pMon->GetPositionZ() / SECTOR_HEIGHT);
-			pMon->SetAlive(false);
+			pMon->SetAlive(true);
+			pMon->SetActive(false);
 		}
 	}
 

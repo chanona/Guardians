@@ -11,20 +11,17 @@ public :
 	UINT m_sourceID;
 	UINT m_targetID;
 	UINT m_wakeupTime;
+	BYTE m_srcType;
+	BYTE m_targetType;
 
 	CEventMessage() {};
-	CEventMessage(const UINT src_id, const UINT target_id, const UINT wakeup_time, const BYTE event_type);
+	CEventMessage(const UINT src_id, const UINT target_id, const UINT wakeup_time, const BYTE event_type, const BYTE src_type, const BYTE target_type);
 
 	bool operator() (const CEventMessage *lhs, const CEventMessage *rhs) const
 	{
 		return lhs->m_wakeupTime > rhs->m_wakeupTime;
 	}
 
-	ostream& operator << (ostream& os)
-	{
-		os << "Source ID : " << m_sourceID << "Target ID : " << m_targetID << "WakeTime : " << m_wakeupTime << "EventType : " << m_eventType;
-		return os;
-	}
 };
 
 class CTimerThread
@@ -47,8 +44,10 @@ public:
 	void Dispatch(CEventMessage *evt_msg);
 
 	// Event Functions
-	void IncreaseHPEvent(CEventMessage *evt_msg);
-	void DecreaseHPEvent(CEventMessage *evt_msg);
+
+	void MoveNpc(CEventMessage *evt_msg);
+	//void IncreaseHPEvent(CEventMessage *evt_msg);
+	//void DecreaseHPEvent(CEventMessage *evt_msg);
 private :
 	thread  *m_pTimerThread;
 	TimerQueue *m_pTimerQueue;

@@ -273,54 +273,25 @@ void CWorldManager::MonsterViewProcess(CClientSession * pOwnerSession)
 			put_pkt.z            = target_monster->GetPositionZ();
 			put_pkt.hp           = target_monster->GetHP();
 
-			pOwnerSession->OnceSend((char *)&put_pkt);		
-			//target_monster->SetAlive(true);
+			pOwnerSession->OnceSend((char *)&put_pkt);
+
+			if (!target_monster->IsActive()) target_monster->Sleep();
 		}
 		else
 		{
-			//target_monster->SetAlive(true);
 			// 플레이어가 새 리스트에 존재하고 기존 리스트에서도 존재할때
 			pos_pkt.monster_id = mon_id;
 			pos_pkt.x		   = target_monster->GetPositionX();
 			pos_pkt.y		   = target_monster->GetPositionY();
 			pos_pkt.z		   = target_monster->GetPositionZ();
 			pOwnerSession->OnceSend((char *)&pos_pkt);
-
-			//target_monster->SetAlive(true);
 		}
 	}
 
-//	vector<int> remove_list;
-//	remove_list.reserve(64);
-//
-//#ifdef _DEBUG
-//	if (remove_list.size() >= 64) { cout << "제거해야할 대상이 64개 넘어감\n"; }
-//#endif
-//
 	sc_packet_remove_monster rem_pkt;
 	rem_pkt.size = sizeof(rem_pkt);
 	rem_pkt.type = SC_REMOVE_MONSTER;
-//
-//	mon_list_lock.ReadEnter();
-//	for (auto i : owner_player->GetOldViewMonsterList())
-//	{
-//		if (new_monster_list.count(i)) continue;
-//		remove_list.push_back(i);
-//	}
-//	mon_list_lock.ReadLeave();
-//
-//	for (auto i : remove_list)
-//	{
-//		CMonster *target_monster = OBJECT_MANAGER->FindMonster(i);
-//
-//		rem_pkt.monster_id = i;
-//		pOwnerSession->OnceSend((char *)&rem_pkt);
-//
-//		owner_player->DelMonsterInList(i);
-//
-//		target_monster->SetAlive(false);
-//	}
-//
+
 	for (auto mon_id : old_monster_list)
 	{
 		if (new_monster_list.count(mon_id)) continue;
@@ -330,7 +301,6 @@ void CWorldManager::MonsterViewProcess(CClientSession * pOwnerSession)
 		pOwnerSession->OnceSend((char *)&rem_pkt);
 		
 		owner_player->DelMonsterInList(mon_id);
-		//target_monster->SetAlive(false);
 	}
 }
 

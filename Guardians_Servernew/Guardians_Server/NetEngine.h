@@ -40,7 +40,7 @@ private:
 
 	unique_ptr<CWorkerThreads> m_pWorkerThreads;
 	unique_ptr<CTimerThread>   m_pTimerThread;
-	unique_ptr<CHeartBeatThread> m_pHeartBeatThread;
+	//unique_ptr<CHeartBeatThread> m_pHeartBeatThread;
 
 	SOCKET m_socket;		// 다른 컴퓨터와의 통신을 위해 쓰는 소켓
 public:

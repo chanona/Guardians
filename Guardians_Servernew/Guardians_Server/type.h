@@ -15,7 +15,7 @@ enum WORLD_TYPE : BYTE
 
 enum EventType : BYTE
 {
-	MOVE,
+	NPC_MOVE,
 	INCREASE_HP,	// 실험용
 	DECREASE_HP,	// 실험용
 	EVENT_END

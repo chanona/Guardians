@@ -10,7 +10,7 @@ CMonster::CMonster() : CEntity(EntityType::MONSTER)
 	m_index     = 0;
 	m_bAlive    = false;
 	m_bPet      = false;
-	m_bExecute  = false;
+	m_bActive   = false;
 	m_position  = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	m_direction = XMFLOAT3(0.0f, 0.0f, 0.0f);
 	m_speed     = 10;
@@ -52,13 +52,15 @@ void CMonster::Clear()
 	m_sector_z = m_position.y / SECTOR_HEIGHT;
 	m_pSector  = nullptr;	// ★ nullptr 로 해야 처음 만들어졌을때 섹터안에 리스트에 들어가진다.
 	m_bAlive   = false;		// false로..? 나중에 리스폰함수 따로 만들자
-	m_bExecute = false;
+	m_bActive  = false;
 
 	SetHP(100);
 }
 
 void CMonster::Move()
 {	
+	if (m_bActive == false) return;
+
 	sc_packet_monster_pos pos_pkt;
 	sc_packet_put_monster put_pkt;
 	UINT monster_id = GetID();
@@ -140,19 +142,13 @@ void CMonster::Move()
 		CClientSession* target_session = SESSION_MANAGER->FindSession(player_id);
 		CPlayer*        player         = target_session->GetPlayer();
 		
-		//player->GetMonsterViewLock().ReadEnter();
 		if (!player->GetOldViewMonsterList().count(monster_id))			//  플레이어가 몬스터 리스트에 해당 몬스터가 존재하지 않을때
 		{
-			//player->GetMonsterViewLock().ReadLeave();
-
 			target_session->OnceSend((char *)&put_pkt);		 	// 자신에 시야에 타겟 플레이어가 보이게 한다.
-			//this->SetAlive(true);
 		}
 		else
 		{
-			//player->GetMonsterViewLock().ReadLeave();
 			target_session->OnceSend((char *)&pos_pkt);
-			//this->SetAlive(true);
 		}
 	}
 
@@ -171,6 +167,18 @@ void CMonster::Move()
 		target_session->OnceSend((char *)&rem_pkt);
 
 		player->DelMonsterInList(monster_id);
+	}
+
+	if (new_player_view_list.size() == 0)
+	{
+		this->Sleep();
+	}
+	else
+	{
+		SetPreAiTime(GetPreAiTime() + 1000);
+
+		CEventMessage* evt = new CEventMessage(GetID(), GetID(), GetPreAiTime(), EventType::NPC_MOVE, GetEntityType(), GetEntityType());
+		NETWORK_ENGINE->GetTimerThread()->AddEvent(evt);
 	}
 }
 
@@ -197,15 +205,17 @@ bool CMonster::UpdateSector(int new_sector_x, int new_sector_y)
 	return false;
 }
 
-void CMonster::SetAlive(const bool alive)
+void CMonster::Awake()
 {
-	//if (alive == m_bAlive) return;
+	SetActive(true);
+	SetPreAiTime(GetTickCount());
 
-	m_bAlive = alive;
-
-	//if (m_bAlive == true)
-	//{
-	//	CEventMessage* evt = new CEventMessage(GetID(), GetID(), GetTickCount(), EventType::MOVE, GetEntityType(), GetEntityType());
-	//	NETWORK_ENGINE->GetTimerThread()->AddEvent(evt);
-	//}
+	CEventMessage* evt = new CEventMessage(GetID(), GetID(), GetPreAiTime(), EventType::NPC_MOVE, GetEntityType(), GetEntityType());
+	NETWORK_ENGINE->GetTimerThread()->AddEvent(evt);
 }
+
+void CMonster::Sleep()
+{
+	SetActive(false);
+}
+

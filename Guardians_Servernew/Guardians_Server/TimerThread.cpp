@@ -25,9 +25,8 @@ bool CTimerThread::Create()
 {
 	// Register Event Process Functions
 	m_eventProcessFuncTable.reserve(EventType::EVENT_END);
-	//m_eventProcessFuncTable[EventType::MOVE]        = bind(&CTimerThread::MoveEvent, this, std::placeholders::_1);
-	m_eventProcessFuncTable[EventType::INCREASE_HP] = bind(&CTimerThread::IncreaseHPEvent, this, std::placeholders::_1);
-	m_eventProcessFuncTable[EventType::DECREASE_HP] = bind(&CTimerThread::DecreaseHPEvent, this, std::placeholders::_1);
+	
+	m_eventProcessFuncTable[EventType::NPC_MOVE] = bind(&CTimerThread::MoveNpc, this, std::placeholders::_1);
 
 	m_pTimerThread = new thread{ CTimerThread::EntryPoint, this };
 	m_pTimerQueue = new TimerQueue();
@@ -66,6 +65,12 @@ void CTimerThread::Dispatch(CEventMessage * evt_msg)
 	m_eventProcessFuncTable[evt_msg->m_eventType](evt_msg);
 }
 
+void CTimerThread::MoveNpc(CEventMessage * evt_msg)
+{
+	MoveOverlappedEx *move_overlapped = new MoveOverlappedEx();
+	PostQueuedCompletionStatus(NETWORK_ENGINE->GetIOCPHandle(), 1, evt_msg->m_sourceID, &move_overlapped->overlapped);
+}
+
 UINT CTimerThread::Run()
 {
 	CEventMessage *pNewEvent = nullptr;
@@ -94,52 +99,12 @@ void CTimerThread::EntryPoint(void * arg)
 	tt->Run();
 }
 
-void CTimerThread::IncreaseHPEvent(CEventMessage * evt_msg)
-{
-	//CClientSession *pClient = SESSION_MANAGER->FindSession(evt_msg->m_sourceID);
-	//if (pClient->IsConnected() == false ) return;
-	//CPlayer        *pPlayer = pClient->GetPlayer();
-
-	//pPlayer->IncreaseHP(10);	// 동기화 해야함
-
-	//sc_packet_player_hp pkt;
-	//pkt.size      = sizeof(sc_packet_player_hp);
-	//pkt.type      = SC_PLAYER_HP;
-	//pkt.player_id = evt_msg->m_sourceID;
-	//pkt.hp        = pPlayer->GetHP();
-
-	//pClient->OnceSend((char *)&pkt);
-	//SESSION_MANAGER->BroadCastInView((char *)&pkt, 0);
-
-	//CEventMessage *newEvent = new CEventMessage(evt_msg->m_sourceID, evt_msg->m_sourceID, 5000 + GetTickCount(), EventType::DECREASE_HP);
-	//AddEvent(newEvent);
-}
-
-void CTimerThread::DecreaseHPEvent(CEventMessage * evt_msg)
-{
-	//CClientSession *pClient = SESSION_MANAGER->FindSession(evt_msg->m_sourceID);
-	//if (pClient->IsConnected() == false) return;
-	//CPlayer        *pPlayer = pClient->GetPlayer();
-
-	//pPlayer->DecreaseHP(10);	// 동기화 해야함
-
-	//sc_packet_player_hp pkt;
-	//pkt.size      = sizeof(sc_packet_player_hp);
-	//pkt.type      = SC_PLAYER_HP;
-	//pkt.player_id = evt_msg->m_sourceID;
-	//pkt.hp        = pPlayer->GetHP();
-
-	//pClient->OnceSend((char *)&pkt);
-	//SESSION_MANAGER->BroadCastInView((char *)&pkt, 0);
-
-	//CEventMessage *newEvent = new CEventMessage(evt_msg->m_sourceID, evt_msg->m_sourceID, 5000 + GetTickCount(), EventType::INCREASE_HP);
-	//AddEvent(newEvent);
-}
-
-CEventMessage::CEventMessage(const UINT src_id, const UINT target_id, const UINT wakeup_time, const BYTE event_type)
+CEventMessage::CEventMessage(const UINT src_id, const UINT target_id, const UINT wakeup_time, const BYTE event_type, const BYTE src_type, const BYTE target_type)
 {
 	m_sourceID   = src_id;
 	m_targetID   = target_id;
 	m_wakeupTime = wakeup_time;
 	m_eventType  = event_type;
+	m_srcType    = src_type;
+	m_targetType = target_type;
 }

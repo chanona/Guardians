@@ -35,33 +35,33 @@ void CHeartBeatThread::Release()
 
 UINT CHeartBeatThread::Run()
 {
-	auto& session_map = SESSION_MANAGER->GetSessionMap();
-	while (1)
-	{
-		auto start = high_resolution_clock::now();
-		for(auto& session : session_map)
-		{
-			auto& monster_list = session.second->GetPlayer()->GetOldViewMonsterList();
+	//auto& session_map = SESSION_MANAGER->GetSessionMap();
+	//while (1)
+	//{
+	//	auto start = high_resolution_clock::now();
+	//	for(auto& session : session_map)
+	//	{
+	//		auto& monster_list = session.second->GetPlayer()->GetOldViewMonsterList();
 
-			for (auto& mon_id : monster_list)
-			{
-				CMonster *pMon = OBJECT_MANAGER->FindMonster(mon_id);
-				
-				if (pMon->IsExecute() || pMon->IsPet()) continue;
-				
-				pMon->SetExecute(true);
+	//		for (auto& mon_id : monster_list)
+	//		{
+	//			CMonster *pMon = OBJECT_MANAGER->FindMonster(mon_id);
+	//			
+	//			if (pMon->IsExecute() || pMon->IsPet()) continue;
+	//			
+	//			pMon->SetExecute(true);
 
-				MoveOverlappedEx *over_ex = new MoveOverlappedEx();
-				over_ex->operation_type = OPERATION_TYPE::OP_NPC_MOVE;			
-				PostQueuedCompletionStatus(NETWORK_ENGINE->GetIOCPHandle(), 0, mon_id, &over_ex->overlapped);
-			}
-		}
-		auto duration = high_resolution_clock::now() - start;
-		int sleep_time = 1000 - duration_cast<milliseconds>(duration).count();
-		//if (sleep_time < 0) sleep_time = 1;			// 디버깅을 위해 임시로~
-		//cout << "sleep : " << sleep_time << endl;
-		Sleep(sleep_time);
-	}
+	//			MoveOverlappedEx *over_ex = new MoveOverlappedEx();
+	//			over_ex->operation_type = OPERATION_TYPE::OP_NPC_MOVE;			
+	//			PostQueuedCompletionStatus(NETWORK_ENGINE->GetIOCPHandle(), 0, mon_id, &over_ex->overlapped);
+	//		}
+	//	}
+	//	auto duration = high_resolution_clock::now() - start;
+	//	int sleep_time = 1000 - duration_cast<milliseconds>(duration).count();
+	//	//if (sleep_time < 0) sleep_time = 1;			// 디버깅을 위해 임시로~
+	//	//cout << "sleep : " << sleep_time << endl;
+	//	Sleep(sleep_time);
+	//}
 
 	return 0;
 }

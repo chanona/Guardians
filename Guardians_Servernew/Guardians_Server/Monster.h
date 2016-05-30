@@ -13,14 +13,17 @@ public:
 	
 	void Move();		// 나중에 펫일때랑 몬스터일때랑 구분해서...
 	bool UpdateSector(int new_sector_x, int new_sector_y);
+	void Awake();
+	void Sleep();
 
 private :
 	MonsterType   m_monsterType;
 	UINT          m_index;
+	int           m_preAiTime;
 
 	atomic<bool>  m_bPet;
 	atomic<bool>  m_bAlive;
-	atomic<bool>  m_bExecute;	// AI 실행중인지 아닌지 체크하는 플래그
+	atomic<bool>  m_bActive;
 
 	// StateMachine , 현재상태 등등 나중에 추가 예정
 public :
@@ -39,14 +42,16 @@ public :
 	}
 	void SetMonsterType(const MonsterType type) { m_monsterType = type; }
 	void SetIndex(const UINT index) { m_index = index; }
-	void SetAlive(const bool alive);
-	void SetExecute(const bool execute) { m_bExecute = execute; }
+	void SetAlive(const bool alive) { m_bAlive = alive; }
+	void SetActive(const bool active) { m_bActive = active; }
+	void SetPreAiTime(const int time) { m_preAiTime = time; }
 		
 	// Getter
 	const MonsterType	 GetMonsterType()         { return m_monsterType; }
 	const UINT			 GetIndex()         const { return m_index; }
 	const atomic<bool>&  GetAlive()		          { return m_bAlive; }
-	const atomic<bool>&  IsExecute()        const { return m_bExecute; }
+	const atomic<bool>&  IsActive()         const { return m_bActive; }
 	const atomic<bool>&  IsPet()            const { return m_bPet; }
+	const int			 GetPreAiTime()		const { return m_preAiTime; }
 };
 
