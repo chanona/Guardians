@@ -7,6 +7,7 @@ class CBow : public CGameObject
 {
 protected:
 	bool m_bAlive;
+	bool m_bCircleInit;
 
 	//플레이어의 위치 벡터, x-축(Right), y-축(Up), z-축(Look) 벡터이다.
 	D3DXVECTOR3 m_d3dxvPosition;
@@ -37,6 +38,8 @@ protected:
 
 	CDiffusedShader*	m_pShader;
 
+	float m_fHeight;
+
 public:
 	CBow();
 	~CBow();
@@ -46,6 +49,7 @@ public:
 
 	void SetAlive(const bool alive) { m_bAlive = alive; }
 	bool GetAlive() const { return m_bAlive; }
+
 
 	// 플레이어의 현재 카메라를 설정하고 반환하는 멤버 함수를 선언한다.
 	D3DXVECTOR3 GetPosition() { return(m_d3dxvPosition); }
@@ -64,7 +68,8 @@ public:
 	// 현재 몬스터의 위치에서 이 방향 벡터 만큼이동한다.
 	void SetPosition(const D3DXVECTOR3& d3dxvPosition)
 	{
-		Move((d3dxvPosition - m_d3dxvPosition), false);
+		m_d3dxvPosition = d3dxvPosition;
+		//Move((d3dxvPosition - m_d3dxvPosition), false);
 	}
 
 	const D3DXVECTOR3& GetVelocity() const { return m_d3dxvVelocity; }

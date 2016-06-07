@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "SONData.h"
 #include <vector>
+#include <map>
 
 using namespace std;
 
@@ -61,9 +62,8 @@ public:
 	ID3D11ShaderResourceView**			m_ppd3dsrvTextures;
 	
 	ID3D11SamplerState**				m_ppd3dSamplerStates;
-	ID3D11DepthStencilState			*m_pd3dDepthStencilState;
+	ID3D11DepthStencilState				*m_pd3dDepthStencilState;
 	int									m_nTextures;
-
 };
 
 class SkinnedModel
@@ -128,7 +128,8 @@ public:
 	D3DXVECTOR3 GetUp();
 	D3DXVECTOR3 GetRight();
 	
-	
+	bool CircleCollision(D3DXVECTOR3 pPos1, D3DXVECTOR3 pPos2);
+
 	void AddRef();
 	void Release();
 
@@ -151,7 +152,7 @@ public:
 
 	virtual void SetMesh(CMesh *pMesh);
 	virtual void SetSkinned(SkinnedModel* pSkinned);
-	virtual void Animate(float fTimeElapsed);
+	virtual void Animate(float fTimeElapsed, TEX_TYPE eType);
 
 	//객체의 Render() 함수에 카메라가 필요한 이유는 
 	//나중에 카메라에 보이는 객체들만 렌더링하도록 
@@ -160,7 +161,7 @@ public:
 
 
 public:
-	CTexture* m_pTexture;
+	CTexture*m_pTexture;
 	void SetTexture(CTexture* pTexture);
 };
 

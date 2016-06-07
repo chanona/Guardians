@@ -7,26 +7,26 @@
 
 using namespace std;
 
-struct CMyVertex
-{
-	D3DXVECTOR3								mPos;		// 12
-	D3DXVECTOR3								mNormal;	// 12
-	D3DXVECTOR2								mUV;		// 8
-
-	CMyVertex()
-		: mPos(D3DXVECTOR3(0, 0, 0)), mNormal(D3DXVECTOR3(0, 0, 0)), mUV(D3DXVECTOR2(0, 0))
-	{}
-	CMyVertex(const D3DXVECTOR3& pos, const D3DXVECTOR3& normal, const D3DXVECTOR2& uv)
-		: mPos(pos), mNormal(normal), mUV(uv)
-	{}
-	CMyVertex(const CMyVertex& otherData)
-	{
-		mPos = otherData.mPos;
-		mNormal = otherData.mNormal;
-		mUV = otherData.mUV;
-	}
-	~CMyVertex(){};
-};
+//struct CMyVertex
+//{
+//	D3DXVECTOR3								mPos;		// 12
+//	D3DXVECTOR3								mNormal;	// 12
+//	D3DXVECTOR2								mUV;		// 8
+//
+//	CMyVertex()
+//		: mPos(D3DXVECTOR3(0, 0, 0)), mNormal(D3DXVECTOR3(0, 0, 0)), mUV(D3DXVECTOR2(0, 0))
+//	{}
+//	CMyVertex(const D3DXVECTOR3& pos, const D3DXVECTOR3& normal, const D3DXVECTOR2& uv)
+//		: mPos(pos), mNormal(normal), mUV(uv)
+//	{}
+//	CMyVertex(const CMyVertex& otherData)
+//	{
+//		mPos = otherData.mPos;
+//		mNormal = otherData.mNormal;
+//		mUV = otherData.mUV;
+//	}
+//	~CMyVertex(){};
+//};
 
 struct CMyBoneVertex
 {
@@ -143,7 +143,7 @@ public:
 		vector<D3DXMATRIX>& boneOffsets,
 		map<string, AnimationClip>& animations);
 
-	void GetFinalTransforms(const string& clipName, float timePos, vector<D3DXMATRIX>& finalTransforms) const;
+	void GetFinalTransforms(const string& clipName, float timePos, vector<D3DXMATRIX>& finalTransforms, TEX_TYPE eType) const;
 	
 private:
 	// i번 뼈대의 부모의 색인(parentIndex)을 담는다.

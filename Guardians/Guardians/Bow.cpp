@@ -5,7 +5,7 @@
 
 CBow::CBow()
 {
-	m_d3dxvPosition = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_d3dxvPosition = D3DXVECTOR3(1028.0f, 500.0f, 1028.0f);
 	m_d3dxvRight = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
 	m_d3dxvUp = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	m_d3dxvLook = D3DXVECTOR3(0.0f, 0.0f, 1.0f);
@@ -20,7 +20,11 @@ CBow::CBow()
 	m_fRoll = 0.0f;
 	m_fYaw = 0.0f;
 
+	m_fHeight = 0.f;
+
 	m_pShader = nullptr;
+
+	m_bCircleInit = true;
 
 	m_pBowUpdatedContext = NULL;
 }
@@ -83,35 +87,39 @@ void CBow::Rotate(float x, float y, float z)
 
 void CBow::Update(float fTimeElapsed)
 {
-	m_d3dxvVelocity += m_d3dxvGravity * fTimeElapsed;
+	//m_d3dxvVelocity += m_d3dxvGravity * fTimeElapsed;
 
-	// 플레이어의 속도 벡터의 XZ-성분의 크기를 구함. 이것이 XZ-평면의 최대 속력보다
-	// 크면 속도 벡터의 x와 z방향 성분을 조정한다.
-	float fLength = sqrtf(m_d3dxvVelocity.x * m_d3dxvVelocity.x + m_d3dxvVelocity.z * m_d3dxvVelocity.z);
-	if (fLength > m_fMaxVelocityXZ)
-	{
-		m_d3dxvVelocity.x *= (m_fMaxVelocityXZ / fLength);
-		m_d3dxvVelocity.z *= (m_fMaxVelocityXZ / fLength);
-	}
+	//// 플레이어의 속도 벡터의 XZ-성분의 크기를 구함. 이것이 XZ-평면의 최대 속력보다
+	//// 크면 속도 벡터의 x와 z방향 성분을 조정한다.
+	//float fLength = sqrtf(m_d3dxvVelocity.x * m_d3dxvVelocity.x + m_d3dxvVelocity.z * m_d3dxvVelocity.z);
+	//if (fLength > m_fMaxVelocityXZ)
+	//{
+	//	m_d3dxvVelocity.x *= (m_fMaxVelocityXZ / fLength);
+	//	m_d3dxvVelocity.z *= (m_fMaxVelocityXZ / fLength);
+	//}
 
-	// 플레이어의 속도 벡터의 y성분의 크기를 구함. 이것이 y축방향의 최대속력보다 크면
-	// 속도 벡터의 y방향 성분을 조정한다.
-	fLength = sqrtf(m_d3dxvVelocity.y * m_d3dxvVelocity.y);
-	if (fLength > m_fMaxVelocityY) m_d3dxvVelocity.y *= (m_fMaxVelocityY / fLength);
+	//// 플레이어의 속도 벡터의 y성분의 크기를 구함. 이것이 y축방향의 최대속력보다 크면
+	//// 속도 벡터의 y방향 성분을 조정한다.
+	//fLength = sqrtf(m_d3dxvVelocity.y * m_d3dxvVelocity.y);
+	//if (fLength > m_fMaxVelocityY) m_d3dxvVelocity.y *= (m_fMaxVelocityY / fLength);
 
-	// 플레이어를 속도 벡터 만큼 이동한다. 속도 벡터에 fTimeElapsed를 곱하는 것은 속도를
-	// 시간에 비례하도록 적용의미.
-	Move(m_d3dxvVelocity*fTimeElapsed, false);
+	//// 플레이어를 속도 벡터 만큼 이동한다. 속도 벡터에 fTimeElapsed를 곱하는 것은 속도를
+	//// 시간에 비례하도록 적용의미.
+	//Move(m_d3dxvVelocity*fTimeElapsed, false);
 
-	if (m_pBowUpdatedContext) OnMonsterUpdated(fTimeElapsed);
+	//if (m_pBowUpdatedContext) OnMonsterUpdated(fTimeElapsed);
 
-	D3DXVECTOR3 d3dxvDeceleration = -m_d3dxvVelocity;
-	D3DXVec3Normalize(&d3dxvDeceleration, &d3dxvDeceleration);
+	//D3DXVECTOR3 d3dxvDeceleration = -m_d3dxvVelocity;
+	//D3DXVec3Normalize(&d3dxvDeceleration, &d3dxvDeceleration);
 
-	fLength = D3DXVec3Length(&m_d3dxvVelocity);
-	float fDeceleration = (m_fFriction * fTimeElapsed);
-	if (fDeceleration > fLength) fDeceleration = fLength;
-	m_d3dxvVelocity += d3dxvDeceleration * fDeceleration;
+	//fLength = D3DXVec3Length(&m_d3dxvVelocity);
+	//float fDeceleration = (m_fFriction * fTimeElapsed);
+	//if (fDeceleration > fLength) fDeceleration = fLength;
+	//m_d3dxvVelocity += d3dxvDeceleration * fDeceleration;
+
+	D3DXVECTOR3 d3dxvPosition = m_d3dxvPosition;
+	m_d3dxvPosition = d3dxvPosition;
+	RegenerateWorldMatrix();
 }
 
 void CBow::RegenerateWorldMatrix()
@@ -141,16 +149,16 @@ void CBow::OnMonsterUpdated(float fTimeElpased)
 	int z = (int)(d3dxMonsterPosition.z / d3dxvScale.z);
 	bool bReverseQuad = ((z % 2) != 0);
 	/*높이 맵에서 플레이어의 현재 위치 (x, z)의 y 값을 구한다. 그리고 플레이어 메쉬의 높이가 12이고 플레이어의 중심이 직육면체의 가운데이므로 y 값에 메쉬의 높이의 절반을 더하면 플레이어의 위치가 된다.*/
-	float fHeight = pTerrain->m_pHeightMap->GetHeight(d3dxMonsterPosition.x, d3dxMonsterPosition.z, bReverseQuad) + 6.0f;
-	/*플레이어의 속도 벡터의 y-값이 음수이면(예를 들어, 중력이 적용되는 경우) 플레이어의 위치 벡터의 y-값이 점점 작아지게 된다. 이때 플레이어의 현재 위치의 y 값이 지형의 높이보다 작으면 플레이어가 땅속에 있게 되므로 플레이어의 속도 벡터의 y 값을 0으로 만들고 플레이어의 위치 벡터의 y-값을 지형 높이(실제로 지형의 높이 + 6)로 설정한다. 그러면 플레이어는 더 이상 하강하지 않고 지형 위에 서 있게 된다.*/
-	if (d3dxMonsterPosition.y < fHeight)
-	{
-		D3DXVECTOR3 d3dxvMonsterVelocity = GetVelocity();
-		d3dxvMonsterVelocity.y = 0.0f;
-		SetVelocity(d3dxvMonsterVelocity);
-		d3dxMonsterPosition.y = fHeight;
-		SetPosition(d3dxMonsterPosition);
-	}
+	//float fHeight = pTerrain->m_pHeightMap->GetHeight(d3dxMonsterPosition.x, d3dxMonsterPosition.z, bReverseQuad) + 6.0f;
+	///*플레이어의 속도 벡터의 y-값이 음수이면(예를 들어, 중력이 적용되는 경우) 플레이어의 위치 벡터의 y-값이 점점 작아지게 된다. 이때 플레이어의 현재 위치의 y 값이 지형의 높이보다 작으면 플레이어가 땅속에 있게 되므로 플레이어의 속도 벡터의 y 값을 0으로 만들고 플레이어의 위치 벡터의 y-값을 지형 높이(실제로 지형의 높이 + 6)로 설정한다. 그러면 플레이어는 더 이상 하강하지 않고 지형 위에 서 있게 된다.*/
+	//if (d3dxMonsterPosition.y < fHeight)
+	//{
+	//	D3DXVECTOR3 d3dxvMonsterVelocity = GetVelocity();
+	//	d3dxvMonsterVelocity.y = 0.0f;
+	//	SetVelocity(d3dxvMonsterVelocity);
+	//	d3dxMonsterPosition.y = fHeight;
+	//	SetPosition(d3dxMonsterPosition);
+	//}
 }
 
 void CBow::Render(ID3D11DeviceContext * pd3dDeviceContext)

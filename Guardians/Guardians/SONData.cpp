@@ -147,83 +147,91 @@ void SkinnedData::Set(vector<int>& boneHierarchy,
 	mAnimations = animations;
 }
 
-void SkinnedData::GetFinalTransforms(const string& clipName, float timePos, vector<D3DXMATRIX>& finalTransforms) const
+void SkinnedData::GetFinalTransforms(const string& clipName, float timePos, vector<D3DXMATRIX>& finalTransforms, TEX_TYPE eType) const
 {
-#ifdef DEBUG_ANIMATE_TEST_1
-	UINT numBones = m_vBoneOffsets.size();
-	
-	vector<D3DXMATRIX> toRootTransforms(numBones);
+//#ifdef DEBUG_ANIMATE_TEST_1
 
-	auto clip = mAnimations.find(clipName);
-	clip->second.Interpolate(timePos, toRootTransforms);
-
-	
-	finalTransforms.resize(numBones);
-	
-	for (UINT i = 0; i < numBones; ++i)
+	if (eType == TEXTYPE_DYNAMIC)
 	{
-		D3DXMATRIX offSet = m_vBoneOffsets[i];
-		D3DXMATRIX toRoot = toRootTransforms[i];
-	
-		finalTransforms[i] = offSet * toRoot;
-	}
-#endif
+		UINT numBones = m_vBoneOffsets.size();
 
-#ifdef DEBUG_ANIMATE_TEST_2
+		if (numBones == 0)
+			int i = 0;
 
-	static int index = 0;
+		vector<D3DXMATRIX> toRootTransforms(numBones);
 
-	UINT numBones = m_vBoneOffsets.size();
-	
-	vector<D3DXMATRIX> toRootTransforms(numBones);
-
-	auto clip = mAnimations.find(clipName);
+		auto clip = mAnimations.find(clipName);
+		clip->second.Interpolate(timePos, toRootTransforms);
 
 
-	finalTransforms.resize(numBones);
+		finalTransforms.resize(numBones);
 
-	for (UINT i = 0; i < numBones; ++i)
-	{
-		if (clip->second.m_vBoneAnimations[i].m_vKeyFrames.size() > 0)
+		for (UINT i = 0; i < numBones; ++i)
 		{
-			D3DXVECTOR3 P, S;
-			D3DXQUATERNION Q;
-			D3DXMATRIX M;
+			D3DXMATRIX offSet = m_vBoneOffsets[i];
+			D3DXMATRIX toRoot = toRootTransforms[i];
 
-			S = clip->second.m_vBoneAnimations[i].m_vKeyFrames[index].scale;
-			P = clip->second.m_vBoneAnimations[i].m_vKeyFrames[index].translation;
-			Q = clip->second.m_vBoneAnimations[i].m_vKeyFrames[index].rotation;
-
-			D3DXVECTOR3 pivot(0.0f, 0.0f, 0.0f);
-			D3DXMatrixAffineTransformation(&M, 1.0, &pivot, &Q, &P);
-
-			toRootTransforms[i] = M;
-		}
-		else
-		{
-			D3DXMATRIX mtx; 
-			D3DXMatrixIdentity(&mtx);
-			toRootTransforms[i] = mtx;
-
+			finalTransforms[i] = offSet * toRoot;
 		}
 	}
+	
+//#endif
 
-	for (UINT i = 0; i < numBones; ++i)
-	{
-		D3DXMATRIX offSet = m_vBoneOffsets[i];
-		D3DXMATRIX toRoot = toRootTransforms[i];
-
-		finalTransforms[i] = offSet * toRoot;
-	}
-
-	index++;
-
-	if (index > clip->second.m_vBoneAnimations[0].m_vKeyFrames.size() - 1 )
-		index = 0;
-
-
-
-#endif
-
+//#ifdef DEBUG_ANIMATE_TEST_2
+//
+//	static int index = 0;
+//
+//	UINT numBones = m_vBoneOffsets.size();
+//	
+//	vector<D3DXMATRIX> toRootTransforms(numBones);
+//
+//	auto clip = mAnimations.find(clipName);
+//
+//
+//	finalTransforms.resize(numBones);
+//
+//	for (UINT i = 0; i < numBones; ++i)
+//	{
+//		if (clip->second.m_vBoneAnimations[i].m_vKeyFrames.size() > 0)
+//		{
+//			D3DXVECTOR3 P, S;
+//			D3DXQUATERNION Q;
+//			D3DXMATRIX M;
+//
+//			S = clip->second.m_vBoneAnimations[i].m_vKeyFrames[index].scale;
+//			P = clip->second.m_vBoneAnimations[i].m_vKeyFrames[index].translation;
+//			Q = clip->second.m_vBoneAnimations[i].m_vKeyFrames[index].rotation;
+//
+//			D3DXVECTOR3 pivot(0.0f, 0.0f, 0.0f);
+//			D3DXMatrixAffineTransformation(&M, 1.0, &pivot, &Q, &P);
+//
+//			toRootTransforms[i] = M;
+//		}
+//		else
+//		{
+//			D3DXMATRIX mtx; 
+//			D3DXMatrixIdentity(&mtx);
+//			toRootTransforms[i] = mtx;
+//
+//		}
+//	}
+//
+//	for (UINT i = 0; i < numBones; ++i)
+//	{
+//		D3DXMATRIX offSet = m_vBoneOffsets[i];
+//		D3DXMATRIX toRoot = toRootTransforms[i];
+//
+//		finalTransforms[i] = offSet * toRoot;
+//	}
+//
+//	index++;
+//
+//	if (index > clip->second.m_vBoneAnimations[0].m_vKeyFrames.size() - 1 )
+//		index = 0;
+//
+//
+//
+//#endif
+//
 	//cout << finalTransforms[0]._11 << ' ' << finalTransforms[0]._12 << ' ' << finalTransforms[0]._13 << endl;
 }

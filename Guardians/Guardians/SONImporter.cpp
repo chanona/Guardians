@@ -176,14 +176,21 @@ bool SBXImporter::ImportSBX(const string& fileName,
 	SkinnedData& skinInfo,
 	TEX_TYPE eType)
 {
-	ifstream fin(fileName);
+	cout << "된다 0" << endl;
+	cout << "파일 이름이" << fileName << "맞니 ??" << endl;
+	
+	ifstream fin(fileName.c_str(), ios_base::binary);
 
 	if (!fin)
 	{
+		cout << "파일이 안열림" << endl;
 		std::cerr << fileName << " 파일이 열리지 않습니다 " << endl;
-		
+
 		return false;
 	}
+
+	cout << "파일은 열린다고 읽히네??" << endl;
+
 	string L_DUMMY, C_DUMMY, R_DUMMY;  
 	string LABLE;  
 
@@ -196,8 +203,11 @@ bool SBXImporter::ImportSBX(const string& fileName,
 	fin >> L_DUMMY >> C_DUMMY >> R_DUMMY;	// #### SBX_META_DATA ###
 	fin >> LABLE >> numMeshCount;  // MeshCount: 1	
 
+	cout << "실험 : " << L_DUMMY << "\t" << C_DUMMY << "\t" << R_DUMMY << endl;
+
 	for (UINT i = 0; i < numMeshCount; ++i)
 	{
+		cout << "된다 1" << endl;
 		fin >> L_DUMMY >> C_DUMMY >> R_DUMMY; // #### MESH_DATA ####
 		fin >> LABLE >> numVertices;  // VertexCount: 6922
 		fin >> LABLE >> numIndices;   // IndexCount: 28056
@@ -206,6 +216,7 @@ bool SBXImporter::ImportSBX(const string& fileName,
 
 		if (eType == TEXTYPE_DYNAMIC)
 		{
+			cout << "된다 2" << endl;
 			vector<D3DXMATRIX> boneOffsets;
 			vector<int> boneIndexToParentIndex;
 			map<std::string, AnimationClip> animations;
@@ -219,7 +230,9 @@ bool SBXImporter::ImportSBX(const string& fileName,
 		}
 		else if (eType == TEXTYPE_STATIC)
 		{
+			cout << "된다 3" << endl;
 			ReadMeshDataFromSBX(fin, numVertices, numIndices, vertices, indices, i, eType);
+			//skinInfo.Set(boneIndexToParentIndex, boneOffsets, animations);
 		}
 	}
 

@@ -166,7 +166,7 @@ void CPacketManager::ProcessPlayerPosition(const char * packet, const UINT id)
 	if (pkt->dy == -1) newDir |= Direction::DOWN;
 	if (pkt->dz == 1)  newDir |= Direction::FORWARD;
 	if (pkt->dz == -1) newDir |= Direction::BACKWARD;
-	
+
 	pPlayer->GetDeadReckoningQueue().push(D3DXVECTOR3(pkt->x, pkt->y, pkt->z));
 	pPlayer->SetDirection(newDir);
 	pPlayer->SetSpeed(pkt->speed);
@@ -260,14 +260,9 @@ void CPacketManager::ProcessMonsterPosition(const char * packet, const UINT id)
 
 	pMon->SetDir(vDir.x, vDir.z);
 
-	/*float fDegree = atan2f(pkt->z - vPrepos.z, pkt->x - vPrepos.x) * 180 / 3.141592f;
-
-	float iXDist = cos(fDegree);
-	float iZDist = cos(fDegree);*/
-
-	pMon->GetDeadReckoningQueue().push(D3DXVECTOR3(pkt->x, HMAP->GetHeight(pkt->x, pkt->z), pkt->z));
+	//pMon->CircleCollision(D3DXVECTOR3(pkt->x, pkt->y, pkt->z), )
 	
-	//pMon->SetPosition(D3DXVECTOR3(pkt->x, pkt->y, pkt->z));
+	pMon->GetDeadReckoningQueue().push(D3DXVECTOR3(pkt->x, HMAP->GetHeight(pkt->x, pkt->z), pkt->z));
 }
 
 void CPacketManager::ProcessPutMonster(const char * packet, const UINT id)

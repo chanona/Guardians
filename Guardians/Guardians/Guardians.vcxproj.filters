@@ -114,6 +114,9 @@
     <ClInclude Include="TextureManager.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="SkyBox.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -191,6 +194,9 @@
     <ClCompile Include="TextureManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Guardians.rc">
@@ -204,5 +210,10 @@
     <Image Include="Guardians.ico">
       <Filter>리소스 파일</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Effect.fx">
+      <Filter>소스 파일</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

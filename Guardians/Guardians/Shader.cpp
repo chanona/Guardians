@@ -6,6 +6,7 @@
 #include "PlayerManager.h"
 #include "ObjectManager.h"
 #include "Bow.h"
+#include "SkyBox.h"
 
 CShader::CShader()
 {
@@ -50,14 +51,20 @@ void CShader::AnimateObjects(float fTimeElapsed)
 	for (auto& player : PLAYER_MANAGER->GetPlayerMap())
 	{
 		if (!player.second->IsConnected()) continue;
-		player.second->Animate(fTimeElapsed);
+		player.second->Animate(fTimeElapsed, TEXTYPE_DYNAMIC);
 	}
 
 	for(auto& monster : OBJECT_MANAGER->GetMonsterMap())
 	{
 		if(!monster.second->GetAlive()) continue;
-		monster.second->Animate(fTimeElapsed);
+		monster.second->Animate(fTimeElapsed, TEXTYPE_DYNAMIC);
 	}
+
+	/*for (auto& bow : FRAMEWORK->m_vecBow)
+	{
+		bow->Animate(fTimeElapsed, TEXTYPE_STATIC);
+	}*/
+
 	/*for (int j = 0; j < FRAMEWORK->GetInstance()->m_nPlayers; j++)
 	{
 		FRAMEWORK->GetInstance()->m_ppPlayers[j]->Animate(fTimeElapsed);
@@ -154,18 +161,37 @@ void CShader::UpdateShaderVariables(ID3D11DeviceContext* pd3dDeviceContext, CTex
 void CShader::Render(ID3D11DeviceContext *pd3dDeviceContext, CCamera* pCamera)
 {
 	//객체 렌더링
-	for (auto& bow : FRAMEWORK->m_vecBow)
-	{
-		UpdateShaderVariables(pd3dDeviceContext, &bow->m_d3dxmtxWorld);
-		UpdateShaderVariables(pd3dDeviceContext, &bow->m_pMaterial->m_Material);
-		UpdateShaderVariables(pd3dDeviceContext, bow->m_pTexture);
-		//정점의 입력-레이아웃을 디바이스 컨텍스트에 연결(설정)한다. 
-		if (m_pd3dVertexLayout) pd3dDeviceContext->IASetInputLayout(m_pd3dVertexLayout);
-		//정점-쉐이더를 디바이스 컨텍스트에 연결(설정)한다. 
-		if (m_pd3dVertexShader) pd3dDeviceContext->VSSetShader(m_pd3dVertexShader, NULL, 0);
-		//픽셀-쉐이더를 디바이스 컨텍스트에 연결(설정)한다. 
-		if (m_pd3dPixelShader) pd3dDeviceContext->PSSetShader(m_pd3dPixelShader, NULL, 0);
-	}
+	//for (auto& bow : FRAMEWORK->m_vecBow)
+	//{
+	//	UpdateShaderVariables(pd3dDeviceContext, &bow->m_d3dxmtxWorld);
+	//	UpdateShaderVariables(pd3dDeviceContext, &bow->m_pMaterial->m_Material);
+	//	UpdateShaderVariables(pd3dDeviceContext, bow->m_pTexture);
+	//	//정점의 입력-레이아웃을 디바이스 컨텍스트에 연결(설정)한다. 
+	//	if (m_pd3dVertexLayout) pd3dDeviceContext->IASetInputLayout(m_pd3dVertexLayout);
+	//	//정점-쉐이더를 디바이스 컨텍스트에 연결(설정)한다. 
+	//	if (m_pd3dVertexShader) pd3dDeviceContext->VSSetShader(m_pd3dVertexShader, NULL, 0);
+	//	//픽셀-쉐이더를 디바이스 컨텍스트에 연결(설정)한다. 
+	//	if (m_pd3dPixelShader) pd3dDeviceContext->PSSetShader(m_pd3dPixelShader, NULL, 0);
+	//}
+
+	//if (!(FRAMEWORK->m_vecBow.empty()))
+	//{
+	//	////정점의 입력-레이아웃을 디바이스 컨텍스트에 연결(설정)한다. 
+	//	if (m_pd3dVertexLayout) pd3dDeviceContext->IASetInputLayout(m_pd3dVertexLayout);
+	//	//정점-쉐이더를 디바이스 컨텍스트에 연결(설정)한다. 
+	//	if (m_pd3dVertexShader) pd3dDeviceContext->VSSetShader(m_pd3dVertexShader, NULL, 0);
+	//	//픽셀-쉐이더를 디바이스 컨텍스트에 연결(설정)한다. 
+	//	if (m_pd3dPixelShader) pd3dDeviceContext->PSSetShader(m_pd3dPixelShader, NULL, 0);
+
+	//	for (auto& bow : FRAMEWORK->m_vecBow)
+	//	{
+	//		CShader::UpdateShaderVariables(pd3dDeviceContext, &bow->m_d3dxmtxWorld);
+	//		UpdateShaderVariables(pd3dDeviceContext, &bow->m_d3dxmtxWorld);
+	//		UpdateShaderVariables(pd3dDeviceContext, &bow->m_pMaterial->m_Material);
+	//		CShader::UpdateShaderVariables(pd3dDeviceContext, bow->m_pTexture);
+	//		bow->Render(pd3dDeviceContext);
+	//	}
+	//}
 
 	for (auto& player : PLAYER_MANAGER->GetPlayerMap())
 	{
@@ -257,8 +283,8 @@ void CIlluminatedShader::CreateShader(ID3D11Device* pd3dDevice)
 	
 	};
 	UINT nElements = ARRAYSIZE(d3dInputLayout);
-	CreateVertexShaderFromFile(pd3dDevice, L"Effect.fx", "VSLightingColor", "vs_4_0", &m_pd3dVertexShader, d3dInputLayout, nElements, &m_pd3dVertexLayout);
-	CreatePixelShaderFromFile(pd3dDevice, L"Effect.fx", "PSLightingColor", "ps_4_0", &m_pd3dPixelShader);
+	CreateVertexShaderFromFile(pd3dDevice, L"..\\Effect.fx", "VSLightingColor", "vs_4_0", &m_pd3dVertexShader, d3dInputLayout, nElements, &m_pd3dVertexLayout);
+	CreatePixelShaderFromFile(pd3dDevice, L"..\\Effect.fx", "PSLightingColor", "ps_4_0", &m_pd3dPixelShader);
 }
 void CIlluminatedShader::BuildObjects(ID3D11Device* pd3dDevice)
 {
@@ -378,9 +404,9 @@ void CDiffusedShader::CreateShader(ID3D11Device* pd3dDevice)
 		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 	UINT nElements = ARRAYSIZE(d3dInputLayout);
-	CreateVertexShaderFromFile(pd3dDevice, L"Effect.fx", "VSDiffusedColor",
+	CreateVertexShaderFromFile(pd3dDevice, L"..\\Effect.fx", "VSDiffusedColor",
 		"vs_4_0", &m_pd3dVertexShader, d3dInputLayout, nElements, &m_pd3dVertexLayout);
-	CreatePixelShaderFromFile(pd3dDevice, L"Effect.fx", "PSDiffusedColor",
+	CreatePixelShaderFromFile(pd3dDevice, L"..\\Effect.fx", "PSDiffusedColor",
 		"ps_4_0", &m_pd3dPixelShader);
 }
 void CDiffusedShader::CreateShaderVariables(ID3D11Device* pd3dDevice)
@@ -495,7 +521,7 @@ void CSceneShader::BuildObjects(ID3D11Device* pd3dDevice)
 
 	//지형을 높이 맵 이미지 파일을 사용하여 생성한다. 
 	//지형을 구성하는 격자 메쉬의 개수는 총 256(16x16)개가 된다.
-	m_pTerrain = new CHeightMapTerrain(pd3dDevice, _T("Data\\HeightMap.raw"), 257, 257, 17, 17, d3dxvScale, d3dxColor);
+	m_pTerrain = new CHeightMapTerrain(pd3dDevice, _T("..\\Data\\HeightMap.raw"), 257, 257, 17, 17, d3dxvScale, d3dxColor);
 
 	CreateShaderVariables(pd3dDevice);
 }
@@ -595,10 +621,10 @@ void CTexturedShader::CreateShader(ID3D11Device* pd3dDevice)
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
  	};
 	UINT nElements = ARRAYSIZE(d3dInputLayout);
-	CreateVertexShaderFromFile(pd3dDevice, L"Effect.fx", "VSTexturedColor", "vs_4_0", &m_pd3dVertexShader, d3dInputLayout, nElements, &m_pd3dVertexLayout);
-	CreatePixelShaderFromFile(pd3dDevice, L"Effect.fx", "PSTexturedColor", "ps_4_0", &m_pd3dPixelShader);
+	CreateVertexShaderFromFile(pd3dDevice, L"..\\Effect.fx", "VSTexturedColor", "vs_4_0", &m_pd3dVertexShader, d3dInputLayout, nElements, &m_pd3dVertexLayout);
+	CreatePixelShaderFromFile(pd3dDevice, L"..\\Effect.fx", "PSTexturedColor", "ps_4_0", &m_pd3dPixelShader);
 
-}
+}			
 
 void CTexturedShader::BuildObjects(ID3D11Device* pd3dDevice)
 {
@@ -623,15 +649,15 @@ void CTexturedShader::BuildObjects(ID3D11Device* pd3dDevice)
 	
 	ppTextures[0] = new CTexture(1);
 	HRESULT hResult;
-	if (SUCCEEDED(hResult = D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("Data\\wood.jpg"), NULL, NULL, &pd3dTexture, NULL)))
+	if (SUCCEEDED(hResult = D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("..\\Data\\wood.jpg"), NULL, NULL, &pd3dTexture, NULL)))
 		ppTextures[0]->SetTexture(0, pd3dTexture, pd3dSamplerState);
 
 	ppTextures[1] = new CTexture(1);
-	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("Data\\wood.jpg"), NULL, NULL, &pd3dTexture, NULL);
+	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("..\\Data\\wood.jpg"), NULL, NULL, &pd3dTexture, NULL);
 	ppTextures[1]->SetTexture(0, pd3dTexture, pd3dSamplerState);
 
 	ppTextures[2] = new CTexture(1);
-	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("Data\\wood.jpg"), NULL, NULL, &pd3dTexture, NULL);
+	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("..\\Data\\wood.jpg"), NULL, NULL, &pd3dTexture, NULL);
 	ppTextures[2]->SetTexture(0, pd3dTexture, pd3dSamplerState);
 
 	CMesh* pMeshTextured = new CTexturedCubeMesh(pd3dDevice, 12.0f, 12.0f, 12.0f);
@@ -716,8 +742,8 @@ void CIlluminatedTexturedShader::CreateShader(ID3D11Device* pd3dDevice)
 		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 	UINT nElements = ARRAYSIZE(d3dInputLayout);
-	CreateVertexShaderFromFile(pd3dDevice, L"Effect.fx", "VSTexturedLighting", "vs_4_0", &m_pd3dVertexShader, d3dInputLayout, nElements, &m_pd3dVertexLayout);
-	CreatePixelShaderFromFile(pd3dDevice, L"Effect.fx", "PSTexturedLighting", "ps_4_0", &m_pd3dPixelShader);
+	CreateVertexShaderFromFile(pd3dDevice, L"..\\Effect.fx", "VSTexturedLighting", "vs_4_0", &m_pd3dVertexShader, d3dInputLayout, nElements, &m_pd3dVertexLayout);
+	CreatePixelShaderFromFile(pd3dDevice, L"..\\Effect.fx", "PSTexturedLighting", "ps_4_0", &m_pd3dPixelShader);
 }
 
 
@@ -755,13 +781,13 @@ void CIlluminatedTexturedShader::BuildObjects(ID3D11Device* pd3dDevice)
 	ID3D11ShaderResourceView *pd3dTexture = NULL;
 	CTexture **ppTextures = new CTexture*[3];
 	ppTextures[0] = new CTexture(1);
-	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("Data\\Stone03.jpg"), NULL, NULL, &pd3dTexture, NULL);
+	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("..\\Data\\Stone03.jpg"), NULL, NULL, &pd3dTexture, NULL);
 	ppTextures[0]->SetTexture(0, pd3dTexture, pd3dSamplerState);
 	ppTextures[1] = new CTexture(1);
-	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("Data\\Brick02.jpg"), NULL, NULL, &pd3dTexture, NULL);
+	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("..\\Data\\Brick02.jpg"), NULL, NULL, &pd3dTexture, NULL);
 	ppTextures[1]->SetTexture(0, pd3dTexture, pd3dSamplerState);
 	ppTextures[2] = new CTexture(1);
-	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("Data\\Wood03.jpg"), NULL, NULL, &pd3dTexture, NULL);
+	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("..\\Data\\Wood03.jpg"), NULL, NULL, &pd3dTexture, NULL);
 	ppTextures[2]->SetTexture(0, pd3dTexture, pd3dSamplerState);
 
 	CSBXTestMesh* pCubeModel = new CSBXTestMesh(pd3dDevice);
@@ -823,8 +849,8 @@ void CAnimationShader::CreateShader(ID3D11Device* pd3dDevice)
 		{ "BONEINDICES", 0, DXGI_FORMAT_R32G32B32A32_UINT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 	UINT nElements = ARRAYSIZE(d3dInputLayout);
-	CreateVertexShaderFromFile(pd3dDevice, L"Effect.fx", "VSSkinned", "vs_4_0", &m_pd3dVertexShader, d3dInputLayout, nElements, &m_pd3dVertexLayout);
-	CreatePixelShaderFromFile(pd3dDevice, L"Effect.fx", "PSSkinned", "ps_4_0", &m_pd3dPixelShader);
+	CreateVertexShaderFromFile(pd3dDevice, L"..\\Effect.fx", "VSSkinned", "vs_4_0", &m_pd3dVertexShader, d3dInputLayout, nElements, &m_pd3dVertexLayout);
+	CreatePixelShaderFromFile(pd3dDevice, L"..\\Effect.fx", "PSSkinned", "ps_4_0", &m_pd3dPixelShader);
 }
 void CAnimationShader::BuildObjects(ID3D11Device* pd3dDevice)
 {
@@ -849,23 +875,23 @@ void CAnimationShader::BuildObjects(ID3D11Device* pd3dDevice)
 
 	ID3D11ShaderResourceView *pd3dTexture = NULL;
 	CTexture **ppTextures = new CTexture*[3];
-
+	//
 	ppTextures[0] = new CTexture(1);
-	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("Data\\player.dds"), NULL, NULL, &pd3dTexture, NULL);
+	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("..\\Data\\Player.dds"), NULL, NULL, &pd3dTexture, NULL);
 	ppTextures[0]->SetTexture(0, pd3dTexture, pd3dSamplerState);
 
 	ppTextures[1] = new CTexture(1);
-	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("Data\\Brick02.jpg"), NULL, NULL, &pd3dTexture, NULL);
+	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("..\\Data\\Brick02.jpg"), NULL, NULL, &pd3dTexture, NULL);
 	ppTextures[1]->SetTexture(0, pd3dTexture, pd3dSamplerState);
 
 	ppTextures[2] = new CTexture(1);
-	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("Data\\Wood03.jpg"), NULL, NULL, &pd3dTexture, NULL);
+	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("..\\Data\\Wood03.jpg"), NULL, NULL, &pd3dTexture, NULL);
 	ppTextures[2]->SetTexture(0, pd3dTexture, pd3dSamplerState);
 
 	//int Temp = (FRAMEWORK->GetInstance()->m_nPlayers);
 	//FRAMEWORK->GetInstance()->m_ppPlayers = new CPlayer*[Temp];
 
-	SkinnedModel* skinnedModel = new SkinnedModel(FRAMEWORK->GetInstance()->m_pd3dDevice, "Data\\Player_0.SBX", TEXTYPE_DYNAMIC);
+	SkinnedModel* skinnedModel = new SkinnedModel(FRAMEWORK->GetInstance()->m_pd3dDevice, "..\\Data\\Player_0.SBX", TEXTYPE_DYNAMIC);
 	CSBXTestMesh* pTestMesh = new CSBXTestMesh(pd3dDevice);
 	D3DXVECTOR3 pivot = D3DXVECTOR3(0, 1.0f, 0);
 
@@ -893,21 +919,29 @@ void CAnimationShader::BuildObjects(ID3D11Device* pd3dDevice)
 	ppTextures = new CTexture*[3];
 
 	ppTextures[0] = new CTexture(1);
-	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("Data\\Monster_0.dds"), NULL, NULL, &pd3dTexture, NULL);
+	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("..\\Data\\Monster_0.dds"), NULL, NULL, &pd3dTexture, NULL);
 	ppTextures[0]->SetTexture(0, pd3dTexture, pd3dSamplerState);
 
 	ppTextures[1] = new CTexture(1);
-	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("Data\\bow_0.dds"), NULL, NULL, &pd3dTexture, NULL);
+	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("..\\Data\\bow_0.dds"), NULL, NULL, &pd3dTexture, NULL);
 	ppTextures[1]->SetTexture(0, pd3dTexture, pd3dSamplerState);
 
 	ppTextures[2] = new CTexture(1);
-	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("Data\\Wood03.jpg"), NULL, NULL, &pd3dTexture, NULL);
+	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("..\\Data\\Wood03.jpg"), NULL, NULL, &pd3dTexture, NULL);
 	ppTextures[2]->SetTexture(0, pd3dTexture, pd3dSamplerState);
 
 	// 여기도 릭남음
-	skinnedModel = new SkinnedModel(FRAMEWORK->GetInstance()->m_pd3dDevice, "Data\\Monster_0.SBX", TEXTYPE_DYNAMIC);
+	skinnedModel = new SkinnedModel(FRAMEWORK->GetInstance()->m_pd3dDevice, "..\\Data\\Monster_0.SBX", TEXTYPE_DYNAMIC);
 	pTestMesh = new CSBXTestMesh(pd3dDevice);
 
+	/*ppTextures[0] = new CTexture(1);
+	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("..\\Data\\Bow_0.dds"), NULL, NULL, &pd3dTexture, NULL);
+	ppTextures[0]->SetTexture(0, pd3dTexture, pd3dSamplerState);
+
+	SkinnedModel* skinnedModel = new SkinnedModel(FRAMEWORK->GetInstance()->m_pd3dDevice, "..\\Data\\Bow_0.SBX", TEXTYPE_STATIC);
+	CSBXTestMesh* pTestMesh = new CSBXTestMesh(pd3dDevice);
+	D3DXVECTOR3 pivot = D3DXVECTOR3(0, 1.0f, 0);*/
+	
 	for (auto& monster : OBJECT_MANAGER->GetMonsterMap())
 	{
 		CMonster *pMonster = monster.second;
@@ -1045,7 +1079,7 @@ void CAnimationShader::Render(ID3D11DeviceContext* pd3dDeviceContext, CCamera* p
 	//	}
 	//}
 	i = 0;
-	for (auto& monster : OBJECT_MANAGER->GetMonsterMap())
+	/*for (auto& monster : OBJECT_MANAGER->GetMonsterMap())
 	{
 		if (!monster.second->GetAlive()) continue;
 		i++;
@@ -1054,10 +1088,12 @@ void CAnimationShader::Render(ID3D11DeviceContext* pd3dDeviceContext, CCamera* p
 		CShader::UpdateShaderVariables(pd3dDeviceContext, &pMonster->m_d3dxmtxWorld);
 		if (pMonster->m_pSkinnedModel) UpdateShaderVariables(pd3dDeviceContext, pMonster->m_mtxFinalTransforms);
 		if (pMonster->m_pMaterial) UpdateShaderVariables(pd3dDeviceContext, &pMonster->m_pMaterial->m_Material);
-		if (pMonster->m_pTexture) CShader::UpdateShaderVariables(pd3dDeviceContext,pMonster->m_pTexture);
+		if (pMonster->m_pTexture) CShader::UpdateShaderVariables(pd3dDeviceContext, pMonster->m_pTexture);
 
 		pMonster->Render(pd3dDeviceContext);
-	}
+	}*/
+
+	int j = 90;
 	//cout << i << endl;
 	//i = 0;
 	//if (FRAMEWORK->GetInstance()->m_pMonster)
@@ -1074,14 +1110,13 @@ void CAnimationShader::Render(ID3D11DeviceContext* pd3dDeviceContext, CCamera* p
 CBowShader::CBowShader()
 {
 
-}
 
+}
 CBowShader::~CBowShader()
 {
-
 }
 
-void CBowShader::UpdateShaderVariables(ID3D11DeviceContext* pd3dDeviceContext, MATERIAL* pMaterial /*= NULL*/)
+void CBowShader::UpdateShaderVariables(ID3D11DeviceContext* pd3dDeviceContext, MATERIAL* pMaterial)
 {
 	D3D11_MAPPED_SUBRESOURCE d3dMappedResource;
 	pd3dDeviceContext->Map(m_pd3dcbMaterial, 0, D3D11_MAP_WRITE_DISCARD, 0, &d3dMappedResource);
@@ -1090,21 +1125,6 @@ void CBowShader::UpdateShaderVariables(ID3D11DeviceContext* pd3dDeviceContext, M
 	pd3dDeviceContext->Unmap(m_pd3dcbMaterial, 0);
 	pd3dDeviceContext->PSSetConstantBuffers(PS_SLOT_MATERIAL, 1, &m_pd3dcbMaterial);
 }
-
-void CBowShader::UpdateShaderVariables(ID3D11DeviceContext* pd3dDeviceContext, vector<D3DXMATRIX>& boneTransforms)
-{
-	D3D11_MAPPED_SUBRESOURCE d3dMappedResource;
-	pd3dDeviceContext->Map(m_pd3dcbBoneTransforms, 0, D3D11_MAP_WRITE_DISCARD, 0, &d3dMappedResource);
-	VS_CB_BONE_TRANSFORM* pcbBoneTransforms = (VS_CB_BONE_TRANSFORM*)d3dMappedResource.pData;
-
-	for (size_t i = 0; i < boneTransforms.size(); ++i)
-		D3DXMatrixTranspose(&pcbBoneTransforms->m_d3dxmtxBoneTransform[i], &boneTransforms[i]);
-
-	pd3dDeviceContext->Unmap(m_pd3dcbBoneTransforms, 0);
-	pd3dDeviceContext->VSSetConstantBuffers(VS_SLOT_BONE_TRANSFORMS, 1, &m_pd3dcbBoneTransforms);
-
-}
-
 void CBowShader::CreateShaderVariables(ID3D11Device* pd3dDevice)
 {
 	CShader::CreateShaderVariables(pd3dDevice);
@@ -1125,7 +1145,6 @@ void CBowShader::CreateShaderVariables(ID3D11Device* pd3dDevice)
 	pd3dDevice->CreateBuffer(&d3dBufferDesc, NULL, &m_pd3dcbBoneTransforms);
 
 }
-
 void CBowShader::CreateShader(ID3D11Device* pd3dDevice)
 {
 	CShader::CreateShader(pd3dDevice);
@@ -1139,8 +1158,8 @@ void CBowShader::CreateShader(ID3D11Device* pd3dDevice)
 		{ "BONEINDICES", 0, DXGI_FORMAT_R32G32B32A32_UINT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 	UINT nElements = ARRAYSIZE(d3dInputLayout);
-	CreateVertexShaderFromFile(pd3dDevice, L"Effect.fx", "VSSkinned", "vs_4_0", &m_pd3dVertexShader, d3dInputLayout, nElements, &m_pd3dVertexLayout);
-	CreatePixelShaderFromFile(pd3dDevice, L"Effect.fx", "PSSkinned", "ps_4_0", &m_pd3dPixelShader);
+	CreateVertexShaderFromFile(pd3dDevice, L"..\\Effect.fx", "VSTexturedLighting", "vs_4_0", &m_pd3dVertexShader, d3dInputLayout, nElements, &m_pd3dVertexLayout);
+	CreatePixelShaderFromFile(pd3dDevice, L"..\\Effect.fx", "PSTexturedLighting", "ps_4_0", &m_pd3dPixelShader);
 }
 
 void CBowShader::BuildObjects(ID3D11Device* pd3dDevice)
@@ -1151,7 +1170,7 @@ void CBowShader::BuildObjects(ID3D11Device* pd3dDevice)
 	ppMaterials[0]->m_Material.m_d3dxcAmbient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
 	ppMaterials[0]->m_Material.m_d3dxcSpecular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 10.0f);
 	ppMaterials[0]->m_Material.m_d3dxcEmissive = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
-	
+
 	ID3D11SamplerState *pd3dSamplerState = NULL;
 	D3D11_SAMPLER_DESC d3dSamplerDesc;
 	ZeroMemory(&d3dSamplerDesc, sizeof(D3D11_SAMPLER_DESC));
@@ -1165,13 +1184,13 @@ void CBowShader::BuildObjects(ID3D11Device* pd3dDevice)
 	pd3dDevice->CreateSamplerState(&d3dSamplerDesc, &pd3dSamplerState);
 
 	ID3D11ShaderResourceView *pd3dTexture = NULL;
-	CTexture **ppTextures = new CTexture*[3];
+	CTexture **ppTextures = new CTexture*[1];
 
 	ppTextures[0] = new CTexture(1);
-	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("Data\\Bow_0.dds"), NULL, NULL, &pd3dTexture, NULL);
+	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("..\\Data\\Skybox2_0.dds"), NULL, NULL, &pd3dTexture, NULL);
 	ppTextures[0]->SetTexture(0, pd3dTexture, pd3dSamplerState);
 
-	SkinnedModel* skinnedModel = new SkinnedModel(FRAMEWORK->GetInstance()->m_pd3dDevice, "Data\\Bow_0.SBX", TEXTYPE_STATIC);
+	SkinnedModel* skinnedModel = new SkinnedModel(FRAMEWORK->GetInstance()->m_pd3dDevice, "..\\Data\\Skybox2_0.SBX", TEXTYPE_STATIC);
 	CSBXTestMesh* pTestMesh = new CSBXTestMesh(pd3dDevice);
 	D3DXVECTOR3 pivot = D3DXVECTOR3(0, 1.0f, 0);
 
@@ -1180,42 +1199,190 @@ void CBowShader::BuildObjects(ID3D11Device* pd3dDevice)
 
 	pTestMesh->SetVertices(FRAMEWORK->GetInstance()->m_pd3dDevice, &pBow->m_pSkinnedModel->m_vVertices[0], pBow->m_pSkinnedModel->m_vVertices.size());
 	pTestMesh->SetIndices(FRAMEWORK->GetInstance()->m_pd3dDevice, &pBow->m_pSkinnedModel->m_vIndices[0], pBow->m_pSkinnedModel->m_vIndices.size());
-
+	
 	pBow->SetMesh(pTestMesh);
 	pBow->SetTexture(ppTextures[0]);
 	pBow->SetMaterial(ppMaterials[0]);
 
 	FRAMEWORK->m_vecBow.push_back(pBow);
 
-	/*auto& player_map = PLAYER_MANAGER->GetPlayerMap();
-
-	for (auto player : player_map)
-	{
-		CPlayer *pPlayer = player.second;
-		pPlayer->SetSkinned(skinnedModel);
-		pPlayer->clipName = "Idle";
-
-		pTestMesh->SetVertices(FRAMEWORK->GetInstance()->m_pd3dDevice, &pPlayer->m_pSkinnedModel->m_vVertices[0], pPlayer->m_pSkinnedModel->m_vVertices.size());
-		pTestMesh->SetIndices(FRAMEWORK->GetInstance()->m_pd3dDevice, &pPlayer->m_pSkinnedModel->m_vIndices[0], pPlayer->m_pSkinnedModel->m_vIndices.size());
-
-		pPlayer->SetMesh(pTestMesh);
-		pPlayer->SetTexture(ppTextures[0]);
-		pPlayer->SetMaterial(ppMaterials[0]);
-	}*/
-	//CPlayer* pPlayer = new CPlayer();
-
 	delete[] ppTextures;
+
+	CreateShaderVariables(FRAMEWORK->GetInstance()->m_pd3dDevice);
 }
 
-void CBowShader::Render(ID3D11DeviceContext* pd3dDeviceContext, CCamera* pCmaera /*= NULL*/)
+void CBowShader::UpdateShaderVariables(ID3D11DeviceContext* pd3dDeviceContext, vector<D3DXMATRIX>& boneTransforms)
 {
-	//////정점의 입력-레이아웃을 디바이스 컨텍스트에 연결(설정)한다. 
-	//if (m_pd3dVertexLayout) pd3dDeviceContext->IASetInputLayout(m_pd3dVertexLayout);
-	////정점-쉐이더를 디바이스 컨텍스트에 연결(설정)한다. 
-	//if (m_pd3dVertexShader) pd3dDeviceContext->VSSetShader(m_pd3dVertexShader, NULL, 0);
-	////픽셀-쉐이더를 디바이스 컨텍스트에 연결(설정)한다. 
-	//if (m_pd3dPixelShader) pd3dDeviceContext->PSSetShader(m_pd3dPixelShader, NULL, 0);
+	D3D11_MAPPED_SUBRESOURCE d3dMappedResource;
+	pd3dDeviceContext->Map(m_pd3dcbBoneTransforms, 0, D3D11_MAP_WRITE_DISCARD, 0, &d3dMappedResource);
+	VS_CB_BONE_TRANSFORM* pcbBoneTransforms = (VS_CB_BONE_TRANSFORM*)d3dMappedResource.pData;
 
-	//// 객체 렌더링
-	//int i = 0;
+	for (size_t i = 0; i < boneTransforms.size(); ++i)
+		D3DXMatrixTranspose(&pcbBoneTransforms->m_d3dxmtxBoneTransform[i], &boneTransforms[i]);
+
+	pd3dDeviceContext->Unmap(m_pd3dcbBoneTransforms, 0);
+	pd3dDeviceContext->VSSetConstantBuffers(VS_SLOT_BONE_TRANSFORMS, 1, &m_pd3dcbBoneTransforms);
+}
+
+void CBowShader::Render(ID3D11DeviceContext* pd3dDeviceContext, CCamera* pCmaera)
+{
+	////정점의 입력-레이아웃을 디바이스 컨텍스트에 연결(설정)한다. 
+	if (m_pd3dVertexLayout) pd3dDeviceContext->IASetInputLayout(m_pd3dVertexLayout);
+	//정점-쉐이더를 디바이스 컨텍스트에 연결(설정)한다. 
+	if (m_pd3dVertexShader) pd3dDeviceContext->VSSetShader(m_pd3dVertexShader, NULL, 0);
+	//픽셀-쉐이더를 디바이스 컨텍스트에 연결(설정)한다. 
+	if (m_pd3dPixelShader) pd3dDeviceContext->PSSetShader(m_pd3dPixelShader, NULL, 0);
+
+	// 객체 렌더링
+	int i = 0;
+
+	for (auto& bow : FRAMEWORK->m_vecBow)
+	{
+		CShader::UpdateShaderVariables(pd3dDeviceContext, &bow->m_d3dxmtxWorld);
+		UpdateShaderVariables(pd3dDeviceContext, bow->m_mtxFinalTransforms);
+		UpdateShaderVariables(pd3dDeviceContext, &bow->m_pMaterial->m_Material);
+		CShader::UpdateShaderVariables(pd3dDeviceContext, bow->m_pTexture);
+		bow->Render(pd3dDeviceContext);
+	}
+}
+
+
+CSkyBoxShader::CSkyBoxShader()
+{
+
+
+}
+CSkyBoxShader::~CSkyBoxShader()
+{
+}
+
+void CSkyBoxShader::UpdateShaderVariables(ID3D11DeviceContext* pd3dDeviceContext, MATERIAL* pMaterial)
+{
+	D3D11_MAPPED_SUBRESOURCE d3dMappedResource;
+	pd3dDeviceContext->Map(m_pd3dcbMaterial, 0, D3D11_MAP_WRITE_DISCARD, 0, &d3dMappedResource);
+	MATERIAL* pcbMaterial = (MATERIAL*)d3dMappedResource.pData;
+	memcpy(pcbMaterial, pMaterial, sizeof(MATERIAL));
+	pd3dDeviceContext->Unmap(m_pd3dcbMaterial, 0);
+	pd3dDeviceContext->PSSetConstantBuffers(PS_SLOT_MATERIAL, 1, &m_pd3dcbMaterial);
+}
+void CSkyBoxShader::CreateShaderVariables(ID3D11Device* pd3dDevice)
+{
+	CShader::CreateShaderVariables(pd3dDevice);
+
+	D3D11_BUFFER_DESC d3dBufferDesc;
+	ZeroMemory(&d3dBufferDesc, sizeof(D3D11_BUFFER_DESC));
+	d3dBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+	d3dBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	d3dBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	d3dBufferDesc.ByteWidth = sizeof(MATERIAL);
+	pd3dDevice->CreateBuffer(&d3dBufferDesc, NULL, &m_pd3dcbMaterial);
+
+	ZeroMemory(&d3dBufferDesc, sizeof(D3D11_BUFFER_DESC));
+	d3dBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+	d3dBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	d3dBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	d3dBufferDesc.ByteWidth = sizeof(VS_CB_BONE_TRANSFORM);
+	pd3dDevice->CreateBuffer(&d3dBufferDesc, NULL, &m_pd3dcbBoneTransforms);
+
+}
+void CSkyBoxShader::CreateShader(ID3D11Device* pd3dDevice)
+{
+	CShader::CreateShader(pd3dDevice);
+
+	D3D11_INPUT_ELEMENT_DESC d3dInputLayout[] =
+	{
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "BONEWEIGHTS", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "BONEINDICES", 0, DXGI_FORMAT_R32G32B32A32_UINT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+	};
+	UINT nElements = ARRAYSIZE(d3dInputLayout);
+	CreateVertexShaderFromFile(pd3dDevice, L"..\\Effect.fx", "VSTexturedLighting", "vs_4_0", &m_pd3dVertexShader, d3dInputLayout, nElements, &m_pd3dVertexLayout);
+	CreatePixelShaderFromFile(pd3dDevice, L"..\\Effect.fx", "PSTexturedLighting", "ps_4_0", &m_pd3dPixelShader);
+}
+
+void CSkyBoxShader::BuildObjects(ID3D11Device* pd3dDevice)
+{
+	CMaterial **ppMaterials = new CMaterial*[3];
+	ppMaterials[0] = new CMaterial();
+	ppMaterials[0]->m_Material.m_d3dxcDiffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	ppMaterials[0]->m_Material.m_d3dxcAmbient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+	ppMaterials[0]->m_Material.m_d3dxcSpecular = D3DXCOLOR(1.0f, 1.0f, 1.0f, 10.0f);
+	ppMaterials[0]->m_Material.m_d3dxcEmissive = D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f);
+
+	ID3D11SamplerState *pd3dSamplerState = NULL;
+	D3D11_SAMPLER_DESC d3dSamplerDesc;
+	ZeroMemory(&d3dSamplerDesc, sizeof(D3D11_SAMPLER_DESC));
+	d3dSamplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+	d3dSamplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	d3dSamplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	d3dSamplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	d3dSamplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+	d3dSamplerDesc.MinLOD = 0;
+	d3dSamplerDesc.MaxLOD = 0;
+	pd3dDevice->CreateSamplerState(&d3dSamplerDesc, &pd3dSamplerState);
+
+	ID3D11ShaderResourceView *pd3dTexture = NULL;
+	CTexture **ppTextures = new CTexture*[1];
+
+	ppTextures[0] = new CTexture(1);
+	D3DX11CreateShaderResourceViewFromFile(pd3dDevice, _T("..\\Data\\Skybox2_0.dds"), NULL, NULL, &pd3dTexture, NULL);
+	ppTextures[0]->SetTexture(0, pd3dTexture, pd3dSamplerState);
+
+	SkinnedModel* skinnedModel = new SkinnedModel(FRAMEWORK->GetInstance()->m_pd3dDevice, "..\\Data\\Skybox2_0.SBX", TEXTYPE_STATIC);
+	CSBXTestMesh* pTestMesh = new CSBXTestMesh(pd3dDevice);
+	D3DXVECTOR3 pivot = D3DXVECTOR3(0, 1.0f, 0);
+
+	CSkyBox* pSky = new CSkyBox;
+	pSky->SetSkinned(skinnedModel);
+
+	pTestMesh->SetVertices(FRAMEWORK->GetInstance()->m_pd3dDevice, &pSky->m_pSkinnedModel->m_vVertices[0], pSky->m_pSkinnedModel->m_vVertices.size());
+	pTestMesh->SetIndices(FRAMEWORK->GetInstance()->m_pd3dDevice, &pSky->m_pSkinnedModel->m_vIndices[0], pSky->m_pSkinnedModel->m_vIndices.size());
+
+	pSky->SetPosition(D3DXVECTOR3(1024.f, 500.f, 1024.f));
+	pSky->SetMesh(pTestMesh);
+	pSky->SetTexture(ppTextures[0]);
+	pSky->SetMaterial(ppMaterials[0]);
+		
+	FRAMEWORK->m_pSkyBox = pSky;
+
+	delete[] ppTextures;
+
+	CreateShaderVariables(FRAMEWORK->GetInstance()->m_pd3dDevice);
+}
+
+void CSkyBoxShader::UpdateShaderVariables(ID3D11DeviceContext* pd3dDeviceContext, vector<D3DXMATRIX>& boneTransforms)
+{
+	D3D11_MAPPED_SUBRESOURCE d3dMappedResource;
+	pd3dDeviceContext->Map(m_pd3dcbBoneTransforms, 0, D3D11_MAP_WRITE_DISCARD, 0, &d3dMappedResource);
+	VS_CB_BONE_TRANSFORM* pcbBoneTransforms = (VS_CB_BONE_TRANSFORM*)d3dMappedResource.pData;
+
+	for (size_t i = 0; i < boneTransforms.size(); ++i)
+		D3DXMatrixTranspose(&pcbBoneTransforms->m_d3dxmtxBoneTransform[i], &boneTransforms[i]);
+
+	pd3dDeviceContext->Unmap(m_pd3dcbBoneTransforms, 0);
+	pd3dDeviceContext->VSSetConstantBuffers(VS_SLOT_BONE_TRANSFORMS, 1, &m_pd3dcbBoneTransforms);
+}
+
+void CSkyBoxShader::Render(ID3D11DeviceContext* pd3dDeviceContext, CCamera* pCmaera)
+{
+	////정점의 입력-레이아웃을 디바이스 컨텍스트에 연결(설정)한다. 
+	if (m_pd3dVertexLayout) pd3dDeviceContext->IASetInputLayout(m_pd3dVertexLayout);
+	//정점-쉐이더를 디바이스 컨텍스트에 연결(설정)한다. 
+	if (m_pd3dVertexShader) pd3dDeviceContext->VSSetShader(m_pd3dVertexShader, NULL, 0);
+	//픽셀-쉐이더를 디바이스 컨텍스트에 연결(설정)한다. 
+	if (m_pd3dPixelShader) pd3dDeviceContext->PSSetShader(m_pd3dPixelShader, NULL, 0);
+
+	// 객체 렌더링
+	int i = 0;
+
+	if(FRAMEWORK->m_pSkyBox != nullptr)
+	{
+		CShader::UpdateShaderVariables(pd3dDeviceContext, &FRAMEWORK->m_pSkyBox->m_d3dxmtxWorld);
+		UpdateShaderVariables(pd3dDeviceContext, FRAMEWORK->m_pSkyBox->m_mtxFinalTransforms);
+		UpdateShaderVariables(pd3dDeviceContext, &FRAMEWORK->m_pSkyBox->m_pMaterial->m_Material);
+		CShader::UpdateShaderVariables(pd3dDeviceContext, FRAMEWORK->m_pSkyBox->m_pTexture);
+		FRAMEWORK->m_pSkyBox->Render(pd3dDeviceContext);
+	}
 }

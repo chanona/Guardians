@@ -25,6 +25,8 @@ CMonster::CMonster()
 
 	m_pShader = nullptr;
 
+	m_bCircleInit = true;
+
 	m_pMonsterUpdatedContext = NULL;
 }
 
@@ -132,6 +134,8 @@ void CMonster::Update(float fTimeElapsed)
 	//if (fDeceleration > fLength) fDeceleration = fLength;
 	//m_d3dxvVelocity += d3dxvDeceleration * fDeceleration;
 	Move();
+
+	//CircleCollision()
 }
 
 void CMonster::RegenerateWorldMatrix()

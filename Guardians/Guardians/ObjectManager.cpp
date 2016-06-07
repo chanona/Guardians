@@ -64,9 +64,9 @@ void CObjectManager::DeleteMonster(const UINT id)
 
 	if (m_monsterMappingHashMap.erase(id))
 	{
-#ifdef _DEBUG
+//#ifdef _DEBUG
 		//cout << "CObjectManager Mapping HashMap -> Monster Erase : " << id << endl;
-#endif
+//#endif
 	}
 	InsertMonsterToPool(pMon);
 
@@ -77,9 +77,9 @@ void CObjectManager::DeleteMonster(CMonster * pMonster)
 {
 	if (m_monsterMappingHashMap.erase(pMonster->GetID()))
 	{
-#ifdef _DEBUG
+//#ifdef _DEBUG
 		//cout << "CObjectManager Mapping HashMap -> Monster Erase : " << pMonster->GetID() << endl;
-#endif
+//#endif
 	}
 	InsertMonsterToPool(pMonster);
 

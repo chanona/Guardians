@@ -15,6 +15,7 @@
 #include "Monster.h"
 #include "GameTimer.h"
 #include "Bow.h"
+#include "SkyBox.h"
 
 #define FULLSCREEN_WIDTH	640
 #define FULLSCREEN_HEIGHT	480
@@ -22,7 +23,7 @@
 class CScene;
 class CGameFramework
 {
-private:
+public:
 	HINSTANCE m_hInstance;
 	HWND m_hWnd;
 		
@@ -57,6 +58,7 @@ public:
 	//CPlayer** m_ppPlayers;
 	CMonster* m_pMonster;
 	vector<CBow*> m_vecBow;
+	CSkyBox* m_pSkyBox;
 
 	bool OnCreate(HINSTANCE hInstance, HWND hMainWnd);
 	void OnDestroy();

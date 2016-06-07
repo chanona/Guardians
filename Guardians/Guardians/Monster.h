@@ -7,6 +7,7 @@ class CMonster : public CGameObject
 {
 protected:
 	bool m_bAlive;
+	bool m_bCircleInit;
 
 	//플레이어의 위치 벡터, x-축(Right), y-축(Up), z-축(Look) 벡터이다.
 	D3DXVECTOR3 m_d3dxvPosition;

@@ -353,3 +353,20 @@ public:
 	virtual void SetRasterizerState(ID3D11Device *pd3dDevice);
 	virtual void Render(ID3D11DeviceContext *pd3dImmediateDeviceContext);
 };
+
+class CMeshTextured : public CMesh
+{
+public:
+	CMeshTextured(ID3D11Device *pd3dDevice);
+	virtual ~CMeshTextured();
+
+protected:
+	ID3D11Buffer					*m_pd3dTexCoordBuffer;
+};
+
+class CSkyBoxMesh : public CMeshTextured
+{
+public:
+	CSkyBoxMesh(ID3D11Device *pd3dDevice, float fWidth = 20.0f, float fHeight = 20.0f, float fDepth = 20.0f);
+	virtual ~CSkyBoxMesh();
+};

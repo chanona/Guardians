@@ -51,8 +51,11 @@ void CTexture::Release()
 	if (m_nReferences > 0) m_nReferences--;
 	for (int i = 0; i < m_nReferences; ++i)
 	{
-		if (m_ppd3dsrvTextures[i]) m_ppd3dsrvTextures[i]->Release();
-		if (m_ppd3dSamplerStates[i]) m_ppd3dSamplerStates[i]->Release();
+		if (m_ppd3dsrvTextures[i]) 
+			m_ppd3dsrvTextures[i]->Release();
+
+		if (m_ppd3dSamplerStates[i]) 
+			m_ppd3dSamplerStates[i]->Release();
 	}
 	if (m_nReferences == 0) delete this;
 }
@@ -179,6 +182,17 @@ D3DXVECTOR3 CGameObject::GetRight()
 	return(d3dxvRight);
 }
 
+bool CGameObject::CircleCollision(D3DXVECTOR3 pPos1, D3DXVECTOR3 pPos2)
+{
+	D3DXVECTOR3 vDir = pPos1 - pPos2;
+
+	float fLength = D3DXVec3Length(&vDir);
+	
+	if (fLength < 2.5f)
+		return true;
+	return false;
+}
+
 void CGameObject::MoveStrafe(float fDistance)
 {
 	D3DXVECTOR3 d3dxvPosition = GetPosition();
@@ -234,6 +248,7 @@ void CGameObject::SetSkinned(SkinnedModel* pSkinned)
 	m_pSkinnedModel = pSkinned;
 	if (m_pSkinnedModel) m_pSkinnedModel->AddRef();
 }
+
 void CGameObject::SetTexture(CTexture* pTexture)
 {
 	/// 기존에 텍스쳐를 갖고 있으면 버린다.
@@ -245,11 +260,15 @@ void CGameObject::SetTexture(CTexture* pTexture)
 	/// 레퍼런스를 하나 증가 시킨다.
 	if (m_pTexture) m_pTexture->AddRef();
 }
-void CGameObject::Animate(float fTimeElapsed)
+
+void CGameObject::Animate(float fTimeElapsed, TEX_TYPE eType)
 {
 	mTimePos += fTimeElapsed;
 
-	m_pSkinnedModel->mSkinnedData.GetFinalTransforms(clipName, mTimePos, m_mtxFinalTransforms);
+	if(eType == TEXTYPE_DYNAMIC)
+		m_pSkinnedModel->mSkinnedData.GetFinalTransforms(clipName, mTimePos, m_mtxFinalTransforms, TEXTYPE_DYNAMIC);
+	else
+		m_pSkinnedModel->mSkinnedData.GetFinalTransforms(clipName, mTimePos, m_mtxFinalTransforms, TEXTYPE_STATIC);
 	
 	if (mTimePos > m_pSkinnedModel->mSkinnedData.GetClipEndTime(clipName))
 		mTimePos = 0.0f;
@@ -283,92 +302,3 @@ void CRotatingObject::Render(ID3D11DeviceContext *pd3dDeviceContext, CCamera *pC
 {
 	CGameObject::Render(pd3dDeviceContext,pCamera);
 }
-
-//
-//CSkyBox::CSkyBox(ID3D11Device *pd3dDevice) : CGameObject()
-//{
-//	D3D11_DEPTH_STENCIL_DESC d3dDepthStencilDesc;
-//	ZeroMemory(&d3dDepthStencilDesc, sizeof(D3D11_DEPTH_STENCIL_DESC));
-//	d3dDepthStencilDesc.DepthEnable = false;
-//	d3dDepthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
-//	d3dDepthStencilDesc.DepthFunc = D3D11_COMPARISON_NEVER;
-//	d3dDepthStencilDesc.StencilEnable = false;
-//	d3dDepthStencilDesc.StencilReadMask = 0xFF;
-//	d3dDepthStencilDesc.StencilWriteMask = 0xFF;
-//	d3dDepthStencilDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
-//	d3dDepthStencilDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_INCR;
-//	d3dDepthStencilDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
-//	d3dDepthStencilDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
-//	d3dDepthStencilDesc.BackFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
-//	d3dDepthStencilDesc.BackFace.StencilDepthFailOp = D3D11_STENCIL_OP_DECR;
-//	d3dDepthStencilDesc.BackFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
-//	d3dDepthStencilDesc.BackFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
-//	pd3dDevice->CreateDepthStencilState(&d3dDepthStencilDesc, &m_pd3dDepthStencilState);
-//
-//#ifdef _WITH_SKYBOX_TEXTURE_ARRAY
-//	D3D11_BUFFER_DESC d3dBufferDesc;
-//	ZeroMemory(&d3dBufferDesc, sizeof(d3dBufferDesc));
-//	d3dBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-//	d3dBufferDesc.ByteWidth = sizeof(int) * 4;
-//	d3dBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-//	d3dBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-//	pd3dDevice->CreateBuffer(&d3dBufferDesc, NULL, &m_pd3dcbTextureIndex);
-//
-//	ID3D11DeviceContext *pd3dDeviceContext;
-//	pd3dDevice->GetImmediateContext(&pd3dDeviceContext);
-//	pd3dDeviceContext->PSSetConstantBuffers(PS_CB_SLOT_SKYBOX, 1, &m_pd3dcbTextureIndex);
-//	if (pd3dDeviceContext) pd3dDeviceContext->Release();
-//#endif
-//}
-//
-//CSkyBox::~CSkyBox()
-//{
-//#ifdef _WITH_SKYBOX_TEXTURE_ARRAY
-//	if (m_pd3dcbTextureIndex) m_pd3dcbTextureIndex->Release();
-//#endif
-//}
-//
-//void CSkyBox::Render(ID3D11DeviceContext *pd3dDeviceContext, CCamera *pCamera)
-//{
-//	D3DXVECTOR3 d3dxvCameraPos = pCamera->GetPosition();
-//	SetPosition(d3dxvCameraPos.x, d3dxvCameraPos.y, d3dxvCameraPos.z);
-//	Update(NULL);
-//
-//	CGameObject::UpdateShaderVariable(pd3dDeviceContext, &m_d3dxmtxWorld);
-//
-//	if (m_pShader) m_pShader->Render(pd3dDeviceContext, pCamera);
-//
-//	pd3dDeviceContext->RSSetState(m_pd3dRasterizerState);
-//
-//	CSkyBoxMesh *pSkyBoxMesh = (CSkyBoxMesh *)m_ppMeshes[0];
-//	pSkyBoxMesh->OnPrepareRender(pd3dDeviceContext);
-//
-//#ifdef _WITH_SKYBOX_TEXTURE_ARRAY
-//	m_pMaterial->m_pTexture->UpdateShaderVariable(pd3dDeviceContext);
-//#else
-//#ifdef _WITH_SKYBOX_TEXTURE_CUBE
-//	m_pMaterial->m_pTexture->UpdateShaderVariable(pd3dDeviceContext);
-//#else
-//	m_pMaterial->m_pTexture->UpdateSamplerShaderVariable(pd3dDeviceContext, 0, PS_SLOT_SAMPLER_SKYBOX);
-//#endif
-//#endif
-//	pd3dDeviceContext->OMSetDepthStencilState(m_pd3dDepthStencilState, 1);
-//
-//	for (int i = 0; i < 6; i++)
-//	{
-//#ifdef _WITH_SKYBOX_TEXTURE_ARRAY
-//		D3D11_MAPPED_SUBRESOURCE d3dMappedResource;
-//		pd3dDeviceContext->Map(m_pd3dcbTextureIndex, 0, D3D11_MAP_WRITE_DISCARD, 0, &d3dMappedResource);
-//		int *pfIndex = (int *)d3dMappedResource.pData;
-//		pfIndex[0] = pfIndex[1] = pfIndex[2] = pfIndex[3] = i;
-//		pd3dDeviceContext->Unmap(m_pd3dcbTextureIndex, 0);
-//#else
-//#ifndef _WITH_SKYBOX_TEXTURE_CUBE
-//		m_pMaterial->m_pTexture->UpdateTextureShaderVariable(pd3dDeviceContext, i, PS_SLOT_TEXTURE_SKYBOX);
-//#endif
-//#endif
-//		pd3dDeviceContext->DrawIndexed(4, 0, i * 4);
-//	}
-//
-//	pd3dDeviceContext->OMSetDepthStencilState(NULL, 1);
-//}

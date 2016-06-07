@@ -176,6 +176,7 @@
     <ClInclude Include="SendMemoryPool.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Simulation.h" />
+    <ClInclude Include="SkyBox.h" />
     <ClInclude Include="SONData.h" />
     <ClInclude Include="SONImporter.h" />
     <ClInclude Include="stdafx.h" />
@@ -204,6 +205,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SendMemoryPool.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="SONData.cpp" />
     <ClCompile Include="SONImporter.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -220,6 +222,18 @@
   <ItemGroup>
     <Image Include="Guardians.ico" />
     <Image Include="small.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Effect.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

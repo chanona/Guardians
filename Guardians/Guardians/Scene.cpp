@@ -25,15 +25,21 @@ void CScene::BuildObjects(ID3D11Device *pd3dDevice)
 	m_ppShaders[1] = new CSceneShader();
 	m_ppShaders[1]->CreateShader(pd3dDevice);
 	m_ppShaders[1]->BuildObjects(pd3dDevice);
-
+	
 	m_ppShaders[0] = new CAnimationShader();
 	m_ppShaders[0]->CreateShader(pd3dDevice);
 	m_ppShaders[0]->BuildObjects(pd3dDevice);
+	
+	m_ppShaders[3] = new CSkyBoxShader();
+	m_ppShaders[3]->CreateShader(pd3dDevice);
+	m_ppShaders[3]->BuildObjects(pd3dDevice);
 
 	m_ppShaders[2] = new CBowShader();
 	m_ppShaders[2]->CreateShader(pd3dDevice);
-	//m_ppShaders[2]->BuildObjects(pd3dDevice);
+	m_ppShaders[2]->BuildObjects(pd3dDevice);
 
+	
+	
 	BuildLights(pd3dDevice);
 }
 

@@ -27,9 +27,10 @@ CGameFramework::CGameFramework()
 	m_pScene = NULL;
 	_tcscpy_s(m_pszBuffer, _T("LapProject ("));
 
+	m_pSkyBox = nullptr;
+
 	//m_nPlayers = 0;
 	//m_ppPlayers = NULL;
-	
 }
 
 CGameFramework::~CGameFramework()
@@ -112,9 +113,9 @@ bool CGameFramework::CreateDirect3DDisplay()
 	// Direct3D 디바이스, 스왑 체인, 디바이스 컨텍스트를 동시에 생성하도록 하자.
 	// 먼저, 디바이스 생성에 필요한 디바이스 생성 플래그, 드라이버 유형, 특성 레벨(Feature Level)를 설정한다.
 	UINT dwCreateDeviceFlags = 0;
-#ifdef _DEBUG
+//#ifdef _DEBUG
 	//dwCreateDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
-#endif
+//#endif
 	
 	//디바이스를 생성하기 위하여 시도할 드라이버 유형의 순서를 나타낸다.
 	D3D_DRIVER_TYPE d3dDriverTypes[] =
@@ -268,6 +269,7 @@ LRESULT CALLBACK CGameFramework::OnProcessingWindowMessage(HWND hWnd, UINT nMess
 			CCamera *pCamera = NETWORK_ENGINE->GetMyPlayer()->GetCamera();
 			pCamera->SetViewPort(m_pd3dDeviceContext, 0, 0,m_nWndClientWidth,
 				m_nWndClientHeight, 0.0f, 1.0f);
+
 		}
 		break;
 	}
@@ -372,12 +374,13 @@ void CGameFramework::ProcessInput()
 
 	if (GetActiveWindow() == m_hWnd && !bProcessedByScene)
 	{
-		//static UCHAR pKeyBuffer[256];
-		//DWORD dwDircetion = 0;
+		static UCHAR pKeyBuffer[256];
+		DWORD dwDircetion = 0;
 		if (KEY_DOWN('A')) newDir |= Direction::LEFT;
 		if (KEY_DOWN('D')) newDir |= Direction::RIGHT;
 		if (KEY_DOWN('W')) newDir |= Direction::FORWARD;
 		if (KEY_DOWN('S')) newDir |= Direction::BACKWARD;
+		//if (KEY_DOWN(VK_LBUTTON)) 
 
 		if (GetAsyncKeyState('A') == 0 || GetAsyncKeyState('A') == 1)   newDir &= ~Direction::LEFT;
 		if (GetAsyncKeyState('D') == 0 || GetAsyncKeyState('D') == 1)   newDir &= ~Direction::RIGHT;
@@ -419,28 +422,45 @@ void CGameFramework::ProcessInput()
 			preTime = GetTickCount();
 		}
 
-		// 키보드 상태정보 반환 플레이어를 오른쪽왼쪽 / 앞 뒤로 이동.
-		//if (GetKeyboardState(pKeyBuffer))
-		//{
-		//	if (pKeyBuffer['W'] & 0xF0) dwDircetion |= Direction::FORWARD;		
-		//	if (pKeyBuffer['S'] & 0xF0) dwDircetion |= Direction::BACKWARD;		
-		//	if (pKeyBuffer['A'] & 0xF0)	dwDircetion |= Direction::LEFT;
-		//	if (pKeyBuffer['D'] & 0xF0) dwDircetion |= Direction::RIGHT;
-		//	
-		//	if (pKeyBuffer['1'] & 0xF0)
-		//		NETWORK_ENGINE->GetMyPlayer()->clipName = "Idle";
-		//	if (pKeyBuffer['2'] & 0xF0)
-		//		NETWORK_ENGINE->GetMyPlayer()->clipName = "Attack";
-		//	if (pKeyBuffer['3'] & 0xF0)
-		//		NETWORK_ENGINE->GetMyPlayer()->clipName = "Walk";
-		//	if (pKeyBuffer['4'] & 0xF0)
-		//		NETWORK_ENGINE->GetMyPlayer()->clipName = "Hit";
-		//	if (pKeyBuffer['5'] & 0xF0)
-		//		NETWORK_ENGINE->GetMyPlayer()->clipName = "Die";
+		//cout << NETWORK_ENGINE->GetMyPlayer()->GetPosition().x << ", " << NETWORK_ENGINE->GetMyPlayer()->GetPosition().y << " , " << NETWORK_ENGINE->GetMyPlayer()->GetPosition().z << endl;
 
-		//	//if (pKeyBuffer[VK_PRIOR] & 0xF0) dwDircetion |= DIR_UP;
-		//	//if (pKeyBuffer[VK_NEXT] & 0xF0) dwDircetion |= DIR_DOWN;
-		//}
+		// 키보드 상태정보 반환 플레이어를 오른쪽왼쪽 / 앞 뒤로 이동.
+		if (GetKeyboardState(pKeyBuffer))
+		{
+			if (pKeyBuffer['W'] & 0xF0) dwDircetion |= Direction::FORWARD;		
+			if (pKeyBuffer['S'] & 0xF0) dwDircetion |= Direction::BACKWARD;		
+			if (pKeyBuffer['A'] & 0xF0)	dwDircetion |= Direction::LEFT;
+			if (pKeyBuffer['D'] & 0xF0) dwDircetion |= Direction::RIGHT;
+			
+			if (pKeyBuffer['1'] & 0xF0)
+				NETWORK_ENGINE->GetMyPlayer()->clipName = "Idle";
+			if (pKeyBuffer['2'] & 0xF0)
+			{
+				NETWORK_ENGINE->GetMyPlayer()->clipName = "Attack";
+
+				/*CBow* pBow = new CBow;
+				pBow->SetSkinned(skinnedModel);
+
+				pTestMesh->SetVertices(FRAMEWORK->GetInstance()->m_pd3dDevice, &pBow->m_pSkinnedModel->m_vVertices[0], pBow->m_pSkinnedModel->m_vVertices.size());
+				pTestMesh->SetIndices(FRAMEWORK->GetInstance()->m_pd3dDevice, &pBow->m_pSkinnedModel->m_vIndices[0], pBow->m_pSkinnedModel->m_vIndices.size());
+
+				pBow->SetMesh(pTestMesh);
+				pBow->SetTexture(ppTextures[0]);
+				pBow->SetMaterial(ppMaterials[0]);*/
+
+				//FRAMEWORK->m_vecBow.push_back(pBow);
+			}
+				
+			if (pKeyBuffer['3'] & 0xF0)
+				NETWORK_ENGINE->GetMyPlayer()->clipName = "Walk";
+			if (pKeyBuffer['4'] & 0xF0)
+				NETWORK_ENGINE->GetMyPlayer()->clipName = "Hit";
+			if (pKeyBuffer['5'] & 0xF0)
+				NETWORK_ENGINE->GetMyPlayer()->clipName = "Die";
+
+			//if (pKeyBuffer[VK_PRIOR] & 0xF0) dwDircetion |= DIR_UP;
+			//if (pKeyBuffer[VK_NEXT] & 0xF0) dwDircetion |= DIR_DOWN;
+		}
 
 		float cxDelta = 0.0f, cyDelta = 0.0f;
 		POINT ptCursorPos;
@@ -477,7 +497,7 @@ void CGameFramework::ProcessInput()
 		if (KEY_DOWN(VK_LBUTTON) & 0xF0)
 		{
 			// 여기서 보우 쉐이더 생성 
-			m_pScene->m_ppShaders[2]->BuildObjects(m_pd3dDevice);
+			
 		}
 	}
 	// 플레이어를 실제로 이동하고 카메라를 갱신한다. 중력과 마찰력의 영향을 속도 벡터에 적용
@@ -502,11 +522,17 @@ void CGameFramework::ProcessInput()
 	{
 		if (!monster.second->GetAlive()) continue;;
 
-		//monster.second->SetServerPos()
 		monster.second->Move();
 		
 		//i++;
 	}
+
+	for (auto& bow : m_vecBow)
+	{
+		cout << bow->GetPosition().x << "," << bow->GetPosition().y << "," << bow->GetPosition().z << "," << endl;
+		bow->Move(D3DXVECTOR3(0.f, 0.f, 0.f));
+	}
+
 	//cout << i << endl;
 }
 

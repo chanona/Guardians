@@ -58,8 +58,10 @@ void CMesh::Render(ID3D11DeviceContext *pd3dImmediateDeviceContext)
 	
 	// 인덱스 버퍼가 있으면 인덱스 버퍼를 사용하여 메쉬를 렌더링하고 없으면 
 	// 정점 버퍼만을 사용하여 메쉬를 렌더링한다.
-	if (m_pd3dIndexBuffer) pd3dImmediateDeviceContext->DrawIndexed(m_nIndices, m_nStartIndex, m_nBaseVertex);
-	else pd3dImmediateDeviceContext->Draw(m_nVertices, m_nOffset);
+	if (m_pd3dIndexBuffer) 
+		pd3dImmediateDeviceContext->DrawIndexed(m_nIndices, m_nStartIndex, m_nBaseVertex);
+	else 
+		pd3dImmediateDeviceContext->Draw(m_nVertices, m_nOffset);
 }
 
 

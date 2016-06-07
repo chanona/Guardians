@@ -38,8 +38,8 @@ public:
 	void CreatePixelShaderFromFile(ID3D11Device *pd3dDevice, WCHAR *pszFileName, LPCSTR pszShaderName, LPCSTR pszShaderModel,
 		ID3D11PixelShader **ppd3dPixelShader);
 	
-	void CreateGeometryShaderFromFile(ID3D11Device* pd3dDevice, WCHAR* pszFileName, LPCSTR pszShaderName, LPCSTR pszShaderModel, 
-		ID3D11GeometryShader** ppd3dGeometryShader);
+	//void CreateGeometryShaderFromFile(ID3D11Device* pd3dDevice, WCHAR* pszFileName, LPCSTR pszShaderName, LPCSTR pszShaderModel, 
+	//	ID3D11GeometryShader** ppd3dGeometryShader);
 
 
 
@@ -209,6 +209,23 @@ class CBowShader : public CShader
 public:
 	CBowShader();
 	~CBowShader();
+
+	virtual void UpdateShaderVariables(ID3D11DeviceContext* pd3dDeviceContext, MATERIAL* pMaterial = NULL);
+	virtual void UpdateShaderVariables(ID3D11DeviceContext* pd3dDeviceContext, vector<D3DXMATRIX>& boneTransforms);
+
+	virtual void CreateShaderVariables(ID3D11Device* pd3dDevice);
+	virtual void CreateShader(ID3D11Device* pd3dDevice);
+	virtual void BuildObjects(ID3D11Device* pd3dDevice);
+
+	virtual void Render(ID3D11DeviceContext* pd3dDeviceContext, CCamera* pCmaera = NULL);
+};
+
+
+class CSkyBoxShader : public CShader
+{
+public:
+	CSkyBoxShader();
+	~CSkyBoxShader();
 
 	virtual void UpdateShaderVariables(ID3D11DeviceContext* pd3dDeviceContext, MATERIAL* pMaterial = NULL);
 	virtual void UpdateShaderVariables(ID3D11DeviceContext* pd3dDeviceContext, vector<D3DXMATRIX>& boneTransforms);
