@@ -2,6 +2,7 @@
 #include "Bow.h"
 #include "Shader.h"
 #include "protocol.h"
+#include "ClientNetEngine.h"
 
 CBow::CBow()
 {
@@ -75,7 +76,7 @@ void CBow::Move(const D3DXVECTOR3 & d3dxvShift, bool bVelocity)
 	else
 	{
 		// 플레이어를 현재 위치벡터에서 d3dxvShift벡터 만큼 이동
-		D3DXVECTOR3 d3dxvPosition = m_d3dxvPosition + d3dxvShift;
+		D3DXVECTOR3 d3dxvPosition = m_d3dxvPosition + d3dxvShift + 10.f * m_d3dxvLook;
 		m_d3dxvPosition = d3dxvPosition;
 		RegenerateWorldMatrix();
 	}
@@ -117,8 +118,10 @@ void CBow::Update(float fTimeElapsed)
 	//if (fDeceleration > fLength) fDeceleration = fLength;
 	//m_d3dxvVelocity += d3dxvDeceleration * fDeceleration;
 
-	D3DXVECTOR3 d3dxvPosition = m_d3dxvPosition;
-	m_d3dxvPosition = d3dxvPosition;
+	//D3DXVECTOR3 d3dxvPosition = m_d3dxvPosition;
+	//m_d3dxvPosition = d3dxvPosition;
+
+	m_d3dxvPosition = NETWORK_ENGINE->GetMyPlayer()->GetPosition();
 	RegenerateWorldMatrix();
 }
 

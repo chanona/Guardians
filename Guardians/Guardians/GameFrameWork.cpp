@@ -437,7 +437,8 @@ void CGameFramework::ProcessInput()
 			if (pKeyBuffer['2'] & 0xF0)
 			{
 				NETWORK_ENGINE->GetMyPlayer()->clipName = "Attack";
-
+				
+				m_pScene->BuildBow(m_pd3dDevice);
 				/*CBow* pBow = new CBow;
 				pBow->SetSkinned(skinnedModel);
 
@@ -523,15 +524,23 @@ void CGameFramework::ProcessInput()
 		if (!monster.second->GetAlive()) continue;;
 
 		monster.second->Move();
-		
+
 		//i++;
 	}
 
 	for (auto& bow : m_vecBow)
 	{
-		cout << bow->GetPosition().x << "," << bow->GetPosition().y << "," << bow->GetPosition().z << "," << endl;
+		//cout << bow->GetPosition().x << "," << bow->GetPosition().y << "," << bow->GetPosition().z << "," << endl;
 		bow->Move(D3DXVECTOR3(0.f, 0.f, 0.f));
+
+		/*if (D3DXVec3Length(&vDir) < 10.f)
+		{
+			cout << "Ãæµ¹" << endl;
+		}*/
 	}
+
+
+	
 
 	//cout << i << endl;
 }

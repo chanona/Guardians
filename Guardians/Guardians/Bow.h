@@ -72,6 +72,11 @@ public:
 		//Move((d3dxvPosition - m_d3dxvPosition), false);
 	}
 
+	void SetDirection(const D3DXVECTOR3& d3dxvDirection)
+	{
+		m_d3dxvLook = d3dxvDirection;
+	}
+
 	const D3DXVECTOR3& GetVelocity() const { return m_d3dxvVelocity; }
 	float GetYaw() const { return m_fYaw; }
 	float GetPitch() const { return m_fPitch; }

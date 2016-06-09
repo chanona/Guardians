@@ -2,6 +2,7 @@
 #include "SkyBox.h"
 #include "Shader.h"
 #include "protocol.h"
+#include "ClientNetEngine.h"
 
 CSkyBox::CSkyBox()
 {
@@ -117,8 +118,8 @@ void CSkyBox::Update(float fTimeElapsed)
 	//if (fDeceleration > fLength) fDeceleration = fLength;
 	//m_d3dxvVelocity += d3dxvDeceleration * fDeceleration;
 
-	D3DXVECTOR3 d3dxvPosition = m_d3dxvPosition;
-	m_d3dxvPosition = d3dxvPosition;
+	
+	m_d3dxvPosition = NETWORK_ENGINE->GetMyPlayer()->GetPosition();
 	RegenerateWorldMatrix();
 }
 

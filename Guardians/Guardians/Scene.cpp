@@ -45,7 +45,7 @@ void CScene::BuildObjects(ID3D11Device *pd3dDevice)
 
 void CScene::BuildBow(ID3D11Device *pd3dDevice)
 {
-	
+	((CBowShader*)m_ppShaders[2])->CreateArrow();
 }
 
 void CScene::BuildLights(ID3D11Device* pd3dDevice)

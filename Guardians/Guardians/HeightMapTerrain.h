@@ -6,7 +6,7 @@
 
 
 class CHeightMap;
-class CHeightMapTerrain
+class CHeightMapTerrain : public CGameObject
 {
 public:
 	CHeightMapTerrain(ID3D11Device *pd3dDevice, LPCTSTR pFileName, int nWidth, int nLength, int nBlockWidth, int nBlockLength, D3DXVECTOR3 d3dxvScale, D3DXCOLOR d3dxColor);

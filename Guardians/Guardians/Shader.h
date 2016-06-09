@@ -125,7 +125,7 @@ class CSceneShader : public CDiffusedShader
 public:
 	CSceneShader();
 	~CSceneShader();
-	
+
 	virtual void CreateShader(ID3D11Device* pd3dDevice);
 	virtual void CreateShaderVariables(ID3D11Device* pd3dDevice);
 	virtual void UpdateShaderVariables(ID3D11DeviceContext* pd3dDeviceContext, D3DXMATRIX* pd3dxmtxWorld);
@@ -133,11 +133,9 @@ public:
 	virtual void ReleaseObjects();
 	virtual void AnimateObjects(float fTimeElapsed);
 	virtual void Render(ID3D11DeviceContext* pd3dDeviceContext, CCamera* pCamera = NULL);
-	
-	//CGameObject** m_ppObjects;
-	//int m_nObjects;
-	
-	//ID3D11Buffer* m_pd3dcbWorldMatrix;
+
+	virtual void UpdateShaderVariables(ID3D11DeviceContext* pd3dDeviceContext, MATERIAL* pMaterial = NULL);
+	virtual void UpdateShaderVariables(ID3D11DeviceContext* pd3dDeviceContext, vector<D3DXMATRIX>& boneTransforms);
 };
 
 // 플레이어를 그리기 위한 쉐이더 클래스 CPlayerShader
@@ -218,6 +216,15 @@ public:
 	virtual void BuildObjects(ID3D11Device* pd3dDevice);
 
 	virtual void Render(ID3D11DeviceContext* pd3dDeviceContext, CCamera* pCmaera = NULL);
+
+public:
+	void CreateArrow();
+
+private:
+	CTexture*	m_pTexture;
+	CMaterial*	m_pMaterial;
+	SkinnedModel*	m_skinnedModel;
+	CSBXTestMesh*	m_pTestMesh;
 };
 
 
