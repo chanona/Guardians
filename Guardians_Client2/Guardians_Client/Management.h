@@ -29,6 +29,7 @@ private:
 	~CManagement(void);
 public:
 	Engine::CComponent* Get_Component(const TCHAR* pComponentTag, const TCHAR* pLayerTag, const TCHAR* pObjectTag, const _uint& iCnt = 0);
+	list<Engine::CGameObject*>* Find_ObjectList(const TCHAR* pLayerTag, const TCHAR* pObjectTag);
 public:
 	void Add_RenderGroup(Engine::CRenderer::RENDERTYPE eType, Engine::CGameObject* pGameObject, _float fViewZ){
 		if(NULL != m_pRenderer) m_pRenderer->Add_RenderGroup(eType, pGameObject, fViewZ);}

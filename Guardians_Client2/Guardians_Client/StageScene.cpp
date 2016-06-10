@@ -143,10 +143,10 @@ HRESULT CStageScene::Ready_GameLogic(void)
 
 
 	// For.Sword-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	pGameObject = CSword::Create(m_pGraphicDev);
+	/*pGameObject = CSword::Create(m_pGraphicDev);
 	if(NULL == pGameObject)
 		return E_FAIL;
-	pLayer->Ready_Object(L"Sword", pGameObject);
+	pLayer->Ready_Object(L"Sword", pGameObject);*/
 
 	// For.TombStone-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	for (_int i = 0; i < 20; ++i)

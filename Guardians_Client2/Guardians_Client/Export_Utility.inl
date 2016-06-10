@@ -4,6 +4,10 @@ inline Engine::CComponent* Engine::Get_Component(const TCHAR* pComponentTag, con
 {
 	return Engine::CManagement::GetInstance()->Get_Component(pComponentTag, pLayerTag, pObjectTag, iCnt);
 }
+inline list<Engine::CGameObject*>* Find_ObjectList(const TCHAR* pLayerTag, const TCHAR* pObjectTag)
+{
+	return Engine::CManagement::GetInstance()->Find_ObjectList(pLayerTag, pObjectTag);
+}
 inline LPD3DXEFFECT Engine::Get_EffectHandle(const TCHAR* pShaderTag)
 {
 	return Engine::CShaderMgr::GetInstance()->Get_EffectHandle(pShaderTag);

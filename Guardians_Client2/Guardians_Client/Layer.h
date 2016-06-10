@@ -27,6 +27,8 @@ private:
 	virtual ~CLayer(void);
 public:
 	Engine::CComponent* Get_Component(const TCHAR* pComponentTag, const TCHAR* pObjectTag, const _uint& iCnt);
+	
+
 public:
 	HRESULT Ready_Object(const TCHAR* pObjectTag, CGameObject* pGameObject);
 public:
@@ -41,7 +43,7 @@ private:
 	typedef list<CGameObject*>				OBJECTLIST;
 	typedef map<const TCHAR*, OBJECTLIST>	MAPOBJLIST;
 	MAPOBJLIST								m_mapObjlist;
-private:	
+public:	
 	list<CGameObject*>* Find_ObjectList(const TCHAR* pObjectTag);
 
 public:

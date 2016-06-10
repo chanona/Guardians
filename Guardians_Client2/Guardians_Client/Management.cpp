@@ -26,6 +26,14 @@ Engine::CComponent* Engine::CManagement::Get_Component(const TCHAR* pComponentTa
 	return m_pScene->Get_Component(pComponentTag, pLayerTag, pObjectTag, iCnt);
 }
 
+list<Engine::CGameObject*>* Engine::CManagement::Find_ObjectList(const TCHAR * pLayerTag, const TCHAR * pObjectTag)
+{
+	if (NULL == m_pScene)
+		return NULL;
+
+	return m_pScene->Find_ObjectList(pLayerTag, pObjectTag);
+}
+
 HRESULT Engine::CManagement::Ready_Management(LPDIRECT3DDEVICE9 pDevice)
 {
 	m_pGraphicDev = pDevice;

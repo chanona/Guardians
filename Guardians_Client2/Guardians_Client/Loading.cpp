@@ -57,7 +57,7 @@ void CLoading::StageLoading(void)
 		return;
 	}
 
-	if(FAILED(Engine::Ready_Mesh(m_pGraphicDev, RESOURCE_STAGE, Engine::CMesh::TYPE_DYNAMIC, L"Mesh_Player", L"../Resource/Meshes/DynamicMesh/PlayerXFile/", L"Player.X")))
+	if(FAILED(Engine::Ready_Mesh(m_pGraphicDev, RESOURCE_STAGE, Engine::CMesh::TYPE_DYNAMIC, L"Mesh_Player", L"../Resource/Meshes/DynamicMesh/PlayerXFile/", L"Player2.X")))
 	{
 		MSG_BOX("Ready_Mesh Ready Failed");
 		return;
@@ -115,9 +115,6 @@ void CLoading::StageLoading(void)
 		MSG_BOX("Texture_Effect Ready Failed");
 		return;
 	}
-
-	
-
 
 	lstrcpy(m_szLoadMessage, L"로딩 완료...");
 	m_bComplete = true;

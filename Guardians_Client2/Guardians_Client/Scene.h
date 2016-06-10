@@ -25,6 +25,7 @@ protected:
 	virtual ~CScene(void);
 public:
 	Engine::CComponent* Get_Component(const TCHAR* pComponentTag, const TCHAR* pLayerTag, const TCHAR* pObjectTag, const _uint& iCnt);
+	list<Engine::CGameObject*>* Find_ObjectList(const TCHAR* pLayerTag, const TCHAR* pObjectTag);
 public:
 	virtual HRESULT Init_Scene(void) PURE;
 	virtual _int Update(const _float& fTimeDelta);

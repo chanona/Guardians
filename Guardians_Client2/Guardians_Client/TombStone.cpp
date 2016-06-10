@@ -76,13 +76,13 @@ _int CTombStone::Update(const _float& fTimeDelta)
 		, vSourMin, vSourMax, mSourWorld);
 
 
-	Engine::CMesh* pSwordMeshCom = (Engine::CMesh*)Engine::Get_Component(L"Com_Mesh", L"GameLogic", L"Sword");	
-	pSwordMeshCom->Get_MinMax(&vSourMin, &vSourMax);
+	//Engine::CMesh* pSwordMeshCom = (Engine::CMesh*)Engine::Get_Component(L"Com_Mesh", L"GameLogic", L"Sword");	
+	//pSwordMeshCom->Get_MinMax(&vSourMin, &vSourMax);
 
-	Engine::CTransform*		pSwordTransCom = (Engine::CTransform*)Engine::Get_Component(L"Com_Transform", L"GameLogic", L"Sword");
+	//Engine::CTransform*		pSwordTransCom = (Engine::CTransform*)Engine::Get_Component(L"Com_Transform", L"GameLogic", L"Sword");
 
-	m_bColl = Engine::Collision_OBB(vDestMin, vDestMax, m_pTransCom->m_matWorld
-		, vSourMin, vSourMax, pSwordTransCom->m_matWorld);
+	//m_bColl = Engine::Collision_OBB(vDestMin, vDestMax, m_pTransCom->m_matWorld
+	//	, vSourMin, vSourMax, pSwordTransCom->m_matWorld);
 
 	return 0;
 }

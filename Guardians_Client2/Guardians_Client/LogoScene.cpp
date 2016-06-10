@@ -51,7 +51,7 @@ _int CLogoScene::Update(const _float& fTimeDelta)
 
 	if(true == m_pLoading->GetComplete())
 	{
-		if(GetAsyncKeyState(VK_SPACE) & 0x8000)		
+		if(GetAsyncKeyState(VK_RETURN) & 0x8000)		
 		{
 			if(FAILED(Engine::Change_Scene(CSceneSelector(CSceneSelector::SCENE_STAGE))))
 			{

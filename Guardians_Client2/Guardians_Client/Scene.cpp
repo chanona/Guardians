@@ -25,6 +25,16 @@ Engine::CComponent* Engine::CScene::Get_Component(const TCHAR* pComponentTag, co
 	return pLayer->Get_Component(pComponentTag, pObjectTag, iCnt);	
 }
 
+list<Engine::CGameObject*>* CScene::Find_ObjectList(const TCHAR * pLayerTag, const TCHAR * pObjectTag)
+{
+	CLayer*	pLayer = Find_Layer(pLayerTag);
+
+	if (NULL == pLayer)
+		return NULL;
+
+	return pLayer->Find_ObjectList(pObjectTag);
+}
+
 _int Engine::CScene::Update(const _float& fTimeDelta)
 {
 	MAPLAYER::iterator	iter = m_mapLayer.begin();

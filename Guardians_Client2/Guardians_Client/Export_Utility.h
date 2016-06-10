@@ -27,6 +27,7 @@ BEGIN(Engine)
 
 //For.Getter------------------------------------------------------------------------------------------------------------
 inline Engine::CComponent* Get_Component(const TCHAR* pComponentTag, const TCHAR* pLayerTag, const TCHAR* pObjectTag, const _uint& iCnt = 0);
+inline list<Engine::CGameObject*>* Find_ObjectList(const TCHAR* pLayerTag, const TCHAR* pObjectTag);
 inline LPD3DXEFFECT Get_EffectHandle(const TCHAR* pShaderTag);
 inline const D3DLIGHT9* Get_LightInfo(const _ulong& dwLightIdx);
 

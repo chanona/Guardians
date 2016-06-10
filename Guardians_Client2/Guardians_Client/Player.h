@@ -23,7 +23,7 @@ public:
 	virtual void Render(void);
 
 	void Move(const _float& fTimeDelta);
-
+	void SetPush(int iIndex);
 public:
 	static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 private:	

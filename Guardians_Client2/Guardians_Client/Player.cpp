@@ -7,7 +7,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 , m_pEffect(NULL)
 , m_fTimeDelta(0.f)
 , m_bPush(false)
-, m_iAniIdx(55)
+, m_iAniIdx(0)
 , m_pMouseCol(nullptr)
 , m_bMove(false)
 {
@@ -70,7 +70,7 @@ _int CPlayer::Update(const _float& fTimeDelta)
 		Move(fTimeDelta);
 
 	if(true == m_pMeshCom->Check_EndPeriod())
-		m_pMeshCom->Set_AnimationSet(55);
+		m_pMeshCom->Set_AnimationSet(0);
 
 	Engine::Add_RenderGroup(Engine::CRenderer::RENDER_ZSORT, this);
 
@@ -118,6 +118,19 @@ void CPlayer::Move(const _float& fTimeDelta)
 		m_bMove = false;
 }
 
+void CPlayer::SetPush(int iIndex)
+{
+	if (true == m_bPush)
+		return;
+
+	m_bPush = true;
+
+	m_pMeshCom->Set_AnimationSet(iIndex);
+
+	if (m_iAniIdx > 2)
+		m_iAniIdx = 0;
+}
+
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
 	CPlayer*		pGameObject = new CPlayer(pGraphicDev);
@@ -152,50 +165,61 @@ void CPlayer::Set_ContantTable(void)
 
 void CPlayer::Check_KeyState(const _float& fTimeDelta)
 {
-	if (Engine::GetDIKeyState(DIK_UP) & 0x80)
+	if (Engine::GetDIKeyState(DIK_W) & 0x80)
 	{
 		_vec3			vDirection(0.f, 0.f, 0.f);
 
 		memcpy(&vDirection, &m_pTransCom->m_matWorld.m[2][0], sizeof(_vec3));
 		D3DXVec3Normalize(&vDirection, &vDirection);
 		m_pTransCom->m_vPosition += vDirection * -1.f * 3.0f * fTimeDelta;
-	}
 
-	if (Engine::GetDIKeyState(DIK_DOWN) & 0x80)
+		SetPush(1);
+	}
+	else m_bPush = false;
+
+	if (Engine::GetDIKeyState(DIK_S) & 0x80)
 	{
+		_vec3			vDirection(0.f, 0.f, 0.f);
+
+		memcpy(&vDirection, &m_pTransCom->m_matWorld.m[2][0], sizeof(_vec3));
+		D3DXVec3Normalize(&vDirection, &vDirection);
+		m_pTransCom->m_vPosition -= vDirection * -1.f * 3.0f * fTimeDelta;
+
+		SetPush(1);
 	}
 
-	if (Engine::GetDIKeyState(DIK_LEFT) & 0x80)
+	if (Engine::GetDIKeyState(DIK_A) & 0x80)
 	{
 		m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y] -= D3DXToRadian(90.0f) * fTimeDelta;
 	}
 
-	if (Engine::GetDIKeyState(DIK_RIGHT) & 0x80)
+	if (Engine::GetDIKeyState(DIK_D) & 0x80)
 	{
 		m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y] += D3DXToRadian(90.0f) * fTimeDelta;
 	}
 
 	if(Engine::GetDIKeyState(DIK_SPACE) & 0x80)
-	{
-		if(true == m_bPush)
-			return;
-
-		m_bPush = true;
-
-		m_pMeshCom->Set_AnimationSet(28);
-
-		if(m_iAniIdx > 57)
-			m_iAniIdx = 0;
-	}
-	else
-	{	
-		m_bPush = false;
-	}
+		SetPush(2);
+	else m_bPush = false;
 
 	if (Engine::GetDIMouseState(Engine::CInput::DIM_LBUTTON))
 	{
 		m_bMove = true;
 		m_pMouseCol->PickTerrain(&m_vDestPos, m_pVertex);
+		list<Engine::CGameObject*>* pTest = Engine::Find_ObjectList(L"GameLogic", L"TombStone");
+		auto iter = pTest->begin();
+		auto iter_end = pTest->end();
+
+		for (; iter != iter_end; ++iter)
+		{
+			Engine::CComponent* pTransCom = (*iter)->Get_Component(L"Com_Transform");
+			D3DXVECTOR3 vPos = ((Engine::CTransform*)pTransCom)->m_vPosition;
+			D3DXVECTOR3 vDir = m_vDestPos - vPos;
+			if (D3DXVec3Length(&vDir) < 1.f)
+			{
+				int i = 0;
+			}
+		}
 	}
 }
 
