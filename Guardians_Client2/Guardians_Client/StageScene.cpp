@@ -1,9 +1,8 @@
 #include "stdafx.h"
 #include "StageScene.h"
 #include "Terrain.h"
-#include "TombStone.h"
 #include "Player.h"
-#include "Sword.h"
+#include "Monster.h"
 #include "SkyBox.h"
 #include "MouseCol.h"
 #include "StaticCamera.h"
@@ -141,6 +140,13 @@ HRESULT CStageScene::Ready_GameLogic(void)
 	
 	pLayer->Ready_Object(L"Player", pGameObject);
 
+	// For.Monster-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	pGameObject = CMonster::Create(m_pGraphicDev);
+	if (NULL == pGameObject)
+		return E_FAIL;
+
+	pLayer->Ready_Object(L"Monster", pGameObject);
+
 
 	// For.Sword-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	/*pGameObject = CSword::Create(m_pGraphicDev);
@@ -149,21 +155,21 @@ HRESULT CStageScene::Ready_GameLogic(void)
 	pLayer->Ready_Object(L"Sword", pGameObject);*/
 
 	// For.TombStone-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	for (_int i = 0; i < 20; ++i)
+	/*for (_int i = 0; i < 20; ++i)
 	{
 		pGameObject = CTombStone::Create(m_pGraphicDev);
 		if(NULL == pGameObject)
 			return E_FAIL;
 		pLayer->Ready_Object(L"TombStone", pGameObject);
-	}
+	}*/
 		
-	for (_int i = 0; i < 20; ++i)
+	/*for (_int i = 0; i < 20; ++i)
 	{
 		pGameObject = CEffect::Create(m_pGraphicDev);
 		if(NULL == pGameObject)
 			return E_FAIL;
 		pLayer->Ready_Object(L"Effect", pGameObject);
-	}
+	}*/
 
 	m_mapLayer.insert(MAPLAYER::value_type(L"GameLogic", pLayer));
 

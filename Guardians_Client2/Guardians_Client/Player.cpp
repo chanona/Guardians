@@ -1,15 +1,17 @@
 #include "stdafx.h"
 #include "Player.h"
 #include "Export_Function.h"
+#include "Arrow.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 : CLandObject(pGraphicDev)
 , m_pEffect(NULL)
 , m_fTimeDelta(0.f)
 , m_bPush(false)
-, m_iAniIdx(0)
+, m_iAniIdx(PLAYER_STAND)
 , m_pMouseCol(nullptr)
 , m_bMove(false)
+, m_pMonster(NULL)
 {
 
 }
@@ -67,10 +69,27 @@ _int CPlayer::Update(const _float& fTimeDelta)
 	Check_KeyState(fTimeDelta);
 
 	if (m_bMove)
-		Move(fTimeDelta);
+	{
+		if(m_pMonster)
+			MoveToMonster(fTimeDelta);
+		else
+			Move(fTimeDelta);
+	}
+		
+	if ((m_pMeshCom->Check_EndPeriod()) && !m_bMove)
+	{
+		if (m_pMeshCom->Get_AnimationSet() == PLAYER_ATTACK)
+		{
+			//화살 생성
+			CGameObject* pArrow = CArrow::Create(m_pGraphicDev);
+			((CArrow*)pArrow)->Set_Position(m_pTransCom->m_vPosition);
+			((CArrow*)pArrow)->Set_Monster(m_pMonster);
+			Engine::Add_Object(L"GameLogic", L"Arrow", pArrow);
+		}
 
-	if(true == m_pMeshCom->Check_EndPeriod())
-		m_pMeshCom->Set_AnimationSet(0);
+		else
+			m_pMeshCom->Set_AnimationSet(PLAYER_STAND);
+	}	
 
 	Engine::Add_RenderGroup(Engine::CRenderer::RENDER_ZSORT, this);
 
@@ -105,6 +124,26 @@ void CPlayer::Render(void)
 	m_pMeshCom->Render_MeshForShader(m_pEffect, true);
 }
 
+void CPlayer::MoveToMonster(const _float& fTimeDelta)
+{
+	Engine::CComponent* pTransCom = m_pMonster->Get_Component(L"Com_Transform");
+
+	D3DXVECTOR3 vPos = ((Engine::CTransform*)pTransCom)->m_vPosition;
+
+	D3DXVECTOR3		vDir = vPos - m_pTransCom->m_vPosition;
+
+	float		fDistance = D3DXVec3Length(&vDir);
+	D3DXVec3Normalize(&vDir, &vDir);
+
+	m_pTransCom->m_vPosition += vDir * 3.f * fTimeDelta;
+
+	if (fDistance < 10.f)
+	{
+		m_pMeshCom->Set_AnimationSet(PLAYER_ATTACK);
+		m_bMove = false;
+	}
+}
+
 void CPlayer::Move(const _float& fTimeDelta)
 {
 	D3DXVECTOR3		vDir = m_vDestPos - m_pTransCom->m_vPosition;
@@ -115,20 +154,23 @@ void CPlayer::Move(const _float& fTimeDelta)
 	m_pTransCom->m_vPosition += vDir * 3.f * fTimeDelta;
 
 	if (fDistance < 1.f)
+	{
+		m_pMeshCom->Set_AnimationSet(0);
 		m_bMove = false;
+	}	
 }
 
 void CPlayer::SetPush(int iIndex)
 {
-	if (true == m_bPush)
+	/*if (true == m_bPush)
 		return;
 
 	m_bPush = true;
 
 	m_pMeshCom->Set_AnimationSet(iIndex);
 
-	if (m_iAniIdx > 2)
-		m_iAniIdx = 0;
+	if (m_iAniIdx > PLAYER_END)
+		m_iAniIdx = PLAYER_STAND;*/
 }
 
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -165,6 +207,8 @@ void CPlayer::Set_ContantTable(void)
 
 void CPlayer::Check_KeyState(const _float& fTimeDelta)
 {
+	bool bInput = false;
+
 	if (Engine::GetDIKeyState(DIK_W) & 0x80)
 	{
 		_vec3			vDirection(0.f, 0.f, 0.f);
@@ -173,9 +217,12 @@ void CPlayer::Check_KeyState(const _float& fTimeDelta)
 		D3DXVec3Normalize(&vDirection, &vDirection);
 		m_pTransCom->m_vPosition += vDirection * -1.f * 3.0f * fTimeDelta;
 
-		SetPush(1);
+		m_pMeshCom->Set_AnimationSet(PLAYER_WALK);
+		//SetPush(PLAYER_WALK);
+		m_bMove = false;
+		bInput = true;
+		m_pMonster = NULL;
 	}
-	else m_bPush = false;
 
 	if (Engine::GetDIKeyState(DIK_S) & 0x80)
 	{
@@ -185,30 +232,41 @@ void CPlayer::Check_KeyState(const _float& fTimeDelta)
 		D3DXVec3Normalize(&vDirection, &vDirection);
 		m_pTransCom->m_vPosition -= vDirection * -1.f * 3.0f * fTimeDelta;
 
-		SetPush(1);
+		m_pMeshCom->Set_AnimationSet(PLAYER_WALK);
+		m_bMove = false;
+		bInput = true;
+		m_pMonster = NULL;
+	}
+
+	if (!bInput && !m_bMove && !m_pMonster)
+	{
+		m_pMeshCom->Set_AnimationSet(PLAYER_STAND);
 	}
 
 	if (Engine::GetDIKeyState(DIK_A) & 0x80)
 	{
-		m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y] -= D3DXToRadian(90.0f) * fTimeDelta;
+		m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y] -= D3DXToRadian(90.0f) * fTimeDelta * 0.5f;
 	}
 
 	if (Engine::GetDIKeyState(DIK_D) & 0x80)
 	{
-		m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y] += D3DXToRadian(90.0f) * fTimeDelta;
+		m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y] += D3DXToRadian(90.0f) * fTimeDelta * 0.5f;
 	}
 
-	if(Engine::GetDIKeyState(DIK_SPACE) & 0x80)
-		SetPush(2);
-	else m_bPush = false;
+	/*if(Engine::GetDIKeyState(DIK_SPACE) & 0x80)
+		SetPush(PLAYER_ATTACK);
+	else m_bPush = false;*/
 
 	if (Engine::GetDIMouseState(Engine::CInput::DIM_LBUTTON))
 	{
+		m_pMonster = NULL;
 		m_bMove = true;
 		m_pMouseCol->PickTerrain(&m_vDestPos, m_pVertex);
-		list<Engine::CGameObject*>* pTest = Engine::Find_ObjectList(L"GameLogic", L"TombStone");
+		list<Engine::CGameObject*>* pTest = Engine::Find_ObjectList(L"GameLogic", L"Monster");
 		auto iter = pTest->begin();
 		auto iter_end = pTest->end();
+
+		m_pMeshCom->Set_AnimationSet(PLAYER_WALK);
 
 		for (; iter != iter_end; ++iter)
 		{
@@ -217,10 +275,12 @@ void CPlayer::Check_KeyState(const _float& fTimeDelta)
 			D3DXVECTOR3 vDir = m_vDestPos - vPos;
 			if (D3DXVec3Length(&vDir) < 1.f)
 			{
-				int i = 0;
+				// 몬스터 Lock
+				m_pMonster = (*iter);
 			}
 		}
 	}
+	//else m_bPush = false;
 }
 
 void CPlayer::Set_MouseCol(CMouseCol* pMouse)

@@ -33,6 +33,7 @@ inline const D3DLIGHT9* Get_LightInfo(const _ulong& dwLightIdx);
 
 //For.Setter------------------------------------------------------------------------------------------------------------
 inline void Add_RenderGroup(Engine::CRenderer::RENDERTYPE eType, Engine::CGameObject* pGameObject, _float fViewZ = 0.f);
+inline void Add_Object(const TCHAR* pLayerTag, const TCHAR* pObjectTag, Engine::CGameObject* pGameObject);
 
 //For.Generic------------------------------------------------------------------------------------------------------------
 inline HRESULT Ready_ShaderFromFiles(LPDIRECT3DDEVICE9 pGraphicDev, const TCHAR* pShaderTag, const TCHAR* pFilePath);

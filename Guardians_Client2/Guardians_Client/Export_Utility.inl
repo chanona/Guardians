@@ -23,6 +23,11 @@ inline void Add_RenderGroup(Engine::CRenderer::RENDERTYPE eType, Engine::CGameOb
 {
 	Engine::CManagement::GetInstance()->Add_RenderGroup(eType, pGameObject, fViewZ);
 }
+
+inline void Add_Object(const TCHAR* pLayerTag, const TCHAR* pObjectTag, Engine::CGameObject* pGameObject)
+{
+	Engine::CManagement::GetInstance()->Add_Object(pLayerTag, pObjectTag, pGameObject);
+}
 //For.Generic------------------------------------------------------------------------------------------------------------
 inline HRESULT Engine::Ready_ShaderFromFiles(LPDIRECT3DDEVICE9 pGraphicDev, const TCHAR* pShaderTag, const TCHAR* pFilePath)
 {

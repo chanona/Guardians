@@ -28,7 +28,8 @@ private:
 	explicit CDynamicMesh(const CDynamicMesh& Instance);
 	virtual ~CDynamicMesh(void);
 public:
-	void Set_AnimationSet(const _uint& iAniIdx);	
+	void Set_AnimationSet(const _uint& iAniIdx);
+	const _uint& Get_AnimationSet(void);
 	void Move_Frame(const _float& fTimeDelta);
 	_bool Check_EndPeriod(void);
 	const _matrix* Get_FrameMatrix(const char* pFrameName);

@@ -23,6 +23,7 @@ public:
 	virtual void Render(void);
 
 	void Move(const _float& fTimeDelta);
+	void MoveToMonster(const _float& fTimeDelta);
 	void SetPush(int iIndex);
 public:
 	static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -36,6 +37,7 @@ private:
 	_uint						m_iAniIdx;
 
 	CMouseCol*					m_pMouseCol;
+	Engine::CGameObject*		m_pMonster;
 
 	bool			m_bMove;
 	D3DXVECTOR3		m_vDestPos;

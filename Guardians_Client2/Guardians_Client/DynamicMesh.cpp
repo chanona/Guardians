@@ -35,6 +35,12 @@ void Engine::CDynamicMesh::Set_AnimationSet(const _uint& iAniIdx)
 	m_pAniCtrl->Set_AnimationSet(iAniIdx);
 }
 
+const _uint & CDynamicMesh::Get_AnimationSet(void)
+{
+	// TODO: 여기에 반환 구문을 삽입합니다.
+	return m_pAniCtrl->Get_AnimationSet();
+}
+
 void Engine::CDynamicMesh::Move_Frame(const _float& fTimeDelta)
 {
 	if(NULL == m_pAniCtrl)

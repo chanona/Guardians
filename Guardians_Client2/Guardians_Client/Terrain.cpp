@@ -103,6 +103,11 @@ HRESULT CTerrain::Add_Component(void)
 		return E_FAIL;
 	m_mapComponent.insert(MAPCOMPONENT::value_type(L"Com_TileTexture", pComponent));
 
+	pComponent = m_pTileNormalCom = (Engine::CTexture*)Engine::Clone_Resource(RESOURCE_STAGE, L"Texture_TileNormal");
+	if (NULL == pComponent)
+		return E_FAIL;
+	m_mapComponent.insert(MAPCOMPONENT::value_type(L"Com_TileNormal", pComponent));
+
 
 	pComponent = m_pColorHeightTextureCom = (Engine::CTexture*)Engine::Clone_Resource(RESOURCE_STAGE, L"Texture_ColorHeight");
 	if(NULL == pComponent)
@@ -143,6 +148,7 @@ void CTerrain::Render(void)
 	m_pEffect->SetTexture("g_BaseTexture", NULL);
 	m_pEffect->SetTexture("g_TileTexture", NULL);
 	m_pEffect->SetTexture("g_ColorHeightTexture", NULL);
+	m_pEffect->SetTexture("g_NormalTexture", NULL);
 }
 
 CTerrain* CTerrain::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -184,7 +190,8 @@ void CTerrain::Set_ContantTable(void)
 
 	m_pFloorTextureCom->Set_ConstantTable(m_pEffect, "g_FloorTexture");
 	m_pTileTextureCom->Set_ConstantTable(m_pEffect, "g_TileTexture");
-	//m_pColorHeightTextureCom->Set_ConstantTable(m_pEffect, "g_ColorHeightTexture");
+	m_pTileNormalCom->Set_ConstantTable(m_pEffect, "g_NormalTexture");
+	m_pColorHeightTextureCom->Set_ConstantTable(m_pEffect, "g_ColorHeightTexture");
 	m_pEffect->SetTexture("g_ColorHeightTexture", m_pGaraTexture);
 
 	m_pEffect->SetVector("g_vTargetPos", &_vec4(10.0f, 0.0f, 10.0f, 1.0f));

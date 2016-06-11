@@ -51,7 +51,7 @@ void CLoading::StageLoading(void)
 	}
 
 	lstrcpy(m_szLoadMessage, L"메쉬 로딩중...");
-	if(FAILED(Engine::Ready_Mesh(m_pGraphicDev, RESOURCE_STAGE, Engine::CMesh::TYPE_STATIC, L"Mesh_Stone", L"../Resource/Meshes/StaticMesh/TombStone/", L"TombStone.x")))
+	if(FAILED(Engine::Ready_Mesh(m_pGraphicDev, RESOURCE_STAGE, Engine::CMesh::TYPE_STATIC, L"Mesh_Arrow", L"../Resource/Meshes/StaticMesh/Arrow/", L"Bow.X")))
 	{
 		MSG_BOX("Ready_Mesh Ready Failed");
 		return;
@@ -63,11 +63,17 @@ void CLoading::StageLoading(void)
 		return;
 	}
 
-	if(FAILED(Engine::Ready_Mesh(m_pGraphicDev, RESOURCE_STAGE, Engine::CMesh::TYPE_STATIC, L"Mesh_Sword", L"../Resource/Meshes/DynamicMesh/Sword/", L"Sword.x")))
+	if (FAILED(Engine::Ready_Mesh(m_pGraphicDev, RESOURCE_STAGE, Engine::CMesh::TYPE_DYNAMIC, L"Mesh_Monster", L"../Resource/Meshes/DynamicMesh/PlayerXFile/", L"Player2.X")))
 	{
 		MSG_BOX("Ready_Mesh Ready Failed");
 		return;
 	}
+
+	/*if(FAILED(Engine::Ready_Mesh(m_pGraphicDev, RESOURCE_STAGE, Engine::CMesh::TYPE_STATIC, L"Mesh_Sword", L"../Resource/Meshes/DynamicMesh/Sword/", L"Sword.x")))
+	{
+		MSG_BOX("Ready_Mesh Ready Failed");
+		return;
+	}*/
 
 
 
@@ -75,7 +81,7 @@ void CLoading::StageLoading(void)
 	lstrcpy(m_szLoadMessage, L"텍스쳐 로딩중...");
 
 	if(FAILED(Engine::Ready_Texture(m_pGraphicDev, RESOURCE_STAGE, L"Texture_Terrain", Engine::CTexture::TYPE_NORMAL
-		, L"../Resource/Texture/StageScene/Terrain/Grass_%d.tga", 2)))
+		, L"../Resource/Texture/StageScene/Terrain/grass_%d.dds", 1)))
 	{
 		MSG_BOX("Texture_Terrain Ready Failed");
 		return;
@@ -87,6 +93,13 @@ void CLoading::StageLoading(void)
 		MSG_BOX("Texture_Tile Ready Failed");
 		return;
 	}	
+
+	if (FAILED(Engine::Ready_Texture(m_pGraphicDev, RESOURCE_STAGE, L"Texture_TileNormal", Engine::CTexture::TYPE_NORMAL
+		, L"../Resource/Texture/StageScene/Terrain/TileNomal_%d.jpg", 1)))
+	{
+		MSG_BOX("Texture_TileNormal Ready Failed");
+		return;
+	}
 
 	if(FAILED(Engine::Ready_Texture(m_pGraphicDev, RESOURCE_STAGE, L"Texture_ColorHeight", Engine::CTexture::TYPE_NORMAL
 		, L"../Resource/Texture/StageScene/Terrain/ColorHeight%d.bmp", 1)))

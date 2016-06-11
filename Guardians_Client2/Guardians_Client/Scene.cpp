@@ -35,6 +35,16 @@ list<Engine::CGameObject*>* CScene::Find_ObjectList(const TCHAR * pLayerTag, con
 	return pLayer->Find_ObjectList(pObjectTag);
 }
 
+void CScene::Add_Object(const TCHAR * pLayerTag, const TCHAR * pObjectTag, CGameObject * pGameObject)
+{
+	CLayer*	pLayer = Find_Layer(pLayerTag);
+
+	if (NULL == pLayer)
+		return;
+
+	pLayer->Ready_Object(pObjectTag, pGameObject);
+}
+
 _int Engine::CScene::Update(const _float& fTimeDelta)
 {
 	MAPLAYER::iterator	iter = m_mapLayer.begin();

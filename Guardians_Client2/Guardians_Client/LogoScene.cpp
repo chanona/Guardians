@@ -80,7 +80,7 @@ HRESULT CLogoScene::Ready_Lighting(void)
 	LightInfo.Diffuse = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
 	LightInfo.Specular = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
 	LightInfo.Ambient = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
-	LightInfo.Direction = _vec3(0.f, 0.f, 1.f);
+	LightInfo.Direction = _vec3(0.f, 0.f, 0.f);
 
 	if(FAILED(Engine::Ready_Light(m_pGraphicDev, &LightInfo, 0)))
 		return E_FAIL;	

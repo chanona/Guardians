@@ -223,8 +223,6 @@ void Engine::CStaticMesh::Render_MeshForShader(LPD3DXEFFECT pEffect, _bool bColl
 		m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 	}
 #endif
-
-
 }
 
 Engine::CStaticMesh* Engine::CStaticMesh::Create(LPDIRECT3DDEVICE9 pDevice , const TCHAR* pPath, const TCHAR* pFileName)

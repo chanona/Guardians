@@ -31,6 +31,7 @@ private:
 	Engine::CTexture*			m_pTextureCom;
 	Engine::CTexture*			m_pFloorTextureCom;
 	Engine::CTexture*			m_pTileTextureCom;
+	Engine::CTexture*			m_pTileNormalCom;
 	Engine::CTexture*			m_pColorHeightTextureCom;
 private:
 	LPD3DXEFFECT				m_pEffect;

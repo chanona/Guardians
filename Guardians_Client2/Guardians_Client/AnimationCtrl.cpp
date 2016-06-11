@@ -112,8 +112,13 @@ _bool CAnimationCtrl::Check_EndPeriod(void)
 
 	m_pAniCtrl->GetTrackDesc(m_dwCurrentTrack, &TrackInfo);
 
-	if(m_Period - 0.2 < TrackInfo.Position)
+	if (m_Period < TrackInfo.Position)
+	{
+		m_pAniCtrl->ResetTime();
+		m_fAccTime = 0.f;
 		return true;
+	}
+
 	return false;
 }
 
