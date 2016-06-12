@@ -71,15 +71,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -144,6 +152,7 @@
     <ClInclude Include="AnimationCtrl.h" />
     <ClInclude Include="Base.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="ClientNetEngine.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Contant.h" />
@@ -185,16 +194,24 @@
     <ClInclude Include="MainApp.h" />
     <ClInclude Include="Management.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="Memory.h" />
+    <ClInclude Include="MemoryPool.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MouseCol.h" />
+    <ClInclude Include="ObjectManager.h" />
+    <ClInclude Include="PacketManager.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerManager.h" />
+    <ClInclude Include="protocol.h" />
     <ClInclude Include="RcTex.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceMgr.h" />
     <ClInclude Include="Resources.h" />
+    <ClInclude Include="RingBuffer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneSelector.h" />
+    <ClInclude Include="SendMemoryPool.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderMgr.h" />
     <ClInclude Include="Shader_Base.hpp" />
@@ -225,6 +242,7 @@
     <ClCompile Include="AnimationCtrl.cpp" />
     <ClCompile Include="Base.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="ClientNetEngine.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="CubeTex.cpp" />
@@ -252,12 +270,17 @@
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MouseCol.cpp" />
+    <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="PacketManager.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="RcTex.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceMgr.cpp" />
     <ClCompile Include="Resources.cpp" />
+    <ClCompile Include="RingBuffer.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SendMemoryPool.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderMgr.cpp" />
     <ClCompile Include="SkyBox.cpp" />

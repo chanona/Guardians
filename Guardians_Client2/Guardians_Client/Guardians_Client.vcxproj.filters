@@ -28,6 +28,18 @@
     <Filter Include="00.Client">
       <UniqueIdentifier>{59a83b6b-69e1-47c6-bd5f-d7226ad47ff6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.Server">
+      <UniqueIdentifier>{f94be954-ffa8-4649-97cf-abac346fbc6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Server\Utility">
+      <UniqueIdentifier>{358882b8-c94f-465c-97e6-5d0848f7b80d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Server\Manager">
+      <UniqueIdentifier>{4e156740-bc70-433a-8300-7c6e3e9301fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Server\Common">
+      <UniqueIdentifier>{b598bd83-01b7-4654-a88e-be8b37ea4976}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -270,6 +282,33 @@
     <ClInclude Include="StaticCamera.h">
       <Filter>00.Client</Filter>
     </ClInclude>
+    <ClInclude Include="ClientNetEngine.h">
+      <Filter>02.Server\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>02.Server\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerManager.h">
+      <Filter>02.Server\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryPool.h">
+      <Filter>02.Server\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Memory.h">
+      <Filter>02.Server\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="RingBuffer.h">
+      <Filter>02.Server\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="SendMemoryPool.h">
+      <Filter>02.Server\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketManager.h">
+      <Filter>02.Server\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol.h">
+      <Filter>02.Server\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -430,6 +469,24 @@
     </ClCompile>
     <ClCompile Include="StaticCamera.cpp">
       <Filter>00.Client</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientNetEngine.cpp">
+      <Filter>02.Server\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>02.Server\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketManager.cpp">
+      <Filter>02.Server\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerManager.cpp">
+      <Filter>02.Server\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="RingBuffer.cpp">
+      <Filter>02.Server\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="SendMemoryPool.cpp">
+      <Filter>02.Server\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

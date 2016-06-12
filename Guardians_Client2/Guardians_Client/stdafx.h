@@ -10,6 +10,7 @@
 #define WIN32_LEAN_AND_MEAN             // 거의 사용되지 않는 내용은 Windows 헤더에서 제외합니다.
 // Windows 헤더 파일:
 #include <windows.h>
+#include <WinSock2.h>
 
 // C 런타임 헤더 파일입니다.
 #include <stdlib.h>
@@ -23,11 +24,19 @@
 #include <d3d9.h>
 #include <vector>
 #include <list>
+#include <vector>
+#include <list>
 #include <map>
+#include <queue>
 #include <algorithm>
 #include <functional>
+#include <unordered_map>
+#include <unordered_set>
+using namespace std;
 
+#pragma comment(lib,"ws2_32.lib")
 #pragma comment(lib, "d3dx9.lib")
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "dxguid.lib")
 #pragma comment(lib, "dinput8.lib")
+#pragma comment(lib, "winmm.lib")
