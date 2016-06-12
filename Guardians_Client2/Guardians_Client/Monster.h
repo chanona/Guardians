@@ -14,10 +14,10 @@ namespace Engine
 
 class CMonster : public CLandObject
 {
-private:
+public:
 	explicit CMonster(LPDIRECT3DDEVICE9 pGraphicDev);
 	virtual ~CMonster(void);
-public:
+
 	virtual HRESULT	Initialize(void);
 	virtual HRESULT Add_Component(void);
 	virtual _int Update(const _float& fTimeDelta);

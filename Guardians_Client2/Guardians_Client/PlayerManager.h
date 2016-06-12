@@ -32,7 +32,7 @@ public:
 	CPlayer* FindPlayer(const UINT id);
 	UINT     FindIndexFromPlayerMappingTable(UINT id);
 private :
-	ID3D11Device *m_pDeivce;
+	//ID3D11Device *m_pDeivce;
 
 	PlayerMap m_playersMap;
 	PlayerMappingTable m_playerMappingTable;

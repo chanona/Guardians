@@ -13,10 +13,10 @@ namespace Engine
 
 class CPlayer	: public CLandObject
 {
-private:
+public:
 	explicit CPlayer(LPDIRECT3DDEVICE9 pGraphicDev);
 	virtual ~CPlayer(void);
-public:
+
 	virtual HRESULT	Initialize(void);
 	virtual HRESULT Add_Component(void);
 	virtual _int Update(const _float& fTimeDelta);

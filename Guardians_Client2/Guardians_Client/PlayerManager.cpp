@@ -4,7 +4,6 @@
 #include "Player.h"
 #include "protocol.h"
 #include "Memory.h"
-#include "GameFramework.h"
 #include "ClientNetEngine.h"
 
 CPlayerManager::CPlayerManager()
@@ -21,15 +20,15 @@ bool CPlayerManager::Start()
 {
 	for (int i = 0; i <= MAX_CLIENT; ++i)
 	{
-		CPlayer *player = new CPlayer();
+		//CPlayer *player = new CPlayer();
 
-		player->SetIndex(i);
+		//player->SetIndex(i);
 
-		InsertPlayerToMap(i, player);
+		//InsertPlayerToMap(i, player);
 
 		if (i == 0) continue;
 
-		InsertPlayerToPool(player);
+		//InsertPlayerToPool(player);
 	}
 	return true;
 }
@@ -69,10 +68,10 @@ CPlayer * CPlayerManager::AddPlayer(const UINT id)
 	CPlayer *new_player = m_playerPool.front();
 	m_playerPool.pop();
 
-	m_playerMappingTable.insert(make_pair(id, new_player->GetIndex()));
+	//m_playerMappingTable.insert(make_pair(id, new_player->GetIndex()));
 
-	new_player->SetID(id);
-	new_player->SetConnected(true);
+	//new_player->SetID(id);
+	//new_player->SetConnected(true);
 
 	return new_player;
 }
@@ -81,7 +80,7 @@ void CPlayerManager::DeletePlayer(const UINT id)
 {
 	int idx = FindIndexFromPlayerMappingTable(id);
 
-	m_playersMap[idx]->SetConnected(false);
+	//m_playersMap[idx]->SetConnected(false);
 
 	m_playerPool.push(m_playersMap[idx]);
 

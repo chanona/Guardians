@@ -5,7 +5,6 @@
 #include "PlayerManager.h"
 #include "Player.h"
 #include "ObjectManager.h"
-#include "HeightMap.h"
 
 CPacketManager::CPacketManager()
 {
@@ -167,9 +166,10 @@ void CPacketManager::ProcessPlayerPosition(const char * packet, const UINT id)
 	if (pkt->dz == 1)  newDir |= Direction::FORWARD;
 	if (pkt->dz == -1) newDir |= Direction::BACKWARD;
 
-	pPlayer->GetDeadReckoningQueue().push(D3DXVECTOR3(pkt->x, pkt->y, pkt->z));
-	pPlayer->SetDirection(newDir);
-	pPlayer->SetSpeed(pkt->speed);
+	//pPlayer->GetDeadReckoningQueue().push(D3DXVECTOR3(pkt->x, pkt->y, pkt->z));
+	//pPlayer->SetDirection(newDir);
+	//pPlayer->SetSpeed(pkt->speed);
+
 	//pPlayer->SetPosition(pkt->x, pkt->y, pkt->z);
 	//
 	//if (pkt->dx == 1) dir |= Direction::RIGHT;
@@ -197,11 +197,11 @@ void CPacketManager::ProcessPutPlayer(const char * packet, const UINT id)
 	pPlayer = PLAYER_MANAGER->AddPlayer(pkt->player_id);
 
 	// 자기 플레이어 제외하고 
-	pPlayer->SetPosition(D3DXVECTOR3(pkt->x, pkt->y, pkt->z));
+	//pPlayer->SetPosition(D3DXVECTOR3(pkt->x, pkt->y, pkt->z));
 	//pPlayer->SetHP(pkt->hp);
 	//wsprintf(name, L"Player%d", pkt->player_id);
 	//pPlayer->SetName(name);
-	pPlayer->SetConnected(true);
+//	pPlayer->SetConnected(true);
 
 	//cout << "ProcessOutPlayer : " << pkt->player_id << " 추가" << endl;
 }
@@ -215,16 +215,16 @@ void CPacketManager::ProcessLogin(const char * packet, const UINT id)
 	if (pkt->player_id <= 0) return;
 
 	CPlayer *pPlayer = PLAYER_MANAGER->AddPlayer(pkt->player_id);
-	pPlayer->Initalize();
+//	pPlayer->Initalize();
 
-	pPlayer->SetID(pkt->player_id);
+//	pPlayer->SetID(pkt->player_id);
 	NETWORK_ENGINE->SetMyPlayer(pPlayer);
 	NETWORK_ENGINE->SetMyID(pkt->player_id);
 	//pPlayer->SetID(pkt->player_id);  Node : AddPlayer 할때 안에서 SetID 해줌
 	//pPlayer->SetConnected(true);			  AddPlayer 할때 안에서 Connect Set 해줌
 	
 	// 지형의 y값
-	pPlayer->SetPosition(D3DXVECTOR3(pkt->x, pkt->y, pkt->z));
+//	pPlayer->SetPosition(D3DXVECTOR3(pkt->x, pkt->y, pkt->z));
 	pPlayer->Move(Direction::STOP);		// 임시로
 	//pPlayer->SetHP(pkt->hp);
 	//wsprintf(name,L"Player%d", pkt->player_id);
@@ -254,15 +254,15 @@ void CPacketManager::ProcessMonsterPosition(const char * packet, const UINT id)
 	CMonster *pMon = OBJECT_MANAGER->FindMonster(pkt->monster_id);
 	
 	// 클라의 몬스터 pos는 서버의 패킷 pos보다 한발 느린것을 이용한다.
-	D3DXVECTOR3 vDir = D3DXVECTOR3(pkt->x, HMAP->GetHeight(pkt->x, pkt->z), pkt->z) - pMon->GetPosition();
+//	D3DXVECTOR3 vDir = D3DXVECTOR3(pkt->x, HMAP->GetHeight(pkt->x, pkt->z), pkt->z) - pMon->GetPosition();
 
-	D3DXVec3Normalize(&vDir, &vDir);
+	//D3DXVec3Normalize(&vDir, &vDir);
 
-	pMon->SetDir(vDir.x, vDir.z);
+//	pMon->SetDir(vDir.x, vDir.z);
 
 	//pMon->CircleCollision(D3DXVECTOR3(pkt->x, pkt->y, pkt->z), )
 	
-	pMon->GetDeadReckoningQueue().push(D3DXVECTOR3(pkt->x, HMAP->GetHeight(pkt->x, pkt->z), pkt->z));
+//	pMon->GetDeadReckoningQueue().push(D3DXVECTOR3(pkt->x, HMAP->GetHeight(pkt->x, pkt->z), pkt->z));
 }
 
 void CPacketManager::ProcessPutMonster(const char * packet, const UINT id)
@@ -272,13 +272,13 @@ void CPacketManager::ProcessPutMonster(const char * packet, const UINT id)
 	if (pkt->monster_id <= 0) return;
 	
 	CMonster *pMon = OBJECT_MANAGER->GetNewMonster(pkt->monster_id);
-	pMon->Initalize();
-	pMon->SetID(pkt->monster_id);
-	pMon->SetPosition(D3DXVECTOR3(pkt->x, HMAP->GetHeight(pkt->x, pkt->z), pkt->z));
-	OBJECT_MANAGER->InsertMappingData(pMon->GetID(), pMon->GetIndex());
+//	pMon->Initalize();
+//	pMon->SetID(pkt->monster_id);
+//	pMon->SetPosition(D3DXVECTOR3(pkt->x, HMAP->GetHeight(pkt->x, pkt->z), pkt->z));
+//	OBJECT_MANAGER->InsertMappingData(pMon->GetID(), pMon->GetIndex());
 	//pMon->SetHP(pkt->hp);	
 	//pMon->SetMonsterType(pkt->monster_type);
-	pMon->SetAlive(true);
+//	pMon->SetAlive(true);
 }
 
 void CPacketManager::ProcessRemoveMonster(const char * packet, const UINT id)

@@ -17,11 +17,11 @@ bool CObjectManager::Start()
 {
 	for (int i = 0; i < MAX_MONSTER; ++i)
 	{
-		CMonster *pMonster = new CMonster();
+		//CMonster *pMonster = new CMonster();
 		//pMonster->Initalize();			// Warning : Initalize -> Clear -> SetIndex ¼ø¼­ ¹Ù²î¸é ¾ÈµÊ		
-		pMonster->SetIndex(i);
+		//pMonster->SetIndex(i);
 
-		InsertMonsterToMap(i, pMonster);
+		//InsertMonsterToMap(i, pMonster);
 
 		//if (0 == i)
 		//{
@@ -42,7 +42,7 @@ bool CObjectManager::Start()
 		//}
 		if (0 == i) continue;
 
-		m_monsterPool.push(pMonster);
+		//m_monsterPool.push(pMonster);
 	}
 
 	return true;
@@ -70,20 +70,20 @@ void CObjectManager::DeleteMonster(const UINT id)
 	}
 	InsertMonsterToPool(pMon);
 
-	pMon->Clear();
+	//pMon->Clear();
 }
 
 void CObjectManager::DeleteMonster(CMonster * pMonster)
 {
-	if (m_monsterMappingHashMap.erase(pMonster->GetID()))
-	{
+	//if (m_monsterMappingHashMap.erase(pMonster->GetID()))
+	//{
 //#ifdef _DEBUG
 		//cout << "CObjectManager Mapping HashMap -> Monster Erase : " << pMonster->GetID() << endl;
 //#endif
-	}
+	//}
 	InsertMonsterToPool(pMonster);
 
-	pMonster->Clear();
+	//pMonster->Clear();
 }
 
 CMonster * CObjectManager::FindMonster(const UINT id)
@@ -101,7 +101,7 @@ UINT CObjectManager::FindIndexFromMappingTable(const UINT id)
 
 	if (iter == m_monsterMappingHashMap.end())
 	{
-		return m_monsterMap[0]->GetID();
+		//return m_monsterMap[0]->GetID();
 	}
 	return iter->second;
 }
