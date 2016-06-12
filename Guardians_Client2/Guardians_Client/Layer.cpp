@@ -64,12 +64,18 @@ _int Engine::CLayer::Update(const _float& fTimeDelta)
 		OBJECTLIST::iterator	iterList = iter->second.begin();
 		OBJECTLIST::iterator	iterList_end = iter->second.end();
 
-		for (; iterList != iterList_end; ++iterList)		
+		for (; iterList != iterList_end;)		
 		{
 			iResult = (*iterList)->Update(fTimeDelta);
 
-			if(iResult & 0x80000000)
-				return iResult;
+			if (iResult & 0x80000000)
+			{
+				::Safe_Release(*iterList);
+				iterList = iter->second.erase(iterList);
+			}
+
+			else
+				++iterList;
 		}		
 	}	
 

@@ -141,6 +141,13 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\ShaderFiles\Shader_Base.hpp" />
+    <ClInclude Include="..\ShaderFiles\Shader_Default.hpp" />
+    <ClInclude Include="..\ShaderFiles\Shader_Effect.hpp" />
+    <ClInclude Include="..\ShaderFiles\Shader_Meshes.hpp" />
+    <ClInclude Include="..\ShaderFiles\Shader_SkyBox.hpp" />
+    <ClInclude Include="..\ShaderFiles\Shader_Terrain.hpp" />
+    <ClInclude Include="..\ShaderFiles\Shader_UI.hpp" />
     <ClInclude Include="AnimationCtrl.h" />
     <ClInclude Include="Arrow.h" />
     <ClInclude Include="Base.h" />
@@ -200,12 +207,6 @@
     <ClInclude Include="SceneSelector.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderMgr.h" />
-    <ClInclude Include="Shader_Base.hpp" />
-    <ClInclude Include="Shader_Default.hpp" />
-    <ClInclude Include="Shader_Effect.hpp" />
-    <ClInclude Include="Shader_Meshes.hpp" />
-    <ClInclude Include="Shader_SkyBox.hpp" />
-    <ClInclude Include="Shader_Terrain.hpp" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="StageScene.h" />
     <ClInclude Include="StaticCamera.h" />

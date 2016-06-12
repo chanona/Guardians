@@ -11,4 +11,14 @@ enum PLAYER_STATE
 	PLAYER_END
 };
 
+enum SALA_STATE
+{
+	SALA_CRY,
+	SALA_DIE,
+	SALA_DAMAGED,
+	SALA_STAND,
+	SALA_WALK,
+	SALA_END
+};
+
 #endif // Enum_h__

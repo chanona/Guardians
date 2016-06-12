@@ -6,7 +6,7 @@ CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CLandObject(pGraphicDev)
 	, m_pEffect(NULL)
 	, m_fTimeDelta(0.f)
-	, m_iAniIdx(0)
+	, m_iAniIdx(SALA_CRY)
 	, m_bMove(false)
 {
 
@@ -31,9 +31,12 @@ HRESULT CMonster::Initialize(void)
 
 	m_pMeshCom->Set_AnimationSet(m_iAniIdx);
 
-	m_pTransCom->m_vScale = _vec3(0.01f, 0.01f, 0.01f);
+	m_pTransCom->m_vScale = _vec3(3.f, 3.f, 3.f);
 
-	m_pTransCom->m_vPosition = _vec3(10.0f, 0.f, 10.0f);
+	m_pTransCom->m_vPosition = _vec3(25.f, 0.f, 25.0f);
+
+	m_iHP = 100;
+	m_iAtt = 10;
 
 	return S_OK;
 }
@@ -67,7 +70,16 @@ _int CMonster::Update(const _float& fTimeDelta)
 
 	if ((m_pMeshCom->Check_EndPeriod()) && !m_bMove)
 	{
-		m_pMeshCom->Set_AnimationSet(0);
+		if (m_pMeshCom->Get_AnimationSet() == SALA_DAMAGED)
+			m_iHP -= 50;
+
+		if (m_pMeshCom->Get_AnimationSet() == SALA_DIE)
+			return -1;
+
+		if (m_iHP <= 0)
+			m_pMeshCom->Set_AnimationSet(SALA_DIE);
+		else
+			m_pMeshCom->Set_AnimationSet(SALA_CRY);
 	}
 
 	Engine::Add_RenderGroup(Engine::CRenderer::RENDER_ZSORT, this);

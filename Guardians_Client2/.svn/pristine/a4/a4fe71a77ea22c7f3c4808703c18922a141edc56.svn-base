@@ -85,10 +85,10 @@ PS_OUT PS_MAIN(vector vColor : COLOR0
 
 	vector			vResultColor[4];
 
-	vResultColor[0] = tex2D(BaseSampler, vTexUV * 20.0f);
+	vResultColor[0] = tex2D(BaseSampler, vTexUV * 20.0f);	
 	vResultColor[1] = (vector)0;
-	//vResultColor[2] = tex2D(TileSampler, vTexUV * 20.0f);
-	//vResultColor[3] = tex2D(ColorHeightSampler, vTexUV);
+	vResultColor[2] = tex2D(TileSampler, vTexUV * 20.0f);
+	vResultColor[3] = tex2D(ColorHeightSampler, vTexUV);
 
 	if(g_vTargetPos.x - g_fTargetRange < vWorldPos.x && vWorldPos.x < g_vTargetPos.x + g_fTargetRange
 		&& g_vTargetPos.z - g_fTargetRange < vWorldPos.z && vWorldPos.z < g_vTargetPos.z + g_fTargetRange)
@@ -101,8 +101,8 @@ PS_OUT PS_MAIN(vector vColor : COLOR0
 		vResultColor[1] = tex2D(FloorSampler, vFloorTexUV);	
 	}
 
-	Out.vColor = (((vResultColor[0]) * (g_vLightDiffuse * g_vTerrainDiffuse)) * (vColor + (g_vLightAmbient * g_vTerrainAmbient))/* + vResultColor[1]*/);// * vResultColor[3]
-				//	+ vResultColor[2] * (1.f - vResultColor[3]);
+	Out.vColor = (((vResultColor[0]) * (g_vLightDiffuse * g_vTerrainDiffuse)) * (vColor + (g_vLightAmbient * g_vTerrainAmbient))  + vResultColor[1]) * vResultColor[3]
+					+ vResultColor[2] * (1.f - vResultColor[3]);
 
 	return Out;
 }

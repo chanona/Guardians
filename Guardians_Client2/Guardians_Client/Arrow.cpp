@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Arrow.h"
+#include "Transform.h"
 
 #include "Export_Function.h"
 
@@ -30,7 +31,7 @@ HRESULT CArrow::Initialize(void)
 	m_pTransCom->m_vPosition = _vec3(0.0f, 0.f, 0.0f);
 	m_pTransCom->m_vScale = _vec3(0.1f, 0.1f, 0.1f);
 	//m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y] = D3DXToRadian(90.0f);
-
+	
 	return S_OK;
 }
 
@@ -56,24 +57,37 @@ HRESULT CArrow::Add_Component(void)
 
 _int CArrow::Update(const _float& fTimeDelta)
 {
-	Engine::CComponent*	pComponent = m_pMonster->Get_Component(L"Com_Transform");
+	if (m_pMonster == NULL)
+		return -1;
 
-	D3DXVECTOR3 vPos = ((Engine::CTransform*)pComponent)->m_vPosition;
-	D3DXVECTOR3 vDir = vPos - m_pTransCom->m_vPosition;
+	Engine::CComponent*	pMonTrans = m_pMonster->Get_Component(L"Com_Transform");
+
+	_vec3 vDir = ((Engine::CTransform*)pMonTrans)->m_vPosition + D3DXVECTOR3(0.1f, 1.5f, 0.f) - m_pTransCom->m_vPosition;
 	_float fDist = D3DXVec3Length(&vDir);
-	_float fAngle = D3DXVec3Dot(&vDir, &g_vLook);
 
-	//m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y] = D3DXToRadian(fAngle);
+	D3DXVec3Normalize(&vDir, &vDir);
+
+	_float fCos = D3DXVec3Dot(&vDir, &D3DXVECTOR3(0.f, 0.f, -1.f));
+	_float fAngle = acosf(fCos);
+	if (vDir.x > 0.f)
+		fAngle = 2 * D3DX_PI - fAngle;
+	m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y] = fAngle;
 
 	// 몹방향으로 이동
-	D3DXVec3Normalize(&vDir, &vDir);
-	m_pTransCom->m_vPosition += vDir * 5.f * fTimeDelta;
+	m_pTransCom->m_vPosition += vDir * 10.f * fTimeDelta;
 
 	if (fDist < 1.f)
 	{
+		Engine::CComponent*	pMonMesh = m_pMonster->Get_Component(L"Com_Mesh");
+
 		// 몬스터 피 깎아
-		// 이색기 지워
-		return 1;		// 리턴 값 1이면 지워
+		if (!(((Engine::CDynamicMesh*)pMonMesh)->Get_AnimationSet() == SALA_DIE))
+			((Engine::CDynamicMesh*)pMonMesh)->Set_AnimationSet(SALA_DAMAGED);
+
+		else
+			m_pMonster = NULL;
+
+		return -1;		// 리턴 값 -1이면 지워
 	}
 	/*if (NULL == m_pParentMatrix)
 	{

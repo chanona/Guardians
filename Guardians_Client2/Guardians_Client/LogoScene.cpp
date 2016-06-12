@@ -67,8 +67,8 @@ _int CLogoScene::Update(const _float& fTimeDelta)
 
 void CLogoScene::Render(void)
 {
-	Engine::Render_Font(L"Font_Default", _vec3(0.f, 0.f, 0.f), m_pLoading->GetLoadingMessage()
-		, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
+	Engine::Render_Font(L"Font_Default", _vec3(650.f, 550.f, 0.f), m_pLoading->GetLoadingMessage()
+		, D3DXCOLOR(0.2f, 0.5f, 0.5f, 1.f));
 }
 
 HRESULT CLogoScene::Ready_Lighting(void)

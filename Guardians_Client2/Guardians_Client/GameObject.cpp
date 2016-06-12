@@ -36,8 +36,10 @@ _int Engine::CGameObject::Update(const _float& fTimeDelta)
 	{
 		iResult = iter->second->Update(fTimeDelta);
 
-		if(iResult & 0x80000000)
+		if (iResult & 0x80000000)
+		{
 			return iResult;
+		}
 	}
 
 	return iResult;

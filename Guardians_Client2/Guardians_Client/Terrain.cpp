@@ -25,7 +25,7 @@ HRESULT CTerrain::Initialize(void)
 		return E_FAIL;
 
 	// 직접 이미지를 생성한다.
-	if(FAILED(D3DXCreateTexture(m_pGraphicDev, 129, 129, 1, 0, D3DFMT_A8R8G8B8, D3DPOOL_MANAGED, &m_pGaraTexture)))
+	/*if(FAILED(D3DXCreateTexture(m_pGraphicDev, 129, 129, 1, 0, D3DFMT_A8R8G8B8, D3DPOOL_MANAGED, &m_pGaraTexture)))
 		return E_FAIL;
 
 	D3DLOCKED_RECT			rcRect;
@@ -55,7 +55,10 @@ HRESULT CTerrain::Initialize(void)
 
 	m_pGaraTexture->UnlockRect(0);
 
-	D3DXSaveTextureToFile(L"../GaraTexture.jpg", D3DXIFF_JPG, m_pGaraTexture, NULL);
+	D3DXSaveTextureToFile(L"../GaraTexture.jpg", D3DXIFF_JPG, m_pGaraTexture, NULL);*/
+
+	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Resource/Texture/StageScene/Terrain/a.tga", &m_pGaraTexture);
+
 
 	return S_OK;
 }
@@ -87,21 +90,35 @@ HRESULT CTerrain::Add_Component(void)
 	m_mapComponent.insert(MAPCOMPONENT::value_type(L"Com_Buffer", pComponent));
 
 	// For.Texture Component
-	pComponent = m_pTextureCom = (Engine::CTexture*)Engine::Clone_Resource(RESOURCE_STAGE, L"Texture_Terrain");
+	/*pComponent = m_pTextureCom = (Engine::CTexture*)Engine::Clone_Resource(RESOURCE_STAGE, L"Texture_Terrain");
 	if(NULL == pComponent)
 		return E_FAIL;
-	m_mapComponent.insert(MAPCOMPONENT::value_type(L"Com_Texture", pComponent));
+	m_mapComponent.insert(MAPCOMPONENT::value_type(L"Com_Texture", pComponent));*/
 
-	pComponent = m_pFloorTextureCom = (Engine::CTexture*)Engine::Clone_Resource(RESOURCE_STAGE, L"Texture_Floor");
+	/*pComponent = m_pFloorTextureCom = (Engine::CTexture*)Engine::Clone_Resource(RESOURCE_STAGE, L"Texture_Floor");
 	if(NULL == pComponent)
 		return E_FAIL;
-	m_mapComponent.insert(MAPCOMPONENT::value_type(L"Com_FloorTexture", pComponent));
+	m_mapComponent.insert(MAPCOMPONENT::value_type(L"Com_FloorTexture", pComponent));*/
 
-
-	pComponent = m_pTileTextureCom = (Engine::CTexture*)Engine::Clone_Resource(RESOURCE_STAGE, L"Texture_Tile");
+	pComponent = m_pTileTextureCom[0] = (Engine::CTexture*)Engine::Clone_Resource(RESOURCE_STAGE, L"Texture_Tile");
 	if(NULL == pComponent)
 		return E_FAIL;
 	m_mapComponent.insert(MAPCOMPONENT::value_type(L"Com_TileTexture", pComponent));
+
+	pComponent = m_pTileTextureCom[1] = (Engine::CTexture*)Engine::Clone_Resource(RESOURCE_STAGE, L"Texture_Tile2");
+	if (NULL == pComponent)
+		return E_FAIL;
+	m_mapComponent.insert(MAPCOMPONENT::value_type(L"Com_TileTexture2", pComponent));
+
+	pComponent = m_pTileTextureCom[2] = (Engine::CTexture*)Engine::Clone_Resource(RESOURCE_STAGE, L"Texture_Tile3");
+	if (NULL == pComponent)
+		return E_FAIL;
+	m_mapComponent.insert(MAPCOMPONENT::value_type(L"Com_TileTexture3", pComponent));
+
+	pComponent = m_pTileTextureCom[3] = (Engine::CTexture*)Engine::Clone_Resource(RESOURCE_STAGE, L"Texture_Tile4");
+	if (NULL == pComponent)
+		return E_FAIL;
+	m_mapComponent.insert(MAPCOMPONENT::value_type(L"Com_TileTexture4", pComponent));
 
 	pComponent = m_pTileNormalCom = (Engine::CTexture*)Engine::Clone_Resource(RESOURCE_STAGE, L"Texture_TileNormal");
 	if (NULL == pComponent)
@@ -145,8 +162,11 @@ void CTerrain::Render(void)
 
 	m_pEffect->End();	
 
-	m_pEffect->SetTexture("g_BaseTexture", NULL);
+	//m_pEffect->SetTexture("g_BaseTexture", NULL);
 	m_pEffect->SetTexture("g_TileTexture", NULL);
+	m_pEffect->SetTexture("g_TileTexture2", NULL);
+	m_pEffect->SetTexture("g_TileTexture3", NULL);
+	m_pEffect->SetTexture("g_TileTexture4", NULL);
 	m_pEffect->SetTexture("g_ColorHeightTexture", NULL);
 	m_pEffect->SetTexture("g_NormalTexture", NULL);
 }
@@ -174,7 +194,8 @@ void CTerrain::Set_ContantTable(void)
 	m_pEffect->SetMatrix("g_matView", &matView);
 	m_pEffect->SetMatrix("g_matProj", &matProj);
 
-	m_pTextureCom->Set_ConstantTable(m_pEffect, "g_BaseTexture");	
+	//m_pTextureCom->Set_ConstantTable(m_pEffect, "g_BaseTexture");	
+	m_pTileTextureCom[0]->Set_ConstantTable(m_pEffect, "g_TileTexture");
 
 	const D3DLIGHT9* pLightInfo = Engine::Get_LightInfo(0);
 	if(NULL == pLightInfo)
@@ -188,8 +209,10 @@ void CTerrain::Set_ContantTable(void)
 	m_pEffect->SetVector("g_vTerrainDiffuse", &_vec4((_float*)&pMtrlInfo->Diffuse));
 	m_pEffect->SetVector("g_vTerrainAmbient", &_vec4((_float*)&pMtrlInfo->Ambient));
 
-	m_pFloorTextureCom->Set_ConstantTable(m_pEffect, "g_FloorTexture");
-	m_pTileTextureCom->Set_ConstantTable(m_pEffect, "g_TileTexture");
+	//m_pFloorTextureCom->Set_ConstantTable(m_pEffect, "g_FloorTexture");
+	m_pTileTextureCom[1]->Set_ConstantTable(m_pEffect, "g_TileTexture2");
+	m_pTileTextureCom[2]->Set_ConstantTable(m_pEffect, "g_TileTexture3");
+	m_pTileTextureCom[3]->Set_ConstantTable(m_pEffect, "g_TileTexture4");
 	m_pTileNormalCom->Set_ConstantTable(m_pEffect, "g_NormalTexture");
 	m_pColorHeightTextureCom->Set_ConstantTable(m_pEffect, "g_ColorHeightTexture");
 	m_pEffect->SetTexture("g_ColorHeightTexture", m_pGaraTexture);

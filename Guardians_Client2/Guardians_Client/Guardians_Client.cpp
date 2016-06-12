@@ -58,7 +58,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		return FALSE;
 	}
 
-
 	if (FAILED(Engine::Ready_Timer(L"Immediate")))
 	{
 		MSG_BOX("Ready_Timer(Immediate) Failed");

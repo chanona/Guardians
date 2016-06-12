@@ -4,6 +4,7 @@
 #include "Defines.h"
 #include "LandObject.h"
 #include "MouseCol.h"
+#include "Material.h"
 
 namespace Engine
 {
@@ -35,6 +36,12 @@ private:
 
 	bool			m_bMove;
 	D3DXVECTOR3		m_vDestPos;
+
+	Engine::CMaterial*			m_pMtrlCom;
+
+private:		// MonsterStat
+	int			m_iHP;
+	int			m_iAtt;
 
 private:
 	void Set_ContantTable(void);

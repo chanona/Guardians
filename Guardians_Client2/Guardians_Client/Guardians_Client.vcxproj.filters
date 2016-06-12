@@ -121,6 +121,12 @@
     <Filter Include="01.Engine\Utility\Light">
       <UniqueIdentifier>{17b1230d-5ff7-44da-99fb-11e79f5f5c25}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00.Client\01.Scene\Loading">
+      <UniqueIdentifier>{8d0755b1-acb4-4a65-94f1-48ca382371ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\StageScene\UI">
+      <UniqueIdentifier>{bdaec4f4-6ab1-4e13-b07f-5dab1eeacac1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -137,9 +143,6 @@
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>99.Default</Filter>
-    </ClInclude>
-    <ClInclude Include="Loading.h">
-      <Filter>00.Client</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>01.Engine\Utility</Filter>
@@ -249,9 +252,6 @@
     <ClInclude Include="Terrain.h">
       <Filter>00.Client\02.Object\StageScene</Filter>
     </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>00.Client\02.Object\StageScene</Filter>
-    </ClInclude>
     <ClInclude Include="SceneSelector.h">
       <Filter>00.Client\01.Scene</Filter>
     </ClInclude>
@@ -318,24 +318,6 @@
     <ClInclude Include="Shader.h">
       <Filter>01.Engine\Utility\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="Shader_Base.hpp">
-      <Filter>01.Engine\Utility\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader_Default.hpp">
-      <Filter>01.Engine\Utility\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader_Effect.hpp">
-      <Filter>01.Engine\Utility\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader_Meshes.hpp">
-      <Filter>01.Engine\Utility\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader_SkyBox.hpp">
-      <Filter>01.Engine\Utility\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader_Terrain.hpp">
-      <Filter>01.Engine\Utility\Shader</Filter>
-    </ClInclude>
     <ClInclude Include="ShaderMgr.h">
       <Filter>01.Engine\Utility\Shader</Filter>
     </ClInclude>
@@ -372,6 +354,33 @@
     <ClInclude Include="Base.h">
       <Filter>01.Engine\Utility\SuperClass</Filter>
     </ClInclude>
+    <ClInclude Include="Loading.h">
+      <Filter>00.Client\01.Scene\Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>00.Client\02.Object\StageScene\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShaderFiles\Shader_Base.hpp">
+      <Filter>01.Engine\Utility\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShaderFiles\Shader_Default.hpp">
+      <Filter>01.Engine\Utility\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShaderFiles\Shader_Effect.hpp">
+      <Filter>01.Engine\Utility\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShaderFiles\Shader_Meshes.hpp">
+      <Filter>01.Engine\Utility\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShaderFiles\Shader_SkyBox.hpp">
+      <Filter>01.Engine\Utility\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShaderFiles\Shader_Terrain.hpp">
+      <Filter>01.Engine\Utility\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShaderFiles\Shader_UI.hpp">
+      <Filter>01.Engine\Utility\Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -379,9 +388,6 @@
     </ClCompile>
     <ClCompile Include="Guardians_Client.cpp">
       <Filter>99.Default</Filter>
-    </ClCompile>
-    <ClCompile Include="Loading.cpp">
-      <Filter>00.Client</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>01.Engine\Utility</Filter>
@@ -444,9 +450,6 @@
       <Filter>00.Client\02.Object\StageScene</Filter>
     </ClCompile>
     <ClCompile Include="Terrain.cpp">
-      <Filter>00.Client\02.Object\StageScene</Filter>
-    </ClCompile>
-    <ClCompile Include="UI.cpp">
       <Filter>00.Client\02.Object\StageScene</Filter>
     </ClCompile>
     <ClCompile Include="CubeTex.cpp">
@@ -538,6 +541,12 @@
     </ClCompile>
     <ClCompile Include="Base.cpp">
       <Filter>01.Engine\Utility\SuperClass</Filter>
+    </ClCompile>
+    <ClCompile Include="Loading.cpp">
+      <Filter>00.Client\01.Scene\Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>00.Client\02.Object\StageScene\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

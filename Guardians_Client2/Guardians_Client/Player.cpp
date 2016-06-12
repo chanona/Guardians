@@ -75,6 +75,17 @@ _int CPlayer::Update(const _float& fTimeDelta)
 		else
 			Move(fTimeDelta);
 	}
+
+	if (m_pMonster)
+	{
+		Engine::CComponent*	pMeshCom = m_pMonster->Get_Component(L"Com_Mesh");
+
+		if (((Engine::CDynamicMesh*)pMeshCom)->Get_AnimationSet() == SALA_DIE)
+		{
+			m_pMonster = NULL;
+			m_pMeshCom->Set_AnimationSet(PLAYER_STAND);
+		}
+	}
 		
 	if ((m_pMeshCom->Check_EndPeriod()) && !m_bMove)
 	{
@@ -82,7 +93,7 @@ _int CPlayer::Update(const _float& fTimeDelta)
 		{
 			//화살 생성
 			CGameObject* pArrow = CArrow::Create(m_pGraphicDev);
-			((CArrow*)pArrow)->Set_Position(m_pTransCom->m_vPosition);
+			((CArrow*)pArrow)->Set_Position(m_pTransCom->m_vPosition + D3DXVECTOR3(0.f, 2.f, 0.f));
 			((CArrow*)pArrow)->Set_Monster(m_pMonster);
 			Engine::Add_Object(L"GameLogic", L"Arrow", pArrow);
 		}
@@ -127,7 +138,7 @@ void CPlayer::Render(void)
 void CPlayer::MoveToMonster(const _float& fTimeDelta)
 {
 	Engine::CComponent* pTransCom = m_pMonster->Get_Component(L"Com_Transform");
-
+	
 	D3DXVECTOR3 vPos = ((Engine::CTransform*)pTransCom)->m_vPosition;
 
 	D3DXVECTOR3		vDir = vPos - m_pTransCom->m_vPosition;
@@ -146,10 +157,18 @@ void CPlayer::MoveToMonster(const _float& fTimeDelta)
 
 void CPlayer::Move(const _float& fTimeDelta)
 {
-	D3DXVECTOR3		vDir = m_vDestPos - m_pTransCom->m_vPosition;
+	_vec3		vDir = m_vDestPos - m_pTransCom->m_vPosition;
 
-	float		fDistance = D3DXVec3Length(&vDir);
+	_float		fDistance = D3DXVec3Length(&vDir);
 	D3DXVec3Normalize(&vDir, &vDir);
+
+	/*_float fCos = D3DXVec3Dot(&vDir, &D3DXVECTOR3(0.f, 0.f, -1.f));
+
+	_float fAngle = acosf(fCos);
+	if (vDir.x > 0.f)
+		fAngle = 2 * D3DX_PI - fAngle;
+
+	m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y] = fAngle;*/
 
 	m_pTransCom->m_vPosition += vDir * 3.f * fTimeDelta;
 
@@ -245,17 +264,23 @@ void CPlayer::Check_KeyState(const _float& fTimeDelta)
 
 	if (Engine::GetDIKeyState(DIK_A) & 0x80)
 	{
+		if (m_pMeshCom->Get_AnimationSet() == PLAYER_ATTACK)
+		{
+			m_pMeshCom->Set_AnimationSet(PLAYER_STAND);
+		}
+
 		m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y] -= D3DXToRadian(90.0f) * fTimeDelta * 0.5f;
 	}
 
 	if (Engine::GetDIKeyState(DIK_D) & 0x80)
 	{
+		if (m_pMeshCom->Get_AnimationSet() == PLAYER_ATTACK)
+		{
+			m_pMeshCom->Set_AnimationSet(PLAYER_STAND);
+		}
+
 		m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y] += D3DXToRadian(90.0f) * fTimeDelta * 0.5f;
 	}
-
-	/*if(Engine::GetDIKeyState(DIK_SPACE) & 0x80)
-		SetPush(PLAYER_ATTACK);
-	else m_bPush = false;*/
 
 	if (Engine::GetDIMouseState(Engine::CInput::DIM_LBUTTON))
 	{
@@ -273,7 +298,7 @@ void CPlayer::Check_KeyState(const _float& fTimeDelta)
 			Engine::CComponent* pTransCom = (*iter)->Get_Component(L"Com_Transform");
 			D3DXVECTOR3 vPos = ((Engine::CTransform*)pTransCom)->m_vPosition;
 			D3DXVECTOR3 vDir = m_vDestPos - vPos;
-			if (D3DXVec3Length(&vDir) < 1.f)
+			if (D3DXVec3Length(&vDir) < 2.f)
 			{
 				// 몬스터 Lock
 				m_pMonster = (*iter);

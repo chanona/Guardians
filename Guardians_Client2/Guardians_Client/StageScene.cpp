@@ -3,10 +3,12 @@
 #include "Terrain.h"
 #include "Player.h"
 #include "Monster.h"
+#include "TombStone.h"
 #include "SkyBox.h"
 #include "MouseCol.h"
 #include "StaticCamera.h"
 #include "Effect.h"
+#include "UI.h"
 #include "Export_Function.h"
 
 CStageScene::CStageScene(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -144,24 +146,28 @@ HRESULT CStageScene::Ready_GameLogic(void)
 	pGameObject = CMonster::Create(m_pGraphicDev);
 	if (NULL == pGameObject)
 		return E_FAIL;
-
 	pLayer->Ready_Object(L"Monster", pGameObject);
 
+	pGameObject = CUI::Create(m_pGraphicDev);
+	if (NULL == pGameObject)
+		return E_FAIL;
+	pLayer->Ready_Object(L"UI", pGameObject);
 
 	// For.Sword-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	/*pGameObject = CSword::Create(m_pGraphicDev);
 	if(NULL == pGameObject)
 		return E_FAIL;
 	pLayer->Ready_Object(L"Sword", pGameObject);*/
+	//ifstream fin("stonePos.txt");
 
 	// For.TombStone-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	/*for (_int i = 0; i < 20; ++i)
+	for (_int i = 0; i < 20; ++i)
 	{
 		pGameObject = CTombStone::Create(m_pGraphicDev);
 		if(NULL == pGameObject)
 			return E_FAIL;
 		pLayer->Ready_Object(L"TombStone", pGameObject);
-	}*/
+	}
 		
 	/*for (_int i = 0; i < 20; ++i)
 	{
