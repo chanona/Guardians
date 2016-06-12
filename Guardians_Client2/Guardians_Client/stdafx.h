@@ -32,7 +32,9 @@
 #include <functional>
 #include <unordered_map>
 #include <unordered_set>
+#include <fstream>
 using namespace std;
+
 
 #pragma comment(lib,"ws2_32.lib")
 #pragma comment(lib, "d3dx9.lib")

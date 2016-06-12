@@ -34,6 +34,14 @@ list<Engine::CGameObject*>* Engine::CManagement::Find_ObjectList(const TCHAR * p
 	return m_pScene->Find_ObjectList(pLayerTag, pObjectTag);
 }
 
+void Engine::CManagement::Add_Object(const TCHAR * pLayerTag, const TCHAR * pObjectTag, Engine::CGameObject* pObject)
+{
+	if (NULL == m_pScene)
+		return;
+
+	m_pScene->Add_Object(pLayerTag, pObjectTag, pObject);
+}
+
 HRESULT Engine::CManagement::Ready_Management(LPDIRECT3DDEVICE9 pDevice)
 {
 	m_pGraphicDev = pDevice;

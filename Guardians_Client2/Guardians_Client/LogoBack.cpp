@@ -64,6 +64,8 @@ _int CLogoBack::Update(const _float& fTimeDelta)
 {
 	Engine::CGameObject::Update(fTimeDelta);
 
+	m_pTransCom->m_vScale = D3DXVECTOR3(2.f, 2.f, 2.f);
+
 	Engine::Add_RenderGroup(Engine::CRenderer::RENDER_ZSORT, this);
 
 	return 0;

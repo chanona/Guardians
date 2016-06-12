@@ -10,7 +10,7 @@ namespace Engine
 	class CStaticMesh;
 }
 
-class CSword	: public Engine::CGameObject
+class CSword : public Engine::CGameObject
 {
 private:
 	explicit CSword(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -34,9 +34,6 @@ private:
 	void Set_ContantTable(void);
 public:
 	virtual _ulong Release(void);
-
-
 };
-
 
 #endif // Sword_h__

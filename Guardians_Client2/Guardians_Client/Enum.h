@@ -1,0 +1,24 @@
+#ifndef Enum_h__
+#define Enum_h__
+
+enum PLAYER_STATE
+{
+	PLAYER_STAND,
+	PLAYER_WALK,
+	PLAYER_ATTACK,
+	PLAYER_DAMAGED,
+	PLAYER_DIE,
+	PLAYER_END
+};
+
+enum SALA_STATE
+{
+	SALA_CRY,
+	SALA_DIE,
+	SALA_DAMAGED,
+	SALA_STAND,
+	SALA_WALK,
+	SALA_END
+};
+
+#endif // Enum_h__

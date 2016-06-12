@@ -27,7 +27,9 @@ HRESULT CTombStone::Initialize(void)
 	if(FAILED(Add_Component()))
 		return E_FAIL;
 
-	m_pTransCom->m_vPosition = _vec3(_float(rand() % 50), 0.f, _float(rand() % 50));
+	m_pTransCom->m_vPosition = _vec3(0.f, 0.f, 0.f);
+
+	m_pTransCom->m_vScale /= 300.f;
 
 	return S_OK;
 }
@@ -60,7 +62,8 @@ _int CTombStone::Update(const _float& fTimeDelta)
 
 	_vec3			vDestMin, vDestMax;
 	m_pMeshCom->Get_MinMax(&vDestMin, &vDestMax);
-	_matrix			mDestTrans;
+	_matrix			mDestWorld, mDestTrans, mDestScale;
+	D3DXMatrixScaling(&mDestScale, m_pTransCom->m_vScale.x, m_pTransCom->m_vScale.y, m_pTransCom->m_vScale.z);
 	D3DXMatrixTranslation(&mDestTrans, m_pTransCom->m_vPosition.x, m_pTransCom->m_vPosition.y, m_pTransCom->m_vPosition.z);
 
 	Engine::CMesh* pPlayerMeshCom = (Engine::CMesh*)Engine::Get_Component(L"Com_Mesh", L"GameLogic", L"Player");
@@ -71,8 +74,9 @@ _int CTombStone::Update(const _float& fTimeDelta)
 	D3DXMatrixScaling(&mSourScale, pPlayerTransCom->m_vScale.x, pPlayerTransCom->m_vScale.y, pPlayerTransCom->m_vScale.z);
 	D3DXMatrixTranslation(&mSourTrans, pPlayerTransCom->m_vPosition.x, pPlayerTransCom->m_vPosition.y, pPlayerTransCom->m_vPosition.z);
 	mSourWorld = mSourScale * mSourTrans;
+	mDestWorld = mDestScale * mDestTrans;
 
-	m_bColl = Engine::Collision_AABB(vDestMin, vDestMax, mDestTrans
+	m_bColl = Engine::Collision_AABB(vDestMin, vDestMax, mDestWorld
 		, vSourMin, vSourMax, mSourWorld);
 
 

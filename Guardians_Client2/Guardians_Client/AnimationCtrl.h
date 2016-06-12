@@ -16,6 +16,9 @@ public:
 	static CAnimationCtrl* Clone(const CAnimationCtrl& Instance);
 public:
 	void Set_AnimationSet(const _uint& iAniIdx);
+	const _uint& Get_AnimationSet(void) {
+		return m_iCurrentAniIdx;
+	}
 	void Move_Frame(const _float& fTimeDelta); // 애니메이션을 동작시킨다.
 	_bool Check_EndPeriod(void);
 private:	

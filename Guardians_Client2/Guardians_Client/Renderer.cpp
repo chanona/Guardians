@@ -23,19 +23,22 @@ void Engine::CRenderer::SetCurrentScene(CScene* pScene) {m_pScene = pScene;}
 
 HRESULT Engine::CRenderer::Ready_Renderer(void)
 {
-	if(FAILED(CShaderMgr::GetInstance()->Ready_ShaderFromFiles(m_pGraphicDev, L"Shader_Default", L"Shader_Default.hpp")))
+	if(FAILED(CShaderMgr::GetInstance()->Ready_ShaderFromFiles(m_pGraphicDev, L"Shader_Default", L"../ShaderFiles/Shader_Default.hpp")))
 		return E_FAIL;
 
-	if(FAILED(CShaderMgr::GetInstance()->Ready_ShaderFromFiles(m_pGraphicDev, L"Shader_Terrain", L"Shader_Terrain.hpp")))
+	if(FAILED(CShaderMgr::GetInstance()->Ready_ShaderFromFiles(m_pGraphicDev, L"Shader_Terrain", L"../ShaderFiles/Shader_Terrain.hpp")))
 		return E_FAIL;
 
-	if(FAILED(CShaderMgr::GetInstance()->Ready_ShaderFromFiles(m_pGraphicDev, L"Shader_Meshes", L"Shader_Meshes.hpp")))
+	if(FAILED(CShaderMgr::GetInstance()->Ready_ShaderFromFiles(m_pGraphicDev, L"Shader_Meshes", L"../ShaderFiles/Shader_Meshes.hpp")))
 		return E_FAIL;
 
-	if(FAILED(CShaderMgr::GetInstance()->Ready_ShaderFromFiles(m_pGraphicDev, L"Shader_SkyBox", L"Shader_SkyBox.hpp")))
+	if(FAILED(CShaderMgr::GetInstance()->Ready_ShaderFromFiles(m_pGraphicDev, L"Shader_SkyBox", L"../ShaderFiles/Shader_SkyBox.hpp")))
 		return E_FAIL;
 
-	if(FAILED(CShaderMgr::GetInstance()->Ready_ShaderFromFiles(m_pGraphicDev, L"Shader_Effect", L"Shader_Effect.hpp")))
+	if(FAILED(CShaderMgr::GetInstance()->Ready_ShaderFromFiles(m_pGraphicDev, L"Shader_Effect", L"../ShaderFiles/Shader_Effect.hpp")))
+		return E_FAIL;
+
+	if (FAILED(CShaderMgr::GetInstance()->Ready_ShaderFromFiles(m_pGraphicDev, L"Shader_UI", L"../ShaderFiles/Shader_UI.hpp")))
 		return E_FAIL;
 
 	return S_OK;

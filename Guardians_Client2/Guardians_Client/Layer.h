@@ -31,6 +31,7 @@ public:
 
 public:
 	HRESULT Ready_Object(const TCHAR* pObjectTag, CGameObject* pGameObject);
+
 public:
 	_int Update(const _float& fTimeDelta);
 	void Render(void);

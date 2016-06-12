@@ -28,17 +28,104 @@
     <Filter Include="00.Client">
       <UniqueIdentifier>{59a83b6b-69e1-47c6-bd5f-d7226ad47ff6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.Server">
-      <UniqueIdentifier>{f94be954-ffa8-4649-97cf-abac346fbc6d}</UniqueIdentifier>
+    <Filter Include="00.Client\00.MainApp">
+      <UniqueIdentifier>{9324ceab-a389-4903-b4d6-37c5800886a2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.Server\Utility">
-      <UniqueIdentifier>{358882b8-c94f-465c-97e6-5d0848f7b80d}</UniqueIdentifier>
+    <Filter Include="00.Client\01.Scene">
+      <UniqueIdentifier>{3827989c-5647-416b-9941-4e9d1325b09f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.Server\Manager">
-      <UniqueIdentifier>{4e156740-bc70-433a-8300-7c6e3e9301fd}</UniqueIdentifier>
+    <Filter Include="00.Client\01.Scene\StageScene">
+      <UniqueIdentifier>{40b09d08-7c83-4a54-a335-6099ee768bb0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.Server\Common">
-      <UniqueIdentifier>{b598bd83-01b7-4654-a88e-be8b37ea4976}</UniqueIdentifier>
+    <Filter Include="00.Client\01.Scene\LogoScene">
+      <UniqueIdentifier>{d14293ee-ec45-42fc-9e36-5cb74e762427}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object">
+      <UniqueIdentifier>{9ee3022b-dbc2-49d2-80a1-4eab7889ba9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\LogoScene">
+      <UniqueIdentifier>{d7da49db-0c45-49ab-af4d-abe88d17bdb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\StageScene">
+      <UniqueIdentifier>{7a294562-21af-4b6b-b55f-ea3d37133f17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\StageScene\LandObject">
+      <UniqueIdentifier>{58e5769e-9fcc-4b18-b636-aa37a1d00b25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\StageScene\LandObject\StaticMeshes">
+      <UniqueIdentifier>{2db05a33-338a-4c64-a7b7-13debde0f9f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\StageScene\LandObject\DynamicMeshes">
+      <UniqueIdentifier>{6692c74a-fa83-4bb8-81ee-80db1fe355cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\StageScene\LandObject\StaticMeshes\TombStone">
+      <UniqueIdentifier>{8f759788-5049-4902-9b17-2f0c8c7243da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\StageScene\LandObject\StaticMeshes\Sword">
+      <UniqueIdentifier>{cf5ee0f9-4393-4b7b-8eef-89c5968ae3bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\StageScene\LandObject\DynamicMeshes\Player">
+      <UniqueIdentifier>{138cf3d8-f773-47f3-a0a2-84cca2e68cdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\StageScene\LandObject\DynamicMeshes\Monster">
+      <UniqueIdentifier>{5f7366f7-f704-43c5-bc2b-a30434795261}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\StageScene\LandObject\StaticMeshes\Arrow">
+      <UniqueIdentifier>{55b96536-1229-4936-8673-72298e81055e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Engine\Resource\Texture">
+      <UniqueIdentifier>{cbcb9faa-1210-4e40-add8-d1b7e6afcf90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Engine\Resource\VIBuffer">
+      <UniqueIdentifier>{83506aad-791e-4887-8e61-e65beed7c0c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Engine\Resource\Export">
+      <UniqueIdentifier>{f0037be1-02af-4234-b7ce-ea99e7565365}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Engine\Resource\Mesh">
+      <UniqueIdentifier>{eade2181-ff7d-4990-8a36-c5081cb70fe3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Engine\Resource\AniCtrl">
+      <UniqueIdentifier>{ef069799-8391-4e16-a2a6-2d4f0cfee084}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Engine\System\Export">
+      <UniqueIdentifier>{ed8dec05-7d6d-48e0-9244-afbb90635b94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Engine\System\Time">
+      <UniqueIdentifier>{3dcc96ec-1330-4d48-947a-db14c57a8544}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Engine\System\Font">
+      <UniqueIdentifier>{c4e39ca2-7523-4345-8f5b-2fa3d0485369}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Engine\System\Frame">
+      <UniqueIdentifier>{547cf935-6b55-470a-b7e3-7159761a8ab5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Engine\System\GraphicDev">
+      <UniqueIdentifier>{e8e83738-65c4-4080-8a5a-f9d445a6f32d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Engine\System\Input">
+      <UniqueIdentifier>{9de973ee-aa32-4cca-9db5-380d21f9e045}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Engine\Utility\Shader">
+      <UniqueIdentifier>{5b5f193e-097e-4f0b-b2f8-bbeb0f4d8391}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Engine\Utility\Export">
+      <UniqueIdentifier>{4e1b9177-d6dc-4120-99e5-421752096d17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Engine\Utility\SuperClass">
+      <UniqueIdentifier>{5938c482-e96b-4499-ac50-eb1ce8a7887f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Engine\Utility\SuperClass\Component">
+      <UniqueIdentifier>{49983aa1-5dd9-49a4-babc-dd1237421b67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Engine\Utility\Light">
+      <UniqueIdentifier>{17b1230d-5ff7-44da-99fb-11e79f5f5c25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\01.Scene\Loading">
+      <UniqueIdentifier>{8d0755b1-acb4-4a65-94f1-48ca382371ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\StageScene\UI">
+      <UniqueIdentifier>{bdaec4f4-6ab1-4e13-b07f-5dab1eeacac1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -57,172 +144,19 @@
     <ClInclude Include="targetver.h">
       <Filter>99.Default</Filter>
     </ClInclude>
-    <ClInclude Include="Effect.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="SkyBox.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="TombStone.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="Sword.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="LandObject.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="Terrain.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="DynamicCamera.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="StageScene.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="Loading.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="LogoScene.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="LogoBack.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneSelector.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="MainApp.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="Font.h">
-      <Filter>01.Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="FontMgr.h">
-      <Filter>01.Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicDev.h">
-      <Filter>01.Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="Frame.h">
-      <Filter>01.Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="FrameMgr.h">
-      <Filter>01.Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="TimeMgr.h">
-      <Filter>01.Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>01.Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>01.Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>01.Engine\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>01.Engine\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderMgr.h">
-      <Filter>01.Engine\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>01.Engine\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Base.h">
-      <Filter>01.Engine\Utility</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>01.Engine\Utility</Filter>
     </ClInclude>
     <ClInclude Include="Management.h">
       <Filter>01.Engine\Utility</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>01.Engine\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader_Effect.hpp">
-      <Filter>01.Engine\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader_Meshes.hpp">
-      <Filter>01.Engine\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader_SkyBox.hpp">
-      <Filter>01.Engine\Utility</Filter>
-    </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>01.Engine\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Layer.h">
-      <Filter>01.Engine\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>01.Engine\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader_Terrain.hpp">
-      <Filter>01.Engine\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader_Base.hpp">
-      <Filter>01.Engine\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>01.Engine\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Light.h">
-      <Filter>01.Engine\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="LightMgr.h">
-      <Filter>01.Engine\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>01.Engine\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader_Default.hpp">
-      <Filter>01.Engine\Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="VIBuffer.h">
-      <Filter>01.Engine\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>01.Engine\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="DynamicMesh.h">
-      <Filter>01.Engine\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticMesh.h">
-      <Filter>01.Engine\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimationCtrl.h">
-      <Filter>01.Engine\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Resources.h">
       <Filter>01.Engine\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="Loader.h">
-      <Filter>01.Engine\Resource</Filter>
-    </ClInclude>
     <ClInclude Include="ResourceMgr.h">
-      <Filter>01.Engine\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="TerrainTex.h">
-      <Filter>01.Engine\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="RcTex.h">
-      <Filter>01.Engine\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>01.Engine\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="CubeTex.h">
       <Filter>01.Engine\Resource</Filter>
     </ClInclude>
     <ClInclude Include="Engine_Functor.h">
@@ -249,15 +183,6 @@
     <ClInclude Include="Export_Function.h">
       <Filter>01.Engine\Export</Filter>
     </ClInclude>
-    <ClInclude Include="Export_Utility.h">
-      <Filter>01.Engine\Export</Filter>
-    </ClInclude>
-    <ClInclude Include="Export_System.h">
-      <Filter>01.Engine\Export</Filter>
-    </ClInclude>
-    <ClInclude Include="Export_Resources.h">
-      <Filter>01.Engine\Export</Filter>
-    </ClInclude>
     <ClInclude Include="Contant.h">
       <Filter>98.Headers</Filter>
     </ClInclude>
@@ -279,8 +204,182 @@
     <ClInclude Include="MouseCol.h">
       <Filter>00.Client</Filter>
     </ClInclude>
+    <ClInclude Include="Enum.h">
+      <Filter>98.Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MainApp.h">
+      <Filter>00.Client\00.MainApp</Filter>
+    </ClInclude>
+    <ClInclude Include="StageScene.h">
+      <Filter>00.Client\01.Scene\StageScene</Filter>
+    </ClInclude>
+    <ClInclude Include="LogoScene.h">
+      <Filter>00.Client\01.Scene\LogoScene</Filter>
+    </ClInclude>
+    <ClInclude Include="LogoBack.h">
+      <Filter>00.Client\02.Object\LogoScene</Filter>
+    </ClInclude>
+    <ClInclude Include="LandObject.h">
+      <Filter>00.Client\02.Object\StageScene\LandObject</Filter>
+    </ClInclude>
+    <ClInclude Include="TombStone.h">
+      <Filter>00.Client\02.Object\StageScene\LandObject\StaticMeshes\TombStone</Filter>
+    </ClInclude>
+    <ClInclude Include="Sword.h">
+      <Filter>00.Client\02.Object\StageScene\LandObject\StaticMeshes\Sword</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>00.Client\02.Object\StageScene\LandObject\DynamicMeshes\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>00.Client\02.Object\StageScene\LandObject\DynamicMeshes\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Arrow.h">
+      <Filter>00.Client\02.Object\StageScene\LandObject\StaticMeshes\Arrow</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicCamera.h">
+      <Filter>00.Client\02.Object\StageScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>00.Client\02.Object\StageScene</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyBox.h">
+      <Filter>00.Client\02.Object\StageScene</Filter>
+    </ClInclude>
     <ClInclude Include="StaticCamera.h">
-      <Filter>00.Client</Filter>
+      <Filter>00.Client\02.Object\StageScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>00.Client\02.Object\StageScene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSelector.h">
+      <Filter>00.Client\01.Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CubeTex.h">
+      <Filter>01.Engine\Resource\VIBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="RcTex.h">
+      <Filter>01.Engine\Resource\VIBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainTex.h">
+      <Filter>01.Engine\Resource\VIBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="VIBuffer.h">
+      <Filter>01.Engine\Resource\VIBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>01.Engine\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Export_Resources.h">
+      <Filter>01.Engine\Resource\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>01.Engine\Resource\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticMesh.h">
+      <Filter>01.Engine\Resource\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicMesh.h">
+      <Filter>01.Engine\Resource\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationCtrl.h">
+      <Filter>01.Engine\Resource\AniCtrl</Filter>
+    </ClInclude>
+    <ClInclude Include="Loader.h">
+      <Filter>01.Engine\Resource\AniCtrl</Filter>
+    </ClInclude>
+    <ClInclude Include="Export_System.h">
+      <Filter>01.Engine\System\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>01.Engine\System\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeMgr.h">
+      <Filter>01.Engine\System\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>01.Engine\System\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="FontMgr.h">
+      <Filter>01.Engine\System\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Frame.h">
+      <Filter>01.Engine\System\Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameMgr.h">
+      <Filter>01.Engine\System\Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicDev.h">
+      <Filter>01.Engine\System\GraphicDev</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>01.Engine\System\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>01.Engine\Utility\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderMgr.h">
+      <Filter>01.Engine\Utility\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>01.Engine\Utility\SuperClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Layer.h">
+      <Filter>01.Engine\Utility\SuperClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>01.Engine\Utility\SuperClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>01.Engine\Utility\SuperClass\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>01.Engine\Utility\SuperClass\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>01.Engine\Utility\SuperClass\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Export_Utility.h">
+      <Filter>01.Engine\Utility\Export</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>01.Engine\Utility\SuperClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>01.Engine\Utility\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="LightMgr.h">
+      <Filter>01.Engine\Utility\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Base.h">
+      <Filter>01.Engine\Utility\SuperClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Loading.h">
+      <Filter>00.Client\01.Scene\Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>00.Client\02.Object\StageScene\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShaderFiles\Shader_Base.hpp">
+      <Filter>01.Engine\Utility\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShaderFiles\Shader_Default.hpp">
+      <Filter>01.Engine\Utility\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShaderFiles\Shader_Effect.hpp">
+      <Filter>01.Engine\Utility\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShaderFiles\Shader_Meshes.hpp">
+      <Filter>01.Engine\Utility\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShaderFiles\Shader_SkyBox.hpp">
+      <Filter>01.Engine\Utility\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShaderFiles\Shader_Terrain.hpp">
+      <Filter>01.Engine\Utility\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShaderFiles\Shader_UI.hpp">
+      <Filter>01.Engine\Utility\Shader</Filter>
     </ClInclude>
     <ClInclude Include="ClientNetEngine.h">
       <Filter>02.Server\Manager</Filter>
@@ -317,148 +416,16 @@
     <ClCompile Include="Guardians_Client.cpp">
       <Filter>99.Default</Filter>
     </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="StageScene.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="MainApp.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="Loading.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="SkyBox.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="TombStone.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="Sword.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="LandObject.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="Terrain.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="DynamicCamera.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="LogoBack.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="LogoScene.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="FontMgr.cpp">
-      <Filter>01.Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="Font.cpp">
-      <Filter>01.Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicDev.cpp">
-      <Filter>01.Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="Frame.cpp">
-      <Filter>01.Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="FrameMgr.cpp">
-      <Filter>01.Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="TimeMgr.cpp">
-      <Filter>01.Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>01.Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>01.Engine\System</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderMgr.cpp">
-      <Filter>01.Engine\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>01.Engine\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Light.cpp">
-      <Filter>01.Engine\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>01.Engine\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Base.cpp">
-      <Filter>01.Engine\Utility</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>01.Engine\Utility</Filter>
     </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>01.Engine\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>01.Engine\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>01.Engine\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Layer.cpp">
-      <Filter>01.Engine\Utility</Filter>
-    </ClCompile>
     <ClCompile Include="Management.cpp">
       <Filter>01.Engine\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="LightMgr.cpp">
-      <Filter>01.Engine\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>01.Engine\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>01.Engine\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Material.cpp">
-      <Filter>01.Engine\Utility</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>01.Engine\Resource</Filter>
-    </ClCompile>
     <ClCompile Include="Resources.cpp">
-      <Filter>01.Engine\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticMesh.cpp">
-      <Filter>01.Engine\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="TerrainTex.cpp">
-      <Filter>01.Engine\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="RcTex.cpp">
-      <Filter>01.Engine\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="VIBuffer.cpp">
-      <Filter>01.Engine\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>01.Engine\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="CubeTex.cpp">
-      <Filter>01.Engine\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="Loader.cpp">
-      <Filter>01.Engine\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="DynamicMesh.cpp">
-      <Filter>01.Engine\Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="AnimationCtrl.cpp">
       <Filter>01.Engine\Resource</Filter>
     </ClCompile>
     <ClCompile Include="ResourceMgr.cpp">
@@ -467,8 +434,146 @@
     <ClCompile Include="MouseCol.cpp">
       <Filter>00.Client</Filter>
     </ClCompile>
+    <ClCompile Include="MainApp.cpp">
+      <Filter>00.Client\00.MainApp</Filter>
+    </ClCompile>
+    <ClCompile Include="StageScene.cpp">
+      <Filter>00.Client\01.Scene\StageScene</Filter>
+    </ClCompile>
+    <ClCompile Include="LogoScene.cpp">
+      <Filter>00.Client\01.Scene\LogoScene</Filter>
+    </ClCompile>
+    <ClCompile Include="LogoBack.cpp">
+      <Filter>00.Client\02.Object\LogoScene</Filter>
+    </ClCompile>
+    <ClCompile Include="LandObject.cpp">
+      <Filter>00.Client\02.Object\StageScene\LandObject</Filter>
+    </ClCompile>
+    <ClCompile Include="TombStone.cpp">
+      <Filter>00.Client\02.Object\StageScene\LandObject\StaticMeshes\TombStone</Filter>
+    </ClCompile>
+    <ClCompile Include="Sword.cpp">
+      <Filter>00.Client\02.Object\StageScene\LandObject\StaticMeshes\Sword</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>00.Client\02.Object\StageScene\LandObject\DynamicMeshes\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>00.Client\02.Object\StageScene\LandObject\DynamicMeshes\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Arrow.cpp">
+      <Filter>00.Client\02.Object\StageScene\LandObject\StaticMeshes\Arrow</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicCamera.cpp">
+      <Filter>00.Client\02.Object\StageScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>00.Client\02.Object\StageScene</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>00.Client\02.Object\StageScene</Filter>
+    </ClCompile>
     <ClCompile Include="StaticCamera.cpp">
-      <Filter>00.Client</Filter>
+      <Filter>00.Client\02.Object\StageScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>00.Client\02.Object\StageScene</Filter>
+    </ClCompile>
+    <ClCompile Include="CubeTex.cpp">
+      <Filter>01.Engine\Resource\VIBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="RcTex.cpp">
+      <Filter>01.Engine\Resource\VIBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainTex.cpp">
+      <Filter>01.Engine\Resource\VIBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="VIBuffer.cpp">
+      <Filter>01.Engine\Resource\VIBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>01.Engine\Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>01.Engine\Resource\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticMesh.cpp">
+      <Filter>01.Engine\Resource\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicMesh.cpp">
+      <Filter>01.Engine\Resource\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationCtrl.cpp">
+      <Filter>01.Engine\Resource\AniCtrl</Filter>
+    </ClCompile>
+    <ClCompile Include="Loader.cpp">
+      <Filter>01.Engine\Resource\AniCtrl</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeMgr.cpp">
+      <Filter>01.Engine\System\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>01.Engine\System\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>01.Engine\System\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="FontMgr.cpp">
+      <Filter>01.Engine\System\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="Frame.cpp">
+      <Filter>01.Engine\System\Frame</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameMgr.cpp">
+      <Filter>01.Engine\System\Frame</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicDev.cpp">
+      <Filter>01.Engine\System\GraphicDev</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>01.Engine\System\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>01.Engine\Utility\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderMgr.cpp">
+      <Filter>01.Engine\Utility\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>01.Engine\Utility\SuperClass</Filter>
+    </ClCompile>
+    <ClCompile Include="Layer.cpp">
+      <Filter>01.Engine\Utility\SuperClass</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>01.Engine\Utility\SuperClass</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>01.Engine\Utility\SuperClass\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>01.Engine\Utility\SuperClass\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>01.Engine\Utility\SuperClass\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>01.Engine\Utility\SuperClass</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>01.Engine\Utility\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="LightMgr.cpp">
+      <Filter>01.Engine\Utility\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Base.cpp">
+      <Filter>01.Engine\Utility\SuperClass</Filter>
+    </ClCompile>
+    <ClCompile Include="Loading.cpp">
+      <Filter>00.Client\01.Scene\Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>00.Client\02.Object\StageScene\UI</Filter>
     </ClCompile>
     <ClCompile Include="ClientNetEngine.cpp">
       <Filter>02.Server\Manager</Filter>
@@ -503,14 +608,14 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Export_Utility.inl">
-      <Filter>01.Engine\Export</Filter>
+    <None Include="Export_Resources.inl">
+      <Filter>01.Engine\Resource\Export</Filter>
     </None>
     <None Include="Export_System.inl">
-      <Filter>01.Engine\Export</Filter>
+      <Filter>01.Engine\System\Export</Filter>
     </None>
-    <None Include="Export_Resources.inl">
-      <Filter>01.Engine\Export</Filter>
+    <None Include="Export_Utility.inl">
+      <Filter>01.Engine\Utility\Export</Filter>
     </None>
   </ItemGroup>
 </Project>
