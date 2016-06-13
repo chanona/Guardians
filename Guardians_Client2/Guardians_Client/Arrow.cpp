@@ -1,9 +1,10 @@
 #include "stdafx.h"
 #include "Arrow.h"
 #include "Transform.h"
-
+#include "protocol.h"
 #include "Export_Function.h"
-
+#include "LandObject.h"
+#include "ClientNetEngine.h"
 CArrow::CArrow(LPDIRECT3DDEVICE9 pGraphicDev)
 	: Engine::CGameObject(pGraphicDev)
 	, m_pEffect(NULL)
@@ -80,12 +81,20 @@ _int CArrow::Update(const _float& fTimeDelta)
 	{
 		Engine::CComponent*	pMonMesh = m_pMonster->Get_Component(L"Com_Mesh");
 
-		// 몬스터 피 깎아
-		if (!(((Engine::CDynamicMesh*)pMonMesh)->Get_AnimationSet() == SALA_DIE))
-			((Engine::CDynamicMesh*)pMonMesh)->Set_AnimationSet(SALA_DAMAGED);
+		// 충돌체크
 
+		// 몬스터 피 깎아
+		if (!(((Engine::CDynamicMesh*)pMonMesh)->Get_AnimationSet() == SALA_DIE)) 
+		{
+			((Engine::CDynamicMesh*)pMonMesh)->Set_AnimationSet(SALA_DAMAGED);
+		}
 		else
+		{
+		
+			
 			m_pMonster = NULL;
+		}
+			
 
 		return -1;		// 리턴 값 -1이면 지워
 	}

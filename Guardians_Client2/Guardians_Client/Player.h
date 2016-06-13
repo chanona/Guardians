@@ -4,6 +4,7 @@
 #include "Defines.h"
 #include "LandObject.h"
 #include "MouseCol.h"
+#include "Monster.h"
 
 namespace Engine
 {
@@ -30,6 +31,7 @@ public:
 	float GetAngle(Engine::CTransform::ANGLE eAngle) {
 		return m_pTransCom->m_fAngle[eAngle];
 	}
+	void AutoHunt(CMonster *pMonster);
 public:
 	static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 private:	
@@ -44,14 +46,15 @@ private:
 	CMouseCol*					m_pMouseCol;
 	Engine::CGameObject*		m_pMonster;
 
-	bool			m_bMove;
-	D3DXVECTOR3		m_vDestPos;
 	// Server
 	bool m_bConnected;
 	UINT m_hp;
 
 	Engine::CGameObject*		m_pNpc;
 	bool		m_bNpc;
+public :
+	bool			m_bMove;
+	D3DXVECTOR3		m_vDestPos;
 
 private:
 	void Set_ContantTable(void);

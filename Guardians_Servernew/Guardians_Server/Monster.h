@@ -15,8 +15,9 @@ public:
 	bool UpdateSector(int new_sector_x, int new_sector_y);
 	void Awake();
 	void Sleep();
-
+	int GetDamagaed(const int hit_damage);
 private :
+	
 	MonsterType   m_monsterType;
 	UINT          m_index;
 	int           m_preAiTime;
@@ -45,7 +46,7 @@ public :
 	void SetAlive(const bool alive) { m_bAlive = alive; }
 	void SetActive(const bool active) { m_bActive = active; }
 	void SetPreAiTime(const int time) { m_preAiTime = time; }
-		
+
 	// Getter
 	const MonsterType	 GetMonsterType()         { return m_monsterType; }
 	const UINT			 GetIndex()         const { return m_index; }
@@ -53,5 +54,6 @@ public :
 	const atomic<bool>&  IsActive()         const { return m_bActive; }
 	const atomic<bool>&  IsPet()            const { return m_bPet; }
 	const int			 GetPreAiTime()		const { return m_preAiTime; }
+	
 };
 

@@ -124,7 +124,7 @@ void CWorkerThreads::SendProcess(const DWORD transferred, const UINT id)
 void CWorkerThreads::MoveProcess(const DWORD transferred, const UINT id)
 {
 	CMonster *pMon = OBJECT_MANAGER->FindMonster(id);
-	pMon->Move();
+	//pMon->Move();
 }
 
 UINT CWorkerThreads::Run()

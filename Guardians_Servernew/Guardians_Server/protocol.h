@@ -2,9 +2,9 @@
 
 #define MAX_CLIENT                 101		// 최대클라이언트에 + 1을 해줘야 한다 -> 0은 더미 클라
 #define ATTACKER_MONSTER_START 1
-#define DEFENDER_MONSTER_START 5001
-#define SURPPORT_MONSTER_START 10001
-#define MAX_MONSTER                15001
+#define DEFENDER_MONSTER_START 501
+#define SURPPORT_MONSTER_START 1001
+#define MAX_MONSTER                1001
 #define MAX_ITEM                   2001
 
 #define MAX_BUF_SIZE    4096
@@ -33,9 +33,9 @@
 
 #define VIEW_RADIUS 600
 
-#define PLAYER_INIT_X 0
+#define PLAYER_INIT_X 320
 #define PLAYER_INIT_Y 0
-#define PLAYER_INIT_Z 0
+#define PLAYER_INIT_Z 320
 
 #define PLAYER_SHIFT 10
 
@@ -56,6 +56,9 @@ enum CSPacketType : BYTE
 	CS_KEYBOARD_MOVE_START,
 	CS_KEYBOARD_MOVE_STOP,
 	CS_MOUSE_MOVE,
+	CS_ATTACK_MONSTER,
+	CS_MONSTER_ARROW_COLLISION,
+	CS_REMOVE_MONSTER,
 	CSPACKET_TYPE_END
 };
 
@@ -70,6 +73,9 @@ enum SCPacketType : BYTE
 	SC_PLAYER_HP,
 	SC_REMOVE_MONSTER,
 	SC_MONSTER_POS,
+	SC_ATTACK_MONSTER,
+	SC_MONSTERR_HP,
+	SC_MOUSE_MOVE,
 	SCPACKET_TYPE_END
 };
 
@@ -172,11 +178,37 @@ struct sc_packet_monster_pos
 	float radian;
 };
 
+struct sc_packet_monster_hp
+{
+	BYTE size;
+	SCPacketType type;
+	UINT monster_id;
+	int hp;
+};
+
 struct sc_packet_remove_monster
 {
 	BYTE         size;
 	SCPacketType type;
 	UINT         monster_id;
+};
+
+struct sc_packet_attack_moster
+{
+	BYTE size;
+	SCPacketType type;
+	UINT player_id;
+	UINT monster_id;
+};
+
+struct sc_packet_mouse_move
+{
+	BYTE size;
+	SCPacketType type;
+	UINT player_id;
+	float dest_x;
+	float dest_y;
+	float dest_z;
 };
 
 struct sc_packet_any
@@ -299,11 +331,32 @@ struct cs_packet_player_mouse_move
 	float dest_x;
 	float dest_y;
 	float dest_z;
-	float dx;
-	float dy;
-	float dz;
-	int   speed;
 };
+
+
+
+struct cs_packet_attack_monster
+{
+	BYTE size;
+	CSPacketType type;
+	UINT monster_id;
+};
+
+struct cs_packet_monster_arrow_collision
+{
+	BYTE size;
+	CSPacketType type;
+	UINT monster_id;
+};
+
+
+struct cs_packet_remove_monster
+{
+	BYTE size;
+	CSPacketType type;
+	UINT monster_id;
+};
+
 
 struct cs_packet_any
 {

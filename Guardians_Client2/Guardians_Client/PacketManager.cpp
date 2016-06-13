@@ -61,6 +61,23 @@ bool CPacketManager::Start()
 																	this,
 																	std::placeholders::_1,
 																	std::placeholders::_2);
+	
+	
+	m_packetProcessFuncTable[SCPacketType::SC_MONSTERR_HP] = std::bind(&CPacketManager::ProcessMonsterHP,
+		this,
+		std::placeholders::_1,
+		std::placeholders::_2);
+
+	m_packetProcessFuncTable[SCPacketType::SC_ATTACK_MONSTER] = std::bind(&CPacketManager::ProcessAttackMonster,
+		this,
+		std::placeholders::_1,
+		std::placeholders::_2);
+
+	m_packetProcessFuncTable[SCPacketType::SC_MOUSE_MOVE] = std::bind(&CPacketManager::ProcessMouseMove,
+		this,
+		std::placeholders::_1,
+		std::placeholders::_2);
+
 	return true;
 }
 
@@ -158,20 +175,8 @@ void CPacketManager::ProcessPlayerPosition(const char * packet, const UINT id)
 	
 	CPlayer *pPlayer = PLAYER_MANAGER->FindPlayer(pkt->player_id);
 
-	//if (pkt->radian == 0)
-//	{
-		//pPlayer->SetPosition(D3DXVECTOR3(pkt->x, pkt->y, pkt->z));
-		//if (NETWORK_ENGINE->GetID() != id)
-		//{
-		//	float fAngle = pPlayer->GetAngle(Engine::CTransform::ANGLE_Y);
-		//	pPlayer->SetAngle(-fAngle, Engine::CTransform::ANGLE_Y);
-		//}
-	//}
-	//else
-	//{w
-		pPlayer->SetPosition(D3DXVECTOR3(pkt->x, pkt->y, pkt->z));
-		static_cast<Engine::CTransform *>(pPlayer->Get_Component(L"Com_Transform"))->m_fAngle[Engine::CTransform::ANGLE_Y] = pkt->radian;
-	//}
+	pPlayer->SetPosition(D3DXVECTOR3(pkt->x, pkt->y, pkt->z));
+	static_cast<Engine::CTransform *>(pPlayer->Get_Component(L"Com_Transform"))->m_fAngle[Engine::CTransform::ANGLE_Y] = pkt->radian;
 }
 
 void CPacketManager::ProcessPutPlayer(const char * packet, const UINT id)
@@ -205,7 +210,7 @@ void CPacketManager::ProcessLogin(const char * packet, const UINT id)
 	pPlayer->SetConnected(true);		
 	
 	pPlayer->SetPosition(D3DXVECTOR3(pkt->x, pkt->y, pkt->z));
-	pPlayer->Move(Direction::STOP);		// 임시로
+	//pPlayer->Move(Direction::STOP);		// 임시로
 	pPlayer->SetHP(pkt->hp);
 	Engine::CManagement::GetInstance()->Add_Object(L"GameLogic", L"Player", pPlayer);
 
@@ -268,4 +273,36 @@ void CPacketManager::ProcessRemoveMonster(const char * packet, const UINT id)
 	sc_packet_remove_monster *pkt = (sc_packet_remove_monster *)packet;
 
 	OBJECT_MANAGER->DeleteMonster(pkt->monster_id);
+}
+
+void CPacketManager::ProcessAttackMonster(const char * packet, const UINT id)
+{
+	sc_packet_attack_moster *pkt = (sc_packet_attack_moster *)packet;
+	
+	CPlayer *pPlayer = PLAYER_MANAGER->AddPlayer(pkt->player_id);
+
+	pPlayer->AutoHunt(OBJECT_MANAGER->FindMonster(pkt->monster_id));
+}
+
+void CPacketManager::ProcessMonsterHP(const char * packet, const UINT id)
+{
+	sc_packet_monster_hp *pkt = (sc_packet_monster_hp *)packet;
+	
+	CMonster* pMon = OBJECT_MANAGER->FindMonster(pkt->monster_id);
+	pMon->SetHP(pkt->hp);
+
+	if (pkt->hp < 0)
+	{
+		OBJECT_MANAGER->DeleteMonster(pkt->monster_id);
+	}
+}
+
+void CPacketManager::ProcessMouseMove(const char * packet, const UINT id)
+{
+	sc_packet_mouse_move *pkt = (sc_packet_mouse_move *)packet;
+	CPlayer *pPlayer = PLAYER_MANAGER->FindPlayer(pkt->player_id);
+	pPlayer->m_bMove = true;
+	pPlayer->m_vDestPos.x = pkt->dest_x;
+	pPlayer->m_vDestPos.y = pkt->dest_y;
+	pPlayer->m_vDestPos.z = pkt->dest_z;
 }

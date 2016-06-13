@@ -70,7 +70,7 @@ void CObjectManager::DeleteMonster(const UINT id)
 	}
 	InsertMonsterToPool(pMon);
 	
-	//pMon->Clear();
+	pMon->Clear();
 }
 
 void CObjectManager::DeleteMonster(CMonster * pMonster)

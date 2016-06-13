@@ -4,6 +4,7 @@
 #include "Export_Function.h"
 #include "Arrow.h"
 #include "ClientNetEngine.h"
+#include "Monster.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 : CLandObject(pGraphicDev)
@@ -145,6 +146,8 @@ void CPlayer::Clear()
 
 void CPlayer::MoveToMonster(const _float& fTimeDelta)
 {
+
+
 	Engine::CComponent* pTransCom = m_pMonster->Get_Component(L"Com_Transform");
 	
 	D3DXVECTOR3 vPos = ((Engine::CTransform*)pTransCom)->m_vPosition;
@@ -166,6 +169,8 @@ void CPlayer::MoveToMonster(const _float& fTimeDelta)
 
 void CPlayer::Move(const _float& fTimeDelta)
 {
+
+
 	_vec3		vDir = m_vDestPos - m_pTransCom->m_vPosition;
 
 	_float		fDistance = D3DXVec3Length(&vDir);
@@ -204,6 +209,12 @@ void CPlayer::SetPush(int iIndex)
 void CPlayer::SetAngle(float fAngle, Engine::CTransform::ANGLE eAngle)
 {
 	m_pTransCom->m_fAngle[eAngle] = fAngle;
+}
+
+void CPlayer::AutoHunt(CMonster *pMonster)
+{
+	m_bMove = true;
+	m_pMonster = pMonster;
 }
 
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -341,6 +352,18 @@ void CPlayer::Check_KeyState(const _float& fTimeDelta)
 	{
 		m_pMonster = NULL;
 		m_bMove = true;
+
+		cs_packet_player_mouse_move pkt;
+		pkt.size = sizeof(pkt);
+		pkt.type = CSPacketType::CS_MOUSE_MOVE;
+		pkt.x = m_pTransCom->m_vPosition.x;
+		pkt.y = m_pTransCom->m_vPosition.y;
+		pkt.z = m_pTransCom->m_vPosition.z;
+		pkt.dest_x = m_vDestPos.x;
+		pkt.dest_y = m_vDestPos.y;
+		pkt.dest_z = m_vDestPos.z;
+		NETWORK_ENGINE->SendPacket((char *)&pkt);
+
 		m_pMouseCol->PickTerrain(&m_vDestPos, m_pVertex);
 		list<Engine::CGameObject*>* pTest = Engine::Find_ObjectList(L"GameLogic", L"Monster");
 		auto iter = pTest->begin();
@@ -359,6 +382,12 @@ void CPlayer::Check_KeyState(const _float& fTimeDelta)
 			{
 				// ∏ÛΩ∫≈Õ Lock
 				m_pMonster = (*iter);
+
+				cs_packet_attack_monster pkt;
+				pkt.size = sizeof(pkt);
+				pkt.type = CSPacketType::CS_ATTACK_MONSTER;
+				pkt.monster_id = static_cast<CLandObject *>(m_pMonster)->GetID();
+				NETWORK_ENGINE->SendPacket((char *)&pkt);
 			}
 		}
 

@@ -44,6 +44,9 @@ public:
 	void ProcessMonsterPosition(const char *packet, const UINT id);
 	void ProcessPutMonster(const char *packet, const UINT id);
 	void ProcessRemoveMonster(const char *packet, const UINT id);
+	void ProcessAttackMonster(const char *packet, const UINT id);
+	void ProcessMonsterHP(const char *packet, const UINT id);
+	void ProcessMouseMove(const char *packet, const UINT id);
 private :
 	typedef function<void(const char *, const UINT)> Processfunc;
 

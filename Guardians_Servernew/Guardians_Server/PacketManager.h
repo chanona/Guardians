@@ -46,6 +46,10 @@ public:
 	void ProcessMoveBackward(const char *packet, const UINT id);
 	void ProcessKeyboardMoveStart(const char *packet, const UINT id);
 	void ProcessKeyboardMoveStop(const char *packet, const UINT id);
+	void ProcessAttackMonster(const char* packet, const UINT id);
+	void ProcessArrowMonsterCollision(const char* packet, const UINT id);
+	void ProcessMouseMove(const char* packet, const UINT id);
+	void ProcessMonsterRemove(const char* packet, const UINT id);
 	//void ProcessMove(const char*packet, const UINT id);
 private :
 	unordered_map<UINT /*packet_type*/, Processfunc> m_packetProcessFuncTable;

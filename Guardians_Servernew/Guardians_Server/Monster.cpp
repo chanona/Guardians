@@ -219,3 +219,17 @@ void CMonster::Sleep()
 	SetActive(false);
 }
 
+int CMonster::GetDamagaed(const int hit_damage)
+{
+	if (m_bActive == false) return 0;
+
+	InterlockedAdd((volatile LONG *)m_hp, -hit_damage);
+	
+	if (m_hp < 0) {
+		m_hp = 0;
+		this->SetActive(false);
+	}
+
+	return m_hp;
+}
+

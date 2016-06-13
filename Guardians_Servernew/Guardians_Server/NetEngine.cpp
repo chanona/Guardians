@@ -210,18 +210,18 @@ void CNetEngine::Accept()
 	// pre : 40, 40, 20, 15
 	// pre2 : 80, 80, 10, 7
 
-	//for (int i = 0; i < 100; ++i)
-	//{
-	//	for (int j = 0; j < 100; ++j)
-	//	{
-	//		CMonster* pMon = OBJECT_MANAGER->GetNewMonster(rand() % MonsterType::MONSTER_TYPE_END);
-	//		pMon->SetPosition(i * 50 , PLAYER_INIT_Y, j * 50);
-	//		pMon->SetWorld(WORLD_MANAGER->GetWorld(WORLD_TYPE::FOREST));
-	//		pMon->UpdateSector(pMon->GetPositionX() / SECTOR_WIDTH, pMon->GetPositionZ() / SECTOR_HEIGHT);
-	//		pMon->SetAlive(true);
-	//		pMon->SetActive(false);
-	//	}
-	//}
+	for (int i = 0; i < 5; ++i)
+	{
+		for (int j = 0; j < 5; ++j)
+		{
+			CMonster* pMon = OBJECT_MANAGER->GetNewMonster(rand() % MonsterType::MONSTER_TYPE_END);
+			pMon->SetPosition(PLAYER_INIT_X - 50 + 70 * j  , 0, PLAYER_INIT_Z - 50 + 70 * i );
+			pMon->SetWorld(WORLD_MANAGER->GetWorld(WORLD_TYPE::FOREST));
+			pMon->UpdateSector(pMon->GetPositionX() / SECTOR_WIDTH, pMon->GetPositionZ() / SECTOR_HEIGHT);
+			pMon->SetAlive(true);
+			pMon->SetActive(false);
+		}
+	}
 
 	if (m_hListenSocket == NULL)
 	{

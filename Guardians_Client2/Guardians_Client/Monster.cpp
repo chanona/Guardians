@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "Monster.h"
 #include "Export_Function.h"
-
+#include "protocol.h"
+#include "ClientNetEngine.h"
 CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CLandObject(pGraphicDev)
 	, m_pEffect(NULL)
@@ -76,7 +77,16 @@ _int CMonster::Update(const _float& fTimeDelta)
 			m_iHP -= 50;
 
 		if (m_pMeshCom->Get_AnimationSet() == SALA_DIE)
+		{
+			cs_packet_remove_monster pkt;
+			pkt.size = sizeof(pkt);
+			pkt.type = CSPacketType::CS_REMOVE_MONSTER;
+			pkt.monster_id = m_id;
+
+			NETWORK_ENGINE->SendPacket((char *)&pkt);
 			return -1;
+		}
+			
 
 		if (m_iHP <= 0)
 			m_pMeshCom->Set_AnimationSet(SALA_DIE);

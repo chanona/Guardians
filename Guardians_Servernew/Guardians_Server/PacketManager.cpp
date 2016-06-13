@@ -2,7 +2,7 @@
 #include "PacketManager.h"
 #include "SessionManager.h"
 #include "WorldManager.h"
-
+#include "ObjectManager.h"
 
 CPacketManager::CPacketManager()
 {
@@ -57,6 +57,30 @@ bool CPacketManager::Start()
 		this,
 		std::placeholders::_1,
 		std::placeholders::_2);
+
+	m_packetProcessFuncTable[CSPacketType::CS_ATTACK_MONSTER] = std::bind(&CPacketManager::ProcessAttackMonster,
+		this,
+		std::placeholders::_1,
+		std::placeholders::_2);
+
+	m_packetProcessFuncTable[CSPacketType::CS_MOUSE_MOVE] = std::bind(&CPacketManager::ProcessMouseMove,
+		this,
+		std::placeholders::_1,
+		std::placeholders::_2);
+
+
+	m_packetProcessFuncTable[CSPacketType::CS_MONSTER_ARROW_COLLISION] = std::bind(&CPacketManager::ProcessArrowMonsterCollision,
+		this,
+		std::placeholders::_1,
+		std::placeholders::_2);
+
+
+
+	m_packetProcessFuncTable[CSPacketType::CS_REMOVE_MONSTER] = std::bind(&CPacketManager::ProcessMonsterRemove,
+		this,
+		std::placeholders::_1,
+		std::placeholders::_2);
+
 	return true;
 }
 
@@ -370,4 +394,65 @@ void CPacketManager::ProcessKeyboardMoveStart(const char * packet, const UINT id
 void CPacketManager::ProcessKeyboardMoveStop(const char * packet, const UINT id)
 {
 	// 할 필요가 없을듯...?
+}
+
+void CPacketManager::ProcessAttackMonster(const char * packet, const UINT id)
+{
+	cs_packet_attack_monster *pkt = (cs_packet_attack_monster *)packet;
+	
+	sc_packet_attack_moster send_pkt;
+	send_pkt.size = sizeof(sc_packet_attack_moster);
+	send_pkt.type = SCPacketType::SC_ATTACK_MONSTER;
+	send_pkt.monster_id = pkt->monster_id;
+
+	SESSION_MANAGER->BroadCastInView(reinterpret_cast<char *>(&send_pkt), id);
+}
+
+void CPacketManager::ProcessArrowMonsterCollision(const char * packet, const UINT id)
+{
+	CClientSession *pClient = SESSION_MANAGER->FindSession(id);
+	cs_packet_monster_arrow_collision *pkt = (cs_packet_monster_arrow_collision *)packet;
+	
+	CMonster* pMon = OBJECT_MANAGER->FindMonster(pkt->monster_id);
+	pMon->GetDamagaed(20);
+
+	sc_packet_monster_hp send_pkt;
+	send_pkt.size = sizeof(send_pkt);
+	send_pkt.type = SCPacketType::SC_MONSTERR_HP;
+	send_pkt.monster_id = pMon->GetID();
+	send_pkt.hp = pMon->GetHP();
+	
+	pClient->OnceSend((char *)&send_pkt);
+	SESSION_MANAGER->BroadCastInView(reinterpret_cast<char *>(&send_pkt), id);
+}
+
+void CPacketManager::ProcessMouseMove(const char * packet, const UINT id)
+{
+	cs_packet_player_mouse_move *pkt = (cs_packet_player_mouse_move *)packet;
+	
+	sc_packet_mouse_move send_pkt;
+	send_pkt.size = sizeof(send_pkt);
+	send_pkt.type = SCPacketType::SC_MOUSE_MOVE;
+	send_pkt.player_id = id;
+	send_pkt.dest_x = pkt->dest_x;
+	send_pkt.dest_y = pkt->dest_y;
+	send_pkt.dest_z = pkt->dest_z;
+
+	CClientSession *pClient = SESSION_MANAGER->FindSession(id);
+	pClient->GetPlayer()->SetPosition(XMFLOAT3(pkt->x, pkt->y, pkt->z));
+
+	SESSION_MANAGER->BroadCastInView(reinterpret_cast<char *>(&send_pkt), id);
+}
+
+void CPacketManager::ProcessMonsterRemove(const char * packet, const UINT id)
+{
+	cs_packet_remove_monster *pkt = (cs_packet_remove_monster *)packet;
+	OBJECT_MANAGER->DeleteMonster(pkt->monster_id);
+	
+	sc_packet_remove_monster send_pkt;
+	send_pkt.size = sizeof(send_pkt);
+	send_pkt.type = SCPacketType::SC_REMOVE_MONSTER;
+	send_pkt.monster_id = pkt->monster_id;
+
+	SESSION_MANAGER->BroadCastInView(reinterpret_cast<char *>(&send_pkt), id);
 }
