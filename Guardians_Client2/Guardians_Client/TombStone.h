@@ -20,6 +20,7 @@ public:
 	virtual HRESULT Add_Component(void);
 	virtual _int Update(const _float& fTimeDelta);
 	virtual void Render(void);
+	virtual void Clear() {}
 public:
 	static CTombStone* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 private:		

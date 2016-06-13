@@ -63,17 +63,19 @@ void CLoading::StageLoading(void)
 		return;
 	}
 
+	if (FAILED(Engine::Ready_Mesh(m_pGraphicDev, RESOURCE_STAGE, Engine::CMesh::TYPE_DYNAMIC, L"Mesh_Monster", L"../Resource/Meshes/DynamicMesh/Monster/", L"Salamanda.X")))
+	{
+		MSG_BOX("Ready_Mesh Ready Failed");
+		return;
+	}
+
 	if(FAILED(Engine::Ready_Mesh(m_pGraphicDev, RESOURCE_STAGE, Engine::CMesh::TYPE_DYNAMIC, L"Mesh_Player", L"../Resource/Meshes/DynamicMesh/PlayerXFile/", L"Player2.X")))
 	{
 		MSG_BOX("Ready_Mesh Ready Failed");
 		return;
 	}
 
-	if (FAILED(Engine::Ready_Mesh(m_pGraphicDev, RESOURCE_STAGE, Engine::CMesh::TYPE_DYNAMIC, L"Mesh_Monster", L"../Resource/Meshes/DynamicMesh/Monster/", L"Salamanda.X")))
-	{
-		MSG_BOX("Ready_Mesh Ready Failed");
-		return;
-	}
+	
 
 	// UI 
 	if (FAILED(Engine::Ready_Buffer(m_pGraphicDev, RESOURCE_STATIC, Engine::CVIBuffer::TYPE_RCTEX

@@ -22,6 +22,7 @@ public:
 	virtual HRESULT Add_Component(void);
 	virtual _int Update(const _float& fTimeDelta);
 	virtual void Render(void);
+	virtual void Clear();
 
 	void Move(const _float& fTimeDelta);
 public:
@@ -39,15 +40,21 @@ private:
 
 	Engine::CMaterial*			m_pMtrlCom;
 
+	// Server
+	bool m_bAlive;
 private:		// MonsterStat
 	int			m_iHP;
 	int			m_iAtt;
 
 private:
 	void Set_ContantTable(void);
-
 public:
 	virtual _ulong Release(void);
+
+	bool GetAlive() const { return m_bAlive; }
+	void SetAlive(const bool alive) { m_bAlive = alive; }
+	void SetHP(const int hp) { m_iHP = hp; }
+	int GetHP() { return m_iHP; }
 };
 
 

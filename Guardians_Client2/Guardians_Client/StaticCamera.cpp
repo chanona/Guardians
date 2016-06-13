@@ -49,6 +49,8 @@ _int CStaticCamera::Update(const _float& fTimeDelta)
 
 void CStaticCamera::SetCameraPos(const _float& fTimeDelta)
 {
+	if (GetActiveWindow() != g_hWnd) return;
+
 	int		iDistance = 0;
 
 	m_vAt = ((Engine::CTransform*)(Engine::Get_Component(L"Com_Transform", L"GameLogic", L"Player")))->m_vPosition + D3DXVECTOR3(0.f, 3.f, 0.f);

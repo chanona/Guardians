@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Export_Function.h"
 #include "Arrow.h"
+#include "ClientNetEngine.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 : CLandObject(pGraphicDev)
@@ -12,6 +13,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 , m_pMouseCol(nullptr)
 , m_bMove(false)
 , m_pMonster(NULL)
+, m_bConnected(false)
 {
 
 }
@@ -64,9 +66,11 @@ HRESULT CPlayer::Add_Component(void)
 
 _int CPlayer::Update(const _float& fTimeDelta)
 {
+	if (m_bConnected == false) return -1;
+
 	m_fTimeDelta = fTimeDelta;
 
-	Check_KeyState(fTimeDelta);
+	if(m_id == NETWORK_ENGINE->GetID()) Check_KeyState(fTimeDelta);
 
 	if (m_bMove)
 	{
@@ -97,7 +101,6 @@ _int CPlayer::Update(const _float& fTimeDelta)
 			((CArrow*)pArrow)->Set_Monster(m_pMonster);
 			Engine::Add_Object(L"GameLogic", L"Arrow", pArrow);
 		}
-
 		else
 			m_pMeshCom->Set_AnimationSet(PLAYER_STAND);
 	}	
@@ -135,6 +138,10 @@ void CPlayer::Render(void)
 	m_pMeshCom->Render_MeshForShader(m_pEffect, true);
 }
 
+void CPlayer::Clear()
+{
+}
+
 void CPlayer::MoveToMonster(const _float& fTimeDelta)
 {
 	Engine::CComponent* pTransCom = m_pMonster->Get_Component(L"Com_Transform");
@@ -162,13 +169,13 @@ void CPlayer::Move(const _float& fTimeDelta)
 	_float		fDistance = D3DXVec3Length(&vDir);
 	D3DXVec3Normalize(&vDir, &vDir);
 
-	/*_float fCos = D3DXVec3Dot(&vDir, &D3DXVECTOR3(0.f, 0.f, -1.f));
+	_float fCos = D3DXVec3Dot(&vDir, &D3DXVECTOR3(0.f, 0.f, -1.f));
 
 	_float fAngle = acosf(fCos);
 	if (vDir.x > 0.f)
 		fAngle = 2 * D3DX_PI - fAngle;
 
-	m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y] = fAngle;*/
+	m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y] = fAngle;
 
 	m_pTransCom->m_vPosition += vDir * 3.f * fTimeDelta;
 
@@ -190,6 +197,11 @@ void CPlayer::SetPush(int iIndex)
 
 	if (m_iAniIdx > PLAYER_END)
 		m_iAniIdx = PLAYER_STAND;*/
+}
+
+void CPlayer::SetAngle(float fAngle, Engine::CTransform::ANGLE eAngle)
+{
+	m_pTransCom->m_fAngle[eAngle] = fAngle;
 }
 
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -226,6 +238,9 @@ void CPlayer::Set_ContantTable(void)
 
 void CPlayer::Check_KeyState(const _float& fTimeDelta)
 {
+
+	if (GetActiveWindow() != g_hWnd) return;
+
 	bool bInput = false;
 
 	if (Engine::GetDIKeyState(DIK_W) & 0x80)
@@ -234,13 +249,23 @@ void CPlayer::Check_KeyState(const _float& fTimeDelta)
 
 		memcpy(&vDirection, &m_pTransCom->m_matWorld.m[2][0], sizeof(_vec3));
 		D3DXVec3Normalize(&vDirection, &vDirection);
+
 		m_pTransCom->m_vPosition += vDirection * -1.f * 3.0f * fTimeDelta;
 
 		m_pMeshCom->Set_AnimationSet(PLAYER_WALK);
-		//SetPush(PLAYER_WALK);
+		////SetPush(PLAYER_WALK);
 		m_bMove = false;
 		bInput = true;
 		m_pMonster = NULL;
+
+		cs_packet_move_forward pkt;
+		pkt.size = sizeof(pkt);
+		pkt.type = CS_FORWARD;
+		pkt.x = m_pTransCom->m_vPosition.x;
+		pkt.y = m_pTransCom->m_vPosition.y;
+		pkt.z = m_pTransCom->m_vPosition.z;
+		pkt.radian = m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y];
+		NETWORK_ENGINE->SendPacket((char *)&pkt);
 	}
 
 	if (Engine::GetDIKeyState(DIK_S) & 0x80)
@@ -255,6 +280,15 @@ void CPlayer::Check_KeyState(const _float& fTimeDelta)
 		m_bMove = false;
 		bInput = true;
 		m_pMonster = NULL;
+
+		cs_packet_move_backward pkt;
+		pkt.size = sizeof(pkt);
+		pkt.type = CS_BACKWARD;
+		pkt.x = m_pTransCom->m_vPosition.x;
+		pkt.y = m_pTransCom->m_vPosition.y;
+		pkt.z = m_pTransCom->m_vPosition.z;
+		pkt.radian = m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y];
+		NETWORK_ENGINE->SendPacket((char *)&pkt);
 	}
 
 	if (!bInput && !m_bMove && !m_pMonster)
@@ -269,7 +303,17 @@ void CPlayer::Check_KeyState(const _float& fTimeDelta)
 			m_pMeshCom->Set_AnimationSet(PLAYER_STAND);
 		}
 
-		m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y] -= D3DXToRadian(90.0f) * fTimeDelta * 0.5f;
+		m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y] -= D3DXToRadian(90.0f) * fTimeDelta * 0.5f;	
+		cs_packet_move_left pkt;
+		pkt.size = sizeof(pkt);
+		pkt.type = CS_LEFT;
+		pkt.radian = m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y];
+
+		pkt.x = m_pTransCom->m_vPosition.x;
+		pkt.y = m_pTransCom->m_vPosition.y;
+		pkt.z = m_pTransCom->m_vPosition.z;
+
+		NETWORK_ENGINE->SendPacket((char *)&pkt);
 	}
 
 	if (Engine::GetDIKeyState(DIK_D) & 0x80)
@@ -280,6 +324,15 @@ void CPlayer::Check_KeyState(const _float& fTimeDelta)
 		}
 
 		m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y] += D3DXToRadian(90.0f) * fTimeDelta * 0.5f;
+
+		cs_packet_move_right pkt;
+		pkt.size = sizeof(pkt);
+		pkt.type = CS_RIGHT;
+		pkt.radian = m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y];
+		pkt.x = m_pTransCom->m_vPosition.x;
+		pkt.y = m_pTransCom->m_vPosition.y;
+		pkt.z = m_pTransCom->m_vPosition.z;
+		NETWORK_ENGINE->SendPacket((char *)&pkt);
 	}
 
 	if (Engine::GetDIMouseState(Engine::CInput::DIM_LBUTTON))

@@ -4,7 +4,7 @@
 #define ATTACKER_MONSTER_START 1
 #define DEFENDER_MONSTER_START 5001
 #define SURPPORT_MONSTER_START 10001
-#define MAX_MONSTER                15001
+#define MAX_MONSTER                1001
 #define MAX_ITEM                   2001
 
 #define MAX_BUF_SIZE    4096
@@ -21,20 +21,21 @@
 #define WSAGETSELECTERROR(lParam) HIWORD(lParam) 
 #define WSAGETSELECTEVENT(lParam) LOWORD(lParam)
 
-#define WORLD_WIDTH  25000
-#define WORLD_HEIGHT 25000
+#define WORLD_WIDTH  6000
+#define WORLD_HEIGHT 6000
 
 #define SECTOR_WIDTH  400
 #define SECTOR_HEIGHT 400
 
 #define SECTOR_X_LENGTH (WORLD_WIDTH / SECTOR_WIDTH)
 #define SECTOR_Y_LENGTH (WORLD_HEIGHT / SECTOR_HEIGHT)
+#define SECTOR_Z_LENGTH (WORLD_HEIGHT / SECTOR_HEIGHT)
 
-#define VIEW_RADIUS 250
+#define VIEW_RADIUS 600
 
-#define PLAYER_INIT_X 1028.0f
-#define PLAYER_INIT_Y 550.0f
-#define PLAYER_INIT_Z 1028.0f
+#define PLAYER_INIT_X 0
+#define PLAYER_INIT_Y 0
+#define PLAYER_INIT_Z 0
 
 #define PLAYER_SHIFT 10
 
@@ -104,10 +105,11 @@ struct sc_packet_player_pos
 	float		 x;
 	float		 y;
 	float		 z;
-	float        dx;
-	float		 dy;
-	float		 dz;
-	float speed;
+	float radian;
+	//float        dx;
+	//float		 dy;
+	//float		 dz;
+	//float speed;
 };
 
 struct sc_packet_login
@@ -167,6 +169,7 @@ struct sc_packet_monster_pos
 	float x;
 	float y;
 	float z;
+	float radian;
 };
 
 struct sc_packet_remove_monster
@@ -208,12 +211,20 @@ struct cs_packet_move_left
 {
 	BYTE         size;
 	CSPacketType type;
+	float		 x;
+	float		 y;
+	float		 z;
+	float radian;
 };
 
 struct cs_packet_move_right
 {
 	BYTE         size;
 	CSPacketType type;
+	float		 x;
+	float		 y;
+	float		 z;
+	float radian;
 };
 
 struct cs_packet_move_up
@@ -232,12 +243,20 @@ struct cs_packet_move_forward
 {
 	BYTE         size;
 	CSPacketType type;
+	float x;
+	float y;
+	float z;
+	float radian;
 };
 
 struct cs_packet_move_backward
 {
 	BYTE         size;
 	CSPacketType type;
+	float x;
+	float y;
+	float z;
+	float radian;
 };
 
 struct cs_packet_login
@@ -266,6 +285,7 @@ struct cs_packet_player_keyboard_move_stop
 	float		 x;
 	float		 y;
 	float		 z;
+
 };
 
 

@@ -5,7 +5,11 @@
 #include "PlayerManager.h"
 #include "Player.h"
 #include "ObjectManager.h"
-
+#include "Export_Function.h"
+#include "Management.h"
+#include "GameObject.h"
+#include "MouseCol.h"
+#include "StaticCamera.h"
 CPacketManager::CPacketManager()
 {
 }
@@ -153,42 +157,25 @@ void CPacketManager::ProcessPlayerPosition(const char * packet, const UINT id)
 	sc_packet_player_pos *pkt = (sc_packet_player_pos *)packet;
 	
 	CPlayer *pPlayer = PLAYER_MANAGER->FindPlayer(pkt->player_id);
-	//UCHAR& dir = pPlayer->GetDirection();
-	//dir = 0;
-	//pPlayer->SetPosition(D3DXVECTOR3(pkt->x, pkt->y, pkt->z));
 
-	BYTE newDir = 0;
-
-	if (pkt->dx == 1)  newDir |= Direction::RIGHT;
-	if (pkt->dx == -1) newDir |= Direction::LEFT;
-	if (pkt->dy == 1)  newDir |= Direction::UP;
-	if (pkt->dy == -1) newDir |= Direction::DOWN;
-	if (pkt->dz == 1)  newDir |= Direction::FORWARD;
-	if (pkt->dz == -1) newDir |= Direction::BACKWARD;
-
-	//pPlayer->GetDeadReckoningQueue().push(D3DXVECTOR3(pkt->x, pkt->y, pkt->z));
-	//pPlayer->SetDirection(newDir);
-	//pPlayer->SetSpeed(pkt->speed);
-
-	//pPlayer->SetPosition(pkt->x, pkt->y, pkt->z);
-	//
-	//if (pkt->dx == 1) dir |= Direction::RIGHT;
-	//else if (pkt->dx == -1) dir |= Direction::LEFT;
-
-	//if (pkt->dy == 1) dir |= Direction::UP;
-	//else if (pkt->dy == -1) dir |= Direction::DOWN;
-
-	//if (pkt->dz == 1) dir |= Direction::FORWARD;
-	//else if (pkt->dz == -1) dir |= Direction::BACKWARD;
-	//DUMMY_ENGINE->SetScrollLeft(pPlayer->GetPositionX() - pkt->x);
-	//DUMMY_ENGINE->SetScrollTop(pPlayer->GetPositionY() - pkt->y);
-
-	//cout << "ProcessPlayerPosition : " << pkt->player_id << endl;
+	//if (pkt->radian == 0)
+//	{
+		//pPlayer->SetPosition(D3DXVECTOR3(pkt->x, pkt->y, pkt->z));
+		//if (NETWORK_ENGINE->GetID() != id)
+		//{
+		//	float fAngle = pPlayer->GetAngle(Engine::CTransform::ANGLE_Y);
+		//	pPlayer->SetAngle(-fAngle, Engine::CTransform::ANGLE_Y);
+		//}
+	//}
+	//else
+	//{w
+		pPlayer->SetPosition(D3DXVECTOR3(pkt->x, pkt->y, pkt->z));
+		static_cast<Engine::CTransform *>(pPlayer->Get_Component(L"Com_Transform"))->m_fAngle[Engine::CTransform::ANGLE_Y] = pkt->radian;
+	//}
 }
 
 void CPacketManager::ProcessPutPlayer(const char * packet, const UINT id)
 {
-	//TCHAR name[100];
 	sc_packet_put_player *pkt = (sc_packet_put_player *)packet;
 	CPlayer *pPlayer;
 
@@ -196,47 +183,50 @@ void CPacketManager::ProcessPutPlayer(const char * packet, const UINT id)
 
 	pPlayer = PLAYER_MANAGER->AddPlayer(pkt->player_id);
 
-	// 자기 플레이어 제외하고 
-	//pPlayer->SetPosition(D3DXVECTOR3(pkt->x, pkt->y, pkt->z));
-	//pPlayer->SetHP(pkt->hp);
-	//wsprintf(name, L"Player%d", pkt->player_id);
-	//pPlayer->SetName(name);
-//	pPlayer->SetConnected(true);
+	pPlayer->SetPosition(D3DXVECTOR3(pkt->x, pkt->y, pkt->z));
+	pPlayer->SetHP(pkt->hp);
+	pPlayer->SetConnected(true);
+	Engine::CManagement::GetInstance()->Add_Object(L"GameLogic", L"Player", pPlayer);
 
-	//cout << "ProcessOutPlayer : " << pkt->player_id << " 추가" << endl;
+	cout << "ProcessOutPlayer : " << pkt->player_id << " 추가" << endl;
 }
 
 // Warning : 여기서 인자로 넣어진 ID를 쓰지말 것! 아직 ID 등록 안된 상태
 void CPacketManager::ProcessLogin(const char * packet, const UINT id)
 {
-	//TCHAR name[100];
 	sc_packet_login *pkt = (sc_packet_login *)packet;	
 
 	if (pkt->player_id <= 0) return;
 
 	CPlayer *pPlayer = PLAYER_MANAGER->AddPlayer(pkt->player_id);
-//	pPlayer->Initalize();
 
-//	pPlayer->SetID(pkt->player_id);
 	NETWORK_ENGINE->SetMyPlayer(pPlayer);
 	NETWORK_ENGINE->SetMyID(pkt->player_id);
-	//pPlayer->SetID(pkt->player_id);  Node : AddPlayer 할때 안에서 SetID 해줌
-	//pPlayer->SetConnected(true);			  AddPlayer 할때 안에서 Connect Set 해줌
+	pPlayer->SetConnected(true);		
 	
-	// 지형의 y값
-//	pPlayer->SetPosition(D3DXVECTOR3(pkt->x, pkt->y, pkt->z));
+	pPlayer->SetPosition(D3DXVECTOR3(pkt->x, pkt->y, pkt->z));
 	pPlayer->Move(Direction::STOP);		// 임시로
-	//pPlayer->SetHP(pkt->hp);
+	pPlayer->SetHP(pkt->hp);
+	Engine::CManagement::GetInstance()->Add_Object(L"GameLogic", L"Player", pPlayer);
+
+	Engine::CGameObject *pMouse = CMouseCol::Create(Engine::Get_GraphicDev());
+	Engine::CManagement::GetInstance()->Add_Object(L"GameLogic", L"MouseCol", pMouse);
+	pPlayer->Set_MouseCol((CMouseCol*)pMouse);
+
+	Engine::CGameObject *pCamera = CStaticCamera::Create(Engine::Get_GraphicDev(), &_vec3(0.f, 5.f, -5.f), &_vec3(0.f, 0.f, 0.f));
+	Engine::CManagement::GetInstance()->Add_Object(L"GameLogic", L"Camera", pCamera);
+
 	//wsprintf(name,L"Player%d", pkt->player_id);
 	//pPlayer->SetName(name);
 
-	//cout << "ProcessLogin : " << pkt->player_id << " 로그인" << endl;
+	cout << "ProcessLogin : " << pkt->player_id << " 로그인" << endl;
 }
 
 void CPacketManager::ProcessRemovePlayer(const char * packet, const UINT id)
 {
 	sc_packet_remove_player *pkt = (sc_packet_remove_player *)packet;
 
+	
 	PLAYER_MANAGER->DeletePlayer(pkt->player_id);
 }
 
@@ -244,7 +234,8 @@ void CPacketManager::ProcessPlayerHP(const char * packet, const UINT id)
 {
 	sc_packet_player_hp *pkt = (sc_packet_player_hp *)packet;
 	CPlayer *pPlayer = PLAYER_MANAGER->FindPlayer(pkt->player_id);
-	//pPlayer->SetHP(pkt->hp);
+
+	pPlayer->SetHP(pkt->hp);
 }
 
 void CPacketManager::ProcessMonsterPosition(const char * packet, const UINT id)
@@ -253,16 +244,7 @@ void CPacketManager::ProcessMonsterPosition(const char * packet, const UINT id)
 
 	CMonster *pMon = OBJECT_MANAGER->FindMonster(pkt->monster_id);
 	
-	// 클라의 몬스터 pos는 서버의 패킷 pos보다 한발 느린것을 이용한다.
-//	D3DXVECTOR3 vDir = D3DXVECTOR3(pkt->x, HMAP->GetHeight(pkt->x, pkt->z), pkt->z) - pMon->GetPosition();
-
-	//D3DXVec3Normalize(&vDir, &vDir);
-
-//	pMon->SetDir(vDir.x, vDir.z);
-
-	//pMon->CircleCollision(D3DXVECTOR3(pkt->x, pkt->y, pkt->z), )
-	
-//	pMon->GetDeadReckoningQueue().push(D3DXVECTOR3(pkt->x, HMAP->GetHeight(pkt->x, pkt->z), pkt->z));
+	pMon->SetPosition(D3DXVECTOR3(pkt->x, pkt->y, pkt->z));
 }
 
 void CPacketManager::ProcessPutMonster(const char * packet, const UINT id)
@@ -272,13 +254,13 @@ void CPacketManager::ProcessPutMonster(const char * packet, const UINT id)
 	if (pkt->monster_id <= 0) return;
 	
 	CMonster *pMon = OBJECT_MANAGER->GetNewMonster(pkt->monster_id);
-//	pMon->Initalize();
-//	pMon->SetID(pkt->monster_id);
-//	pMon->SetPosition(D3DXVECTOR3(pkt->x, HMAP->GetHeight(pkt->x, pkt->z), pkt->z));
-//	OBJECT_MANAGER->InsertMappingData(pMon->GetID(), pMon->GetIndex());
-	//pMon->SetHP(pkt->hp);	
+	pMon->SetPosition(D3DXVECTOR3(pkt->x, pkt->y, pkt->z));
+	pMon->SetHP(pkt->hp);	
 	//pMon->SetMonsterType(pkt->monster_type);
-//	pMon->SetAlive(true);
+
+	Engine::CManagement::GetInstance()->Add_Object(L"GameLogic", L"Monster", pMon);
+
+	pMon->SetAlive(true);
 }
 
 void CPacketManager::ProcessRemoveMonster(const char * packet, const UINT id)
@@ -286,5 +268,4 @@ void CPacketManager::ProcessRemoveMonster(const char * packet, const UINT id)
 	sc_packet_remove_monster *pkt = (sc_packet_remove_monster *)packet;
 
 	OBJECT_MANAGER->DeleteMonster(pkt->monster_id);
-	//DUMMY_ENGINE->DeleteMonster(pkt->monster_id);
 }
