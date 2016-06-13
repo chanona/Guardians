@@ -3,6 +3,7 @@
 
 #include "Defines.h"
 #include "Scene.h"
+#include "Quest.h"
 
 class CStageScene : public Engine::CScene
 {
@@ -21,6 +22,12 @@ private:
 	HRESULT Ready_GameLogic(void);
 public:
 	virtual _ulong Release(void);
+
+public:
+	CQuest*		m_pQuest;
+	bool		m_bStart;
+
+	TCHAR m_szNum[128];
 };
 
 

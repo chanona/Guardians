@@ -12,10 +12,17 @@
 #include "Tree.h"
 #include "Npc.h"
 #include "Quest.h"
+#include "Shop.h"
 #include "Export_Function.h"
 #include "ClientNetEngine.h"
+
+int g_iNum = 0;
+int g_iGoal = 10;
+
 CStageScene::CStageScene(LPDIRECT3DDEVICE9 pGraphicDev)
 : Engine::CScene(pGraphicDev)
+, m_pQuest(nullptr)
+, m_bStart(true)
 {
 
 }
@@ -64,6 +71,14 @@ _int CStageScene::Update(const _float& fTimeDelta)
 {
 	if (NETWORK_ENGINE->GetID() == 0) return 0;
 
+	if (m_bStart == true)
+	{
+		NETWORK_ENGINE->GetMyPlayer()->SetQuest(m_pQuest);
+		m_bStart = false;
+	}
+		
+	wsprintf(m_szNum, L"%d / %d 마리 잡았습니다.", g_iNum, g_iGoal);
+
 	Engine::CScene::Update(fTimeDelta);
 
 	return 0;
@@ -71,7 +86,16 @@ _int CStageScene::Update(const _float& fTimeDelta)
 
 void CStageScene::Render(void)
 {
-	
+	if (m_pQuest->Get_QuestType() == 1 || m_pQuest->Get_QuestType() == 2)
+	{
+		Engine::Render_Font(L"Font_Default", _vec3(550.f, 100.f, 0.f), m_szNum
+			, D3DXCOLOR(0.f, 0.f, 0.f, 1.f));
+	}
+
+	/*if (m_pQuest->Get_bQuest())
+	{
+		
+	}*/
 }
 
 CStageScene* CStageScene::Create(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -124,8 +148,8 @@ HRESULT CStageScene::Ready_GameLogic(void)
 	Engine::CLayer*		pLayer = Engine::CLayer::Create(m_pGraphicDev);
 
 	Engine::CGameObject*		pGameObject = NULL;
-
 	Engine::CGameObject*		pMouse = NULL;
+	Engine::CGameObject*		pNpc = NULL;
 
 	// For.StaticCamera-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//pGameObject = CStaticCamera::Create(m_pGraphicDev, &_vec3(0.f, 5.f, -5.f), &_vec3(0.f, 0.f, 0.f));
@@ -163,13 +187,13 @@ HRESULT CStageScene::Ready_GameLogic(void)
 	//pLayer->Ready_Object(L"Monster", pGameObject);
 
 	// For.Npc-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	pGameObject = CNpc::Create(m_pGraphicDev);
+	pGameObject = pNpc = CNpc::Create(m_pGraphicDev);
 	if (NULL == pGameObject)
 		return E_FAIL;
 	pLayer->Ready_Object(L"Npc", pGameObject);
 
 	// UI
-	pGameObject = CQuest::Create(m_pGraphicDev);
+	pGameObject = m_pQuest= CQuest::Create(m_pGraphicDev);
 	if (NULL == pGameObject)
 		return E_FAIL;
 	pLayer->Ready_Object(L"Quest", pGameObject);
@@ -178,6 +202,11 @@ HRESULT CStageScene::Ready_GameLogic(void)
 	if (NULL == pGameObject)
 		return E_FAIL;
 	pLayer->Ready_Object(L"PlayerState", pGameObject);
+
+	pGameObject = CShop::Create(m_pGraphicDev);
+	if (NULL == pGameObject)
+		return E_FAIL;
+	pLayer->Ready_Object(L"Shop", pGameObject);
 
 	// For.Sword-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//pGameObject = CSword::Create(m_pGraphicDev);

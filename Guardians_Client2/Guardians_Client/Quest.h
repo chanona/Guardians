@@ -22,13 +22,17 @@ public:
 	virtual HRESULT Add_Component(void);
 	virtual _int Update(const _float& fTimeDelta);
 	virtual void Render(void);
-	enum STATE_TYPE { QUEST_START, QUEST_ING, QUEST_OK, QUEST_END };
+	enum QUEST_TYPE { QUEST_START, QUEST_ING, QUEST_OK, QUEST_END };
 
-	STATE_TYPE		m_eQuest;
+	QUEST_TYPE		m_eQuest;
 	bool			m_bQuest;	// Äù½ºÆ®¸¦ ³¡³Â´Â°¡
 
 public:
 	static CQuest* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	void   SetQuestType(QUEST_TYPE eQuest){m_eQuest = eQuest;}
+	void   Set_bQuest(bool bQuest) { m_bQuest = bQuest; }
+	bool   Get_bQuest(void) { return m_bQuest; }
+	int	   Get_QuestType() { return m_eQuest; }
 
 private:
 	LPD3DXEFFECT				m_pEffect;

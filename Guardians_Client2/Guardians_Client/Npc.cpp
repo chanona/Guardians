@@ -33,7 +33,7 @@ HRESULT CNpc::Initialize(void)
 
 	m_pTransCom->m_vScale /= 55.f;
 
-	m_pTransCom->m_vPosition = _vec3(10.f, 0.f, 10.0f);
+	m_pTransCom->m_vPosition = _vec3(320.f, 0.f, 330.0f);
 
 	return S_OK;
 }
@@ -60,23 +60,6 @@ HRESULT CNpc::Add_Component(void)
 _int CNpc::Update(const _float& fTimeDelta)
 {
 	m_fTimeDelta = fTimeDelta;
-
-	if (m_bMove)
-		Move(fTimeDelta);
-
-	if ((m_pMeshCom->Check_EndPeriod()) && !m_bMove)
-	{
-		if (m_pMeshCom->Get_AnimationSet() == SALA_DAMAGED)
-			m_iHP -= 50;
-
-		if (m_pMeshCom->Get_AnimationSet() == SALA_DIE)
-			return -1;
-
-		if (m_iHP <= 0)
-			m_pMeshCom->Set_AnimationSet(SALA_DIE);
-		else
-			m_pMeshCom->Set_AnimationSet(SALA_CRY);
-	}
 
 	Engine::Add_RenderGroup(Engine::CRenderer::RENDER_ZSORT, this);
 
@@ -113,18 +96,7 @@ void CNpc::Render(void)
 
 void CNpc::Move(const _float& fTimeDelta)
 {
-	D3DXVECTOR3		vDir = m_vDestPos - m_pTransCom->m_vPosition;
-
-	float		fDistance = D3DXVec3Length(&vDir);
-	D3DXVec3Normalize(&vDir, &vDir);
-
-	m_pTransCom->m_vPosition += vDir * 3.f * fTimeDelta;
-
-	if (fDistance < 1.f)
-	{
-		m_pMeshCom->Set_AnimationSet(0);
-		m_bMove = false;
-	}
+	
 }
 
 CNpc* CNpc::Create(LPDIRECT3DDEVICE9 pGraphicDev)

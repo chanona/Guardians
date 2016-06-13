@@ -82,6 +82,12 @@ void CLoading::StageLoading(void)
 		return;
 	}
 
+	if (FAILED(Engine::Ready_Mesh(m_pGraphicDev, RESOURCE_STAGE, Engine::CMesh::TYPE_STATIC, L"Mesh_Shop", L"../Resource/Meshes/StaticMesh/Shop/", L"Shop.X")))
+	{
+		MSG_BOX("Ready_Mesh Ready Failed");
+		return;
+	}
+
 	// UI 
 	if (FAILED(Engine::Ready_Buffer(m_pGraphicDev, RESOURCE_STATIC, Engine::CVIBuffer::TYPE_RCTEX
 		, L"Buffer_PlayerState")))

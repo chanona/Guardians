@@ -76,7 +76,10 @@ _int CMonster::Update(const _float& fTimeDelta)
 			m_iHP -= 50;
 
 		if (m_pMeshCom->Get_AnimationSet() == SALA_DIE)
+		{
+			g_iNum += 1;
 			return -1;
+		}
 
 		if (m_iHP <= 0)
 			m_pMeshCom->Set_AnimationSet(SALA_DIE);

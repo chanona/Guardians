@@ -229,6 +229,7 @@
     <ClInclude Include="SendMemoryPool.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderMgr.h" />
+    <ClInclude Include="Shop.h" />
     <ClInclude Include="SkyBox.h" />
     <ClInclude Include="StageScene.h" />
     <ClInclude Include="StaticCamera.h" />
@@ -297,6 +298,7 @@
     <ClCompile Include="SendMemoryPool.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderMgr.cpp" />
+    <ClCompile Include="Shop.cpp" />
     <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="StageScene.cpp" />
     <ClCompile Include="StaticCamera.cpp" />

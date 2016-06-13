@@ -64,7 +64,7 @@
     <Filter Include="00.Client\Effect">
       <UniqueIdentifier>{6d79758b-65cd-4ac7-b614-c608516c704f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="00.Client\Etc">
+    <Filter Include="00.Client\Effect\Etc">
       <UniqueIdentifier>{69686290-19c3-464f-a37e-04d72c3f0e57}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -321,9 +321,6 @@
     <ClInclude Include="SkyBox.h">
       <Filter>00.Client\SkyBox</Filter>
     </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>00.Client\UI</Filter>
-    </ClInclude>
     <ClInclude Include="Effect.h">
       <Filter>00.Client\Effect</Filter>
     </ClInclude>
@@ -344,6 +341,13 @@
     </ClInclude>
     <ClInclude Include="Terrain.h">
       <Filter>00.Client\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Npc.h" />
+    <ClInclude Include="Quest.h" />
+    <ClInclude Include="Tree.h" />
+    <ClInclude Include="PlayerState.h" />
+    <ClInclude Include="Shop.h">
+      <Filter>00.Client</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -512,9 +516,6 @@
     <ClCompile Include="SkyBox.cpp">
       <Filter>00.Client\SkyBox</Filter>
     </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>00.Client\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Effect.cpp">
       <Filter>00.Client\Effect</Filter>
     </ClCompile>
@@ -529,6 +530,13 @@
     </ClCompile>
     <ClCompile Include="Terrain.cpp">
       <Filter>00.Client\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Npc.cpp" />
+    <ClCompile Include="Quest.cpp" />
+    <ClCompile Include="PlayerState.cpp" />
+    <ClCompile Include="Tree.cpp" />
+    <ClCompile Include="Shop.cpp">
+      <Filter>00.Client</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

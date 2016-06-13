@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "SkyBox.h"
+#include "Player.h"
+#include "Transform.h"
+#include "ClientNetEngine.h"
 #include "Export_Function.h"
 
 CSkyBox::CSkyBox(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -22,7 +25,7 @@ HRESULT CSkyBox::Initialize(void)
 	if(FAILED(Add_Component()))
 		return E_FAIL;
 
-	m_pTransCom->m_vScale = _vec3(100.f, 100.f, 100.f);
+	m_pTransCom->m_vScale = _vec3(50.f, 50.f, 50.f);
 
 	return S_OK;
 }
@@ -65,6 +68,9 @@ HRESULT CSkyBox::Add_Component(void)
 _int CSkyBox::Update(const _float& fTimeDelta)
 {
 	Engine::CGameObject::Update(fTimeDelta);
+
+	Engine::CComponent* pComponent = NETWORK_ENGINE->GetMyPlayer()->Get_Component(L"Com_Transform");
+	m_pTransCom->m_vPosition = ((Engine::CTransform*)pComponent)->m_vPosition;
 
 	Engine::Add_RenderGroup(Engine::CRenderer::RENDER_PRIORITY, this);
 

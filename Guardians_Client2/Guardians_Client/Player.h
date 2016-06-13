@@ -4,6 +4,7 @@
 #include "Defines.h"
 #include "LandObject.h"
 #include "MouseCol.h"
+#include "Quest.h"
 
 namespace Engine
 {
@@ -53,6 +54,8 @@ private:
 	Engine::CGameObject*		m_pNpc;
 	bool		m_bNpc;
 
+	int			m_iQuestMonCnt;
+	CQuest*		m_pQuest;
 private:
 	void Set_ContantTable(void);
 	void Check_KeyState(const _float& fTimeDelta);
@@ -62,7 +65,7 @@ public:
 	void Set_MouseCol(CMouseCol* pMouse);
 	void SetConnected(const bool connected) { m_bConnected = connected; }
 	void SetHP(const UINT hp) { m_hp = hp; }
-
+	void SetQuest(CQuest* pQuest) { m_pQuest = pQuest; }
 	UINT GetHP() const { return m_hp; }
 public:
 	virtual _ulong Release(void);

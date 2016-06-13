@@ -15,6 +15,7 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 , m_bMove(false)
 , m_pMonster(NULL)
 , m_bConnected(false)
+, m_iQuestMonCnt(0)
 {
 
 }
@@ -40,7 +41,7 @@ HRESULT CPlayer::Initialize(void)
 
 	m_pTransCom->m_vScale = _vec3(0.01f, 0.01f, 0.01f);
 
-	m_pTransCom->m_vPosition = _vec3(0.0f, 0.f, 0.0f);
+	m_pTransCom->m_vPosition = _vec3(320.0f, 0.f, 320.0f);
 
 	return S_OK;
 }
@@ -240,7 +241,6 @@ void CPlayer::Set_ContantTable(void)
 
 void CPlayer::Check_KeyState(const _float& fTimeDelta)
 {
-
 	if (GetActiveWindow() != g_hWnd) return;
 
 	bool bInput = false;
@@ -361,29 +361,59 @@ void CPlayer::Check_KeyState(const _float& fTimeDelta)
 				m_pMonster = (*iter);
 			}
 		}
+	}
 
+	if (Engine::GetDIMouseState(Engine::CInput::DIM_RBUTTON))
+	{
 		m_pNpc = NULL;
 		m_bNpc = true;
-		m_pMouseCol->PickTerrain(&m_vDestPos, m_pVertex);
+		
 		list<Engine::CGameObject*>* pNpc = Engine::Find_ObjectList(L"GameLogic", L"Npc");
 		auto Npciter = pNpc->begin();
 		auto Npciter_end = pNpc->end();
-
-		m_pMeshCom->Set_AnimationSet(PLAYER_WALK);
-
-		for (; iter != iter_end; ++iter)
+		
+		for (; Npciter != Npciter_end; ++Npciter)
 		{
 			Engine::CComponent* pTransCom = (*Npciter)->Get_Component(L"Com_Transform");
 			D3DXVECTOR3 vPos = ((Engine::CTransform*)pTransCom)->m_vPosition;
-			D3DXVECTOR3 vDir = m_vDestPos - vPos;
+			D3DXVECTOR3 vDir = m_pTransCom->m_vPosition - vPos;
 
 			if (D3DXVec3Length(&vDir) < 4.f)
 			{
-				// ¸ó½ºÅÍ Lock
+				// NPC Lock
 				m_pNpc = (*Npciter);
+
+				m_pQuest->Set_bQuest(true);
 			}
 		}
-		
+
+		if (g_iNum == 0)
+		{
+		}
+		else if (g_iNum > 0 && g_iNum < 10)
+		{
+			m_pQuest->Set_bQuest(true);
+			m_pQuest->SetQuestType(CQuest::QUEST_ING);
+		}
+		else if (g_iNum >= 10)
+		{
+			m_pQuest->Set_bQuest(true);
+			m_pQuest->SetQuestType(CQuest::QUEST_OK);
+		}
+	}
+
+	if (m_pQuest->Get_bQuest() == true)
+	{
+		if (Engine::GetDIKeyState(DIK_ESCAPE))
+		{
+			m_pQuest->Set_bQuest(false);
+			m_pQuest->SetQuestType(CQuest::QUEST_START);
+		}
+		if (Engine::GetDIKeyState(DIK_RETURN))
+		{
+			m_pQuest->Set_bQuest(false);
+			m_pQuest->SetQuestType(CQuest::QUEST_ING);
+		}
 	}
 	//else m_bPush = false;
 }

@@ -38,11 +38,7 @@ private:
 	D3DXVECTOR3		m_vDestPos;
 
 	Engine::CMaterial*			m_pMtrlCom;
-
-private:		// MonsterStat
-	int			m_iHP;
-	int			m_iAtt;
-
+	
 private:
 	void Set_ContantTable(void);
 
