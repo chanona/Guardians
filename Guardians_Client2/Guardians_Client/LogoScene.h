@@ -21,8 +21,10 @@ private:
 	HRESULT Ready_Resources(void);
 	HRESULT Ready_Environment(void);
 private:
-	CLoading*				m_pLoading;
+
 public:
+	CLoading*				m_pLoading;
+
 	virtual _ulong Release(void);
 };
 

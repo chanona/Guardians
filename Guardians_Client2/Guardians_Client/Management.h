@@ -43,6 +43,7 @@ public:
 	template <typename T>
 	HRESULT SceneChange(T& Functor);
 
+	CScene* GetCurrentScene() { return m_pScene; }
 private:
 	void Release(void);
 

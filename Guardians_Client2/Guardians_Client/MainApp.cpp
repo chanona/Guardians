@@ -2,7 +2,7 @@
 #include "MainApp.h"
 #include "SceneSelector.h"
 #include "Export_Function.h"
-
+#include "ClientNetEngine.h"
 CMainApp::CMainApp(void)
 {
 

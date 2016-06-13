@@ -40,6 +40,33 @@
     <Filter Include="02.Server\Common">
       <UniqueIdentifier>{b598bd83-01b7-4654-a88e-be8b37ea4976}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00.Client\Scene">
+      <UniqueIdentifier>{fcb9b434-dec6-4a20-9dee-02bae405012d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\Object">
+      <UniqueIdentifier>{fc79399b-3c07-4084-bd0e-94cc430c369d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\Shader">
+      <UniqueIdentifier>{2bbc8275-69c4-4bb8-b206-97689b949dd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\UI">
+      <UniqueIdentifier>{3bb43271-666c-4e06-a308-0e2364b95483}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\Camera">
+      <UniqueIdentifier>{d4307650-d8ff-44c6-8ebc-3ac4ea939527}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\Map">
+      <UniqueIdentifier>{2c7a3cfd-a6ac-435f-bb1e-66547e0f0ac0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\SkyBox">
+      <UniqueIdentifier>{0c080407-8270-4a99-9969-0f691dc68820}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\Effect">
+      <UniqueIdentifier>{6d79758b-65cd-4ac7-b614-c608516c704f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\Etc">
+      <UniqueIdentifier>{69686290-19c3-464f-a37e-04d72c3f0e57}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Guardians_Client.h">
@@ -53,45 +80,6 @@
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>99.Default</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="SkyBox.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="TombStone.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="Sword.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="LandObject.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="Terrain.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="DynamicCamera.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="StageScene.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="Loading.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="LogoScene.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="LogoBack.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneSelector.h">
-      <Filter>00.Client</Filter>
     </ClInclude>
     <ClInclude Include="MainApp.h">
       <Filter>00.Client</Filter>
@@ -255,9 +243,6 @@
     <ClInclude Include="MouseCol.h">
       <Filter>00.Client</Filter>
     </ClInclude>
-    <ClInclude Include="StaticCamera.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
     <ClInclude Include="ClientNetEngine.h">
       <Filter>02.Server\Manager</Filter>
     </ClInclude>
@@ -285,47 +270,80 @@
     <ClInclude Include="protocol.h">
       <Filter>02.Server\Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\ShaderFiles\Shader_UI.hpp">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="Arrow.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
     <ClInclude Include="Enum.h">
       <Filter>00.Client</Filter>
     </ClInclude>
-    <ClInclude Include="Monster.h">
-      <Filter>00.Client</Filter>
+    <ClInclude Include="Arrow.h">
+      <Filter>00.Client\Object</Filter>
     </ClInclude>
-    <ClInclude Include="..\ShaderFiles\Shader_Base.hpp">
-      <Filter>00.Client</Filter>
+    <ClInclude Include="Player.h">
+      <Filter>00.Client\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>00.Client\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="LogoScene.h">
+      <Filter>00.Client\Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\ShaderFiles\Shader_Default.hpp">
-      <Filter>00.Client</Filter>
+      <Filter>00.Client\Shader</Filter>
     </ClInclude>
     <ClInclude Include="..\ShaderFiles\Shader_Effect.hpp">
-      <Filter>00.Client</Filter>
+      <Filter>00.Client\Shader</Filter>
     </ClInclude>
     <ClInclude Include="..\ShaderFiles\Shader_Meshes.hpp">
-      <Filter>00.Client</Filter>
+      <Filter>00.Client\Shader</Filter>
     </ClInclude>
     <ClInclude Include="..\ShaderFiles\Shader_SkyBox.hpp">
-      <Filter>00.Client</Filter>
+      <Filter>00.Client\Shader</Filter>
     </ClInclude>
     <ClInclude Include="..\ShaderFiles\Shader_Terrain.hpp">
-      <Filter>00.Client</Filter>
+      <Filter>00.Client\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerState.h">
-      <Filter>00.Client</Filter>
+    <ClInclude Include="..\ShaderFiles\Shader_UI.hpp">
+      <Filter>00.Client\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="Tree.h">
-      <Filter>00.Client</Filter>
+    <ClInclude Include="StageScene.h">
+      <Filter>00.Client\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Npc.h">
-      <Filter>00.Client</Filter>
+    <ClInclude Include="DynamicCamera.h">
+      <Filter>00.Client\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Quest.h">
-      <Filter>00.Client</Filter>
+    <ClInclude Include="StaticCamera.h">
+      <Filter>00.Client\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="LandObject.h">
+      <Filter>00.Client\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="TombStone.h">
+      <Filter>00.Client\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyBox.h">
+      <Filter>00.Client\SkyBox</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>00.Client\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>00.Client\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Sword.h">
+      <Filter>00.Client\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Loading.h">
+      <Filter>00.Client\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShaderFiles\Shader_Base.hpp">
+      <Filter>00.Client\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="LogoBack.h">
+      <Filter>00.Client\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSelector.h">
+      <Filter>00.Client\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>00.Client\Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -335,43 +353,7 @@
     <ClCompile Include="Guardians_Client.cpp">
       <Filter>99.Default</Filter>
     </ClCompile>
-    <ClCompile Include="StageScene.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
     <ClCompile Include="MainApp.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="Loading.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="SkyBox.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="TombStone.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="Sword.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="LandObject.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="Terrain.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="DynamicCamera.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="LogoBack.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
-    <ClCompile Include="LogoScene.cpp">
       <Filter>00.Client</Filter>
     </ClCompile>
     <ClCompile Include="FontMgr.cpp">
@@ -482,9 +464,6 @@
     <ClCompile Include="MouseCol.cpp">
       <Filter>00.Client</Filter>
     </ClCompile>
-    <ClCompile Include="StaticCamera.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
     <ClCompile Include="ClientNetEngine.cpp">
       <Filter>02.Server\Manager</Filter>
     </ClCompile>
@@ -504,22 +483,52 @@
       <Filter>02.Server\Utility</Filter>
     </ClCompile>
     <ClCompile Include="Arrow.cpp">
-      <Filter>00.Client</Filter>
+      <Filter>00.Client\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>00.Client\Object</Filter>
     </ClCompile>
     <ClCompile Include="Monster.cpp">
-      <Filter>00.Client</Filter>
+      <Filter>00.Client\Object</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerState.cpp">
-      <Filter>00.Client</Filter>
+    <ClCompile Include="LogoScene.cpp">
+      <Filter>00.Client\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Tree.cpp">
-      <Filter>00.Client</Filter>
+    <ClCompile Include="StageScene.cpp">
+      <Filter>00.Client\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Npc.cpp">
-      <Filter>00.Client</Filter>
+    <ClCompile Include="DynamicCamera.cpp">
+      <Filter>00.Client\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Quest.cpp">
-      <Filter>00.Client</Filter>
+    <ClCompile Include="StaticCamera.cpp">
+      <Filter>00.Client\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="LandObject.cpp">
+      <Filter>00.Client\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="TombStone.cpp">
+      <Filter>00.Client\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>00.Client\SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>00.Client\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>00.Client\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Sword.cpp">
+      <Filter>00.Client\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Loading.cpp">
+      <Filter>00.Client\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="LogoBack.cpp">
+      <Filter>00.Client\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>00.Client\Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

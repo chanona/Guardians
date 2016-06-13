@@ -7,6 +7,11 @@
 #include "MainApp.h"
 #include "Export_Function.h"
 
+#include "ClientNetEngine.h"
+#include "PlayerManager.h"
+#include "ObjectManager.h"
+#include "LogoScene.h"
+#include "Loading.h"
 #define MAX_LOADSTRING 100
 
 // 전역 변수:
@@ -76,6 +81,21 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		return FALSE;
 	}
 
+	EnterCriticalSection(static_cast<CLogoScene *>(Engine::CManagement::GetInstance()->GetCurrentScene())->m_pLoading->GetCSKey());
+	LeaveCriticalSection(static_cast<CLogoScene *>(Engine::CManagement::GetInstance()->GetCurrentScene())->m_pLoading->GetCSKey());
+	if (!PLAYER_MANAGER->Start())
+	{
+		PLAYER_MANAGER->ShutDown();
+		return FALSE;
+	}
+
+	if (!OBJECT_MANAGER->Start())
+	{
+		OBJECT_MANAGER->ShutDown();
+		return FALSE;
+	}
+
+
     // 기본 메시지 루프입니다.
 	while (true)
 	{
@@ -111,6 +131,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			}
 		}
 	}
+	
+	
+	PLAYER_MANAGER->ShutDown();
+	OBJECT_MANAGER->ShutDown();
+	NETWORK_ENGINE->ShutDown();
 
 	if (::Safe_Release(pMainApp))
 		MSG_BOX("pMainApp Release Failed");
@@ -194,6 +219,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+	case WM_SOCKET:
+		if (WSAGETSELECTERROR(lParam)) {
+			closesocket((SOCKET)wParam);
+			exit(-1);
+			break;
+		}
+		switch (WSAGETSELECTEVENT(lParam)) {
+		case FD_READ:
+			NETWORK_ENGINE->RecvPacket();
+			break;
+		case FD_CLOSE:
+			closesocket((SOCKET)wParam);
+			exit(-1);
+			break;
+		}
+		break;
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);

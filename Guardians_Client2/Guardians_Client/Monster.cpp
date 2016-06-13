@@ -63,6 +63,8 @@ HRESULT CMonster::Add_Component(void)
 
 _int CMonster::Update(const _float& fTimeDelta)
 {
+	if (m_bAlive == false) return -1;
+
 	m_fTimeDelta = fTimeDelta;
 
 	if (m_bMove)
@@ -81,7 +83,7 @@ _int CMonster::Update(const _float& fTimeDelta)
 		else
 			m_pMeshCom->Set_AnimationSet(SALA_CRY);
 	}
-
+	
 	Engine::Add_RenderGroup(Engine::CRenderer::RENDER_ZSORT, this);
 
 	CLandObject::Update(fTimeDelta);
@@ -113,6 +115,15 @@ void CMonster::Render(void)
 #endif	
 
 	m_pMeshCom->Render_MeshForShader(m_pEffect, true);
+}
+
+void CMonster::Clear()
+{
+	m_iAniIdx = SALA_CRY;
+	m_bMove = false;
+	m_pTransCom->m_vPosition = _vec3(25.f, 0.f, 25.0f);
+	m_iHP = 100;
+	m_iAtt = 10;
 }
 
 void CMonster::Move(const _float& fTimeDelta)

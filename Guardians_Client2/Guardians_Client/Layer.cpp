@@ -42,7 +42,6 @@ HRESULT Engine::CLayer::Ready_Object(const TCHAR* pObjectTag, CGameObject* pGame
 		NewObjectList.push_back(pGameObject);
 		m_mapObjlist.insert(map<const TCHAR*, list<CGameObject*>>::value_type(pObjectTag, NewObjectList));
 	}
-
 	else	// ÀÖ¾ú´Ù.
 	{
 		pObjectList->push_back(pGameObject);
@@ -70,7 +69,7 @@ _int Engine::CLayer::Update(const _float& fTimeDelta)
 
 			if (iResult & 0x80000000)
 			{
-				::Safe_Release(*iterList);
+				//::Safe_Release(*iterList);
 				iterList = iter->second.erase(iterList);
 			}
 

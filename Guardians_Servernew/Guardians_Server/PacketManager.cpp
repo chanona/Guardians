@@ -185,23 +185,17 @@ void CPacketManager::ProcessMoveLeft(const char * packet, const UINT id)
 	CClientSession *pSession = SESSION_MANAGER->FindSession(id);
 	CPlayer *pPlayer = pSession->GetPlayer();
 
-	float x = pPlayer->GetPositionX();
-
-	x -= 10;
-
-	if (x < 0) x = 10;
-
 	sc_packet_player_pos pos_packet;
 	pos_packet.size = sizeof(pos_packet);
 	pos_packet.type = SCPacketType::SC_PLAYER_POS;
 	pos_packet.player_id = id;
-	pos_packet.x = x;
+	pos_packet.x = pPlayer->GetPositionX();
 	pos_packet.y = pPlayer->GetPositionY();
 	pos_packet.z = pPlayer->GetPositionZ();
+	pos_packet.radian = pkt->radian;
 
-	pPlayer->SetPositionX(x);
 
-	pSession->OnceSend(reinterpret_cast<char *>(&pos_packet));
+	//pSession->OnceSend(reinterpret_cast<char *>(&pos_packet));
 
 #ifdef VIEW_PROCCESS
 	WORLD_MANAGER->ViewProcess(pSession);
@@ -217,24 +211,19 @@ void CPacketManager::ProcessMoveRight(const char * packet, const UINT id)
 	CClientSession *pSession = SESSION_MANAGER->FindSession(id);
 	CPlayer *pPlayer = pSession->GetPlayer();
 
-	float x = pPlayer->GetPositionX();
-
-	x += 10;
-
-	if (x >= WORLD_WIDTH) x = WORLD_WIDTH - 10;
 
 	sc_packet_player_pos pos_packet;
 	pos_packet.size = sizeof(pos_packet);
 	pos_packet.type = SCPacketType::SC_PLAYER_POS;
 	pos_packet.player_id = id;
-	pos_packet.x = x;
+	pos_packet.x = pPlayer->GetPositionX();
 	pos_packet.y = pPlayer->GetPositionY();
 	pos_packet.z = pPlayer->GetPositionZ();
+	pos_packet.radian = pkt->radian;
+	//pPlayer->SetPositionX(x);
 
-	pPlayer->SetPositionX(x);
-
-	pSession->OnceSend(reinterpret_cast<char *>(&pos_packet));
-
+	//pSession->OnceSend(reinterpret_cast<char *>(&pos_packet));
+	
 #ifdef VIEW_PROCCESS
 	WORLD_MANAGER->ViewProcess(pSession);
 	SESSION_MANAGER->BroadCastInView(reinterpret_cast<char *>(&pos_packet), id);
@@ -308,27 +297,30 @@ void CPacketManager::ProcessMoveDown(const char * packet, const UINT id)
 
 void CPacketManager::ProcessMoveForward(const char * packet, const UINT id)
 {
-	cs_packet_move_left *pkt = (cs_packet_move_left *)packet;
+	cs_packet_move_forward *pkt = (cs_packet_move_forward *)packet;
 	CClientSession *pSession = SESSION_MANAGER->FindSession(id);
 	CPlayer *pPlayer = pSession->GetPlayer();
 
-	float z = pPlayer->GetPositionZ();
+	float z = pkt->z;
+	float x = pkt->x;
 
-	z += 10;
-
+	if (x >= WORLD_WIDTH) x = WORLD_WIDTH - 10;
 	if (z >= WORLD_HEIGHT) z = WORLD_HEIGHT - 10;
 
 	sc_packet_player_pos pos_packet;
 	pos_packet.size = sizeof(pos_packet);
 	pos_packet.type = SCPacketType::SC_PLAYER_POS;
 	pos_packet.player_id = id;
-	pos_packet.x = pPlayer->GetPositionX();
+	pos_packet.x = x;
 	pos_packet.y = pPlayer->GetPositionY();
 	pos_packet.z = z;
-
+	pos_packet.radian = pkt->radian;
+	pPlayer->SetPositionX(x);
 	pPlayer->SetPositionZ(z);
 
-	pSession->OnceSend(reinterpret_cast<char *>(&pos_packet));
+	//pSession->OnceSend(reinterpret_cast<char *>(&pos_packet));
+
+	//cout << pkt->x << " "  << pkt->y << " " << pkt->z << " " << endl;
 #ifdef VIEW_PROCCESS
 	WORLD_MANAGER->ViewProcess(pSession);
 	SESSION_MANAGER->BroadCastInView(reinterpret_cast<char *>(&pos_packet), id);
@@ -339,27 +331,29 @@ void CPacketManager::ProcessMoveForward(const char * packet, const UINT id)
 
 void CPacketManager::ProcessMoveBackward(const char * packet, const UINT id)
 {
-	cs_packet_move_left *pkt = (cs_packet_move_left *)packet;
+	cs_packet_move_backward *pkt = (cs_packet_move_backward *)packet;
 	CClientSession *pSession = SESSION_MANAGER->FindSession(id);
 	CPlayer *pPlayer = pSession->GetPlayer();
 
-	float z = pPlayer->GetPositionZ();
+	float z = pkt->z;
+	float x = pkt->x;
 
-	z -= 10;
-
+	if (x < 0) x = 0;
 	if (z < 0) z = 0;
 
 	sc_packet_player_pos pos_packet;
 	pos_packet.size = sizeof(pos_packet);
 	pos_packet.type = SCPacketType::SC_PLAYER_POS;
 	pos_packet.player_id = id;
-	pos_packet.x = pPlayer->GetPositionX();
+	pos_packet.x = x;
 	pos_packet.y = pPlayer->GetPositionY();
 	pos_packet.z = z;
+	pos_packet.radian = pkt->radian;
 
+	pPlayer->SetPositionX(x);
 	pPlayer->SetPositionZ(z);
 
-	pSession->OnceSend(reinterpret_cast<char *>(&pos_packet));
+	//pSession->OnceSend(reinterpret_cast<char *>(&pos_packet));
 #ifdef VIEW_PROCCESS
 	WORLD_MANAGER->ViewProcess(pSession);
 	SESSION_MANAGER->BroadCastInView(reinterpret_cast<char *>(&pos_packet), id);
@@ -370,58 +364,7 @@ void CPacketManager::ProcessMoveBackward(const char * packet, const UINT id)
 
 void CPacketManager::ProcessKeyboardMoveStart(const char * packet, const UINT id)
 {
-	cs_packet_player_keyboard_move_start *recived_pkt = (cs_packet_player_keyboard_move_start *)packet;
-	sc_packet_player_pos pos_pkt;
-	pos_pkt.size = sizeof(pos_pkt);
-	pos_pkt.type = SCPacketType::SC_PLAYER_POS;
-	pos_pkt.player_id = id;
-
-	CClientSession *pClient = SESSION_MANAGER->FindSession(id);
-	CPlayer        *pPlayer = pClient->GetPlayer();
-
-	if (pClient == nullptr) return;
-
-	float new_x = recived_pkt->x;
-	float new_y = recived_pkt->y;
-	float new_z = recived_pkt->z;
-	float new_dx = 0.0f;
-	float new_dy = 0.0f;
-	float new_dz = 0.0f;
-
-	float new_speed = recived_pkt->speed;
-
-	if (recived_pkt->direction & Direction::LEFT)     new_dx = -1;
-	if (recived_pkt->direction & Direction::RIGHT)	  new_dx = 1;
-	if (recived_pkt->direction & Direction::UP)		  new_dy = -1;
-	if (recived_pkt->direction & Direction::DOWN)	  new_dy = 1;
-	if (recived_pkt->direction & Direction::FORWARD)  new_dz = 1;
-	if (recived_pkt->direction & Direction::BACKWARD) new_dz = -1;
-
-	if (new_dz == 1)
-	{
-		cout << endl;
-	}
-
-	new_x += (GetTickCount() - recived_pkt->time_stamp) * new_dx * new_speed;
-	new_y += (GetTickCount() - recived_pkt->time_stamp) * new_dy * new_speed;
-	new_z += (GetTickCount() - recived_pkt->time_stamp) * new_dz * new_speed;
-
-	pPlayer->SetPosition(new_x, new_y, new_z);
-	pPlayer->SetDirection(new_dx, new_dy, new_dz);
-	pPlayer->SetSpeed(new_speed);
-
-	pos_pkt.x = new_x;
-	pos_pkt.y = new_y;
-	pos_pkt.z = new_z;
-	pos_pkt.dx = new_dx;
-	pos_pkt.dy = new_dy;
-	pos_pkt.dz = new_dz;
-
-	//cout << new_x << " " << new_y << " " << new_z << endl;
-
-	WORLD_MANAGER->ViewProcess(pClient);
-
-	SESSION_MANAGER->BroadCastInView((char *)&pos_pkt, id);
+	
 }
 
 void CPacketManager::ProcessKeyboardMoveStop(const char * packet, const UINT id)

@@ -2,7 +2,7 @@
 #include "ObjectManager.h"
 #include "Memory.h"
 #include "protocol.h"
-
+#include "Export_Function.h"
 CObjectManager::CObjectManager()
 {
 	m_monsterMappingHashMap.clear();
@@ -17,32 +17,31 @@ bool CObjectManager::Start()
 {
 	for (int i = 0; i < MAX_MONSTER; ++i)
 	{
-		//CMonster *pMonster = new CMonster();
-		//pMonster->Initalize();			// Warning : Initalize -> Clear -> SetIndex 순서 바뀌면 안됨		
-		//pMonster->SetIndex(i);
+		CMonster *pMonster = CMonster::Create(Engine::Get_GraphicDev());
+		pMonster->SetIndex(i);
 
-		//InsertMonsterToMap(i, pMonster);
+		InsertMonsterToMap(i, pMonster);
 
-		//if (0 == i)
-		//{
-		//	pMonster->SetMonsterType(MonsterType::MONSTER_TYPE_END);
-		//	continue;			// 0은 더미 NPC라서 풀에 넣을 필요없음
-		//}
-		//else if (i < DEFENDER_MONSTER_START)
-		//{
-		//	pMonster->SetMonsterType(MonsterType::ATTACKER);
-		//}
-		//else if (i < SURPPORT_MONSTER_START)
-		//{
-		//	pMonster->SetMonsterType(MonsterType::DEFENDER);
-		//}
-		//else
-		//{
-		//	pMonster->SetMonsterType(MonsterType::SUPPORTER);
-		//}
-		if (0 == i) continue;
+		if (0 == i)
+		{
+			//pMonster->SetMonsterType(MonsterType::MONSTER_TYPE_END);
+			continue;			// 0은 더미 NPC라서 풀에 넣을 필요없음
+		}
+		/*else if (i < DEFENDER_MONSTER_START)
+		{
+			pMonster->SetMonsterType(MonsterType::ATTACKER);
+		}
+		else if (i < SURPPORT_MONSTER_START)
+		{
+			pMonster->SetMonsterType(MonsterType::DEFENDER);
+		}
+		else
+		{
+			pMonster->SetMonsterType(MonsterType::SUPPORTER);
+		}*/
+		//if (0 == i) continue;
 
-		//m_monsterPool.push(pMonster);
+		m_monsterPool.push(pMonster);
 	}
 
 	return true;
@@ -61,6 +60,7 @@ void CObjectManager::ShutDown()
 void CObjectManager::DeleteMonster(const UINT id)
 {
 	CMonster* pMon = FindMonster(id);
+	pMon->SetAlive(false);
 
 	if (m_monsterMappingHashMap.erase(id))
 	{
@@ -69,21 +69,21 @@ void CObjectManager::DeleteMonster(const UINT id)
 //#endif
 	}
 	InsertMonsterToPool(pMon);
-
+	
 	//pMon->Clear();
 }
 
 void CObjectManager::DeleteMonster(CMonster * pMonster)
 {
-	//if (m_monsterMappingHashMap.erase(pMonster->GetID()))
-	//{
+	if (m_monsterMappingHashMap.erase(pMonster->GetID()))
+	{
 //#ifdef _DEBUG
 		//cout << "CObjectManager Mapping HashMap -> Monster Erase : " << pMonster->GetID() << endl;
 //#endif
-	//}
+	}
 	InsertMonsterToPool(pMonster);
 
-	//pMonster->Clear();
+	pMonster->Clear();
 }
 
 CMonster * CObjectManager::FindMonster(const UINT id)
@@ -101,12 +101,12 @@ UINT CObjectManager::FindIndexFromMappingTable(const UINT id)
 
 	if (iter == m_monsterMappingHashMap.end())
 	{
-		//return m_monsterMap[0]->GetID();
+		return m_monsterMap[0]->GetID();
 	}
 	return iter->second;
 }
 
-CMonster * CObjectManager::GetNewMonster(const int mon_type)
+CMonster * CObjectManager::GetNewMonster(const int id)
 {
 	//if (mon_type == MonsterType::MONSTER_TYPE_END) return m_monsterMap[0];
 
@@ -115,30 +115,9 @@ CMonster * CObjectManager::GetNewMonster(const int mon_type)
 	pMon = m_monsterPool.front();
 	m_monsterPool.pop();
 
-	//if (pMon == nullptr)
-	//{
+	pMon->SetID(id);
+	InsertMappingData(pMon->GetID(), pMon->GetIndex());
 
-	//}
-
-
-	//if (mon_type == MonsterType::ATTACKER)
-	//{
-	//	pMon->SetID(m_nextAttackerMonsterID++);
-	//}
-	//else if (mon_type == MonsterType::DEFENDER)
-	//{
-	//	pMon->SetID(m_nextDefenderMonsterID++);
-	//}
-	//else
-	//{
-	//	pMon->SetID(m_nextSupporterMonsterID++);
-	//}
-	//	pMon->SetMonsterType((MonsterType)mon_type);
-
-	//	InsertMappingData(pMon->GetID(), pMon->GetIndex());
-
-	//	return pMon;
-	//}
 	return pMon;
 }
 

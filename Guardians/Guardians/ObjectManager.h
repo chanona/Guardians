@@ -29,7 +29,7 @@ public:
 	CMonster* FindMonster(const UINT id);
 	UINT      FindIndexFromMappingTable(const UINT id);
 
-	CMonster* GetNewMonster(const int mon_type);
+	CMonster* GetNewMonster(const int id);
 
 	const MonsterMap& GetMonsterMap() { return m_monsterMap; }
 

@@ -13,7 +13,7 @@
 #include "Npc.h"
 #include "Quest.h"
 #include "Export_Function.h"
-
+#include "ClientNetEngine.h"
 CStageScene::CStageScene(LPDIRECT3DDEVICE9 pGraphicDev)
 : Engine::CScene(pGraphicDev)
 {
@@ -48,11 +48,22 @@ HRESULT CStageScene::Init_Scene(void)
 	if(FAILED(Ready_GameLogic()))
 		return E_FAIL;
 
+	// Network 
+	if (!NETWORK_ENGINE->Start(g_hWnd))
+	{
+		cout << "Network Engine Start Failed" << endl;
+		NETWORK_ENGINE->ShutDown();
+		return FALSE;
+	}
+
+
 	return S_OK;
 }
 
 _int CStageScene::Update(const _float& fTimeDelta)
 {
+	if (NETWORK_ENGINE->GetID() == 0) return 0;
+
 	Engine::CScene::Update(fTimeDelta);
 
 	return 0;
@@ -117,11 +128,11 @@ HRESULT CStageScene::Ready_GameLogic(void)
 	Engine::CGameObject*		pMouse = NULL;
 
 	// For.StaticCamera-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	pGameObject = CStaticCamera::Create(m_pGraphicDev, &_vec3(0.f, 5.f, -5.f), &_vec3(0.f, 0.f, 0.f));
-	if(NULL == pGameObject)
-		return E_FAIL;
-	pLayer->Ready_Object(L"Camera", pGameObject);
-	
+	//pGameObject = CStaticCamera::Create(m_pGraphicDev, &_vec3(0.f, 5.f, -5.f), &_vec3(0.f, 0.f, 0.f));
+	//if(NULL == pGameObject)
+	//	return E_FAIL;
+	//pLayer->Ready_Object(L"Camera", pGameObject);
+	//
 	// MouseCol
 	pMouse = pGameObject = CMouseCol::Create(m_pGraphicDev);
 	if (NULL == pGameObject)
@@ -138,18 +149,18 @@ HRESULT CStageScene::Ready_GameLogic(void)
 	pLayer->Ready_Object(L"Terrain", pGameObject);
 
 	// For.Player-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	pGameObject = CPlayer::Create(m_pGraphicDev);
-	((CPlayer*)pGameObject)->Set_MouseCol((CMouseCol*)pMouse);
-	if (NULL == pGameObject)
-		return E_FAIL;
-	
-	pLayer->Ready_Object(L"Player", pGameObject);
+	//pGameObject = CPlayer::Create(m_pGraphicDev);
+	//((CPlayer*)pGameObject)->Set_MouseCol((CMouseCol*)pMouse);
+	//if (NULL == pGameObject)
+	//	return E_FAIL;
+
+	//pLayer->Ready_Object(L"Player", pGameObject);
 
 	// For.Monster-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	pGameObject = CMonster::Create(m_pGraphicDev);
-	if (NULL == pGameObject)
-		return E_FAIL;
-	pLayer->Ready_Object(L"Monster", pGameObject);
+	//pGameObject = CMonster::Create(m_pGraphicDev);
+	//if (NULL == pGameObject)
+	//	return E_FAIL;
+	//pLayer->Ready_Object(L"Monster", pGameObject);
 
 	// For.Npc-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	pGameObject = CNpc::Create(m_pGraphicDev);
@@ -169,10 +180,10 @@ HRESULT CStageScene::Ready_GameLogic(void)
 	pLayer->Ready_Object(L"PlayerState", pGameObject);
 
 	// For.Sword-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	/*pGameObject = CSword::Create(m_pGraphicDev);
-	if(NULL == pGameObject)
-		return E_FAIL;
-	pLayer->Ready_Object(L"Sword", pGameObject);*/
+	//pGameObject = CSword::Create(m_pGraphicDev);
+	//if(NULL == pGameObject)
+	//	return E_FAIL;
+	//pLayer->Ready_Object(L"Sword", pGameObject);
 	//ifstream fin("stonePos.txt");
 
 	// For.TombStone-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
