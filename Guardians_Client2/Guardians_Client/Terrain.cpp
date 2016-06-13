@@ -50,7 +50,7 @@ HRESULT CTerrain::Initialize(void)
 
 	D3DXSaveTextureToFile(L"../GaraTexture.jpg", D3DXIFF_JPG, m_pGaraTexture, NULL);*/
 
-	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Resource/Texture/StageScene/Terrain/splatting.tga", &m_pGaraTexture);
+	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Resource/Texture/StageScene/Terrain/test.tga", &m_pGaraTexture);
 
 
 	return S_OK;

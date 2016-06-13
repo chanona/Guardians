@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Quest.h"
+#include "ClientNetEngine.h"
 #include "Export_Function.h"
 
 CQuest::CQuest(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -101,47 +102,6 @@ HRESULT CQuest::Add_Component(void)
 
 _int CQuest::Update(const _float& fTimeDelta)
 {
-	//// HP
-	//if (m_fHp != fPlayerHp)
-	//{
-	//	m_fHp += (fPlayerHp - m_fHp) * fTimeDelta * 10;
-
-	//	if (abs(m_fHp - fPlayerHp) < 1.f)
-	//		m_fHp = fPlayerHp;
-	//}
-
-	//if (m_fMp != fPlayerMp)
-	//{
-	//	m_fMp += (fPlayerMp - m_fMp) * fTimeDelta * 10;
-
-	//	if (abs(m_fMp - fPlayerMp) < 1.f)
-	//		m_fMp = fPlayerMp;
-	//}
-
-	////HP
-	//m_pVertex[STATE_HP][2].vTexUV.y = 0.5f;
-	//m_pVertex[STATE_HP][3].vTexUV.y = 0.5f;
-
-	//m_pVertex[STATE_HP][1].vPos.x = -0.5f + (m_fHp / m_fMaxHp);
-	//m_pVertex[STATE_HP][2].vPos.x = -0.5f + (m_fHp / m_fMaxHp);
-
-	//m_pVertex[STATE_HP][1].vTexUV.x = (m_fHp / m_fMaxHp);
-	//m_pVertex[STATE_HP][2].vTexUV.x = (m_fHp / m_fMaxHp);
-
-	//m_pBufferCom[STATE_HP]->Set_VtxInfo(m_pVertex[STATE_HP]);
-
-	////MP
-	//m_pVertex[STATE_MP][2].vTexUV.y = 0.5f;
-	//m_pVertex[STATE_MP][3].vTexUV.y = 0.5f;
-
-	//m_pVertex[STATE_MP][1].vPos.x = -0.5f + (m_fMp / m_fMaxMp);
-	//m_pVertex[STATE_MP][2].vPos.x = -0.5f + (m_fMp / m_fMaxMp);
-
-	//m_pVertex[STATE_MP][1].vTexUV.x = (m_fMp / m_fMaxMp);
-	//m_pVertex[STATE_MP][2].vTexUV.x = (m_fMp / m_fMaxMp);
-
-	//m_pBufferCom[STATE_MP]->Set_VtxInfo(m_pVertex[STATE_MP]);
-
 	Engine::CGameObject::Update(fTimeDelta);
 
 	Engine::Add_RenderGroup(Engine::CRenderer::RENDER_UI, this);
@@ -150,6 +110,14 @@ _int CQuest::Update(const _float& fTimeDelta)
 	{
 	m_pBufferCom[i]->Set_VtxInfo(m_pVertex[i]);
 	}*/
+
+	if (m_bQuest == true)
+	{
+		if (Engine::GetDIKeyState(DIK_ESCAPE))
+		{
+			m_bQuest = false;
+		}
+	}
 
 	// 직교투영행렬을 만들어주는 기능의 함수다.
 	D3DXMatrixOrthoLH(&m_matOrtho, WINSIZEX, WINSIZEY, 0.f, 1.f);
@@ -192,18 +160,20 @@ void CQuest::Render(void)
 
 	// 고정기능렌더링파이프라인을 사용하지않고, 셰이더로 그리겠습니다.
 
-	m_pEffect->Begin(NULL, 0);
+	if (m_bQuest == true)
+	{
+		m_pEffect->Begin(NULL, 0);
 
-	m_pEffect->BeginPass(0);
+		m_pEffect->BeginPass(0);
 
-	m_pBufferCom[m_eQuest]->Render(NULL);
+		m_pBufferCom[m_eQuest]->Render(NULL);
 
-	m_pEffect->EndPass();
+		m_pEffect->EndPass();
 
-	m_pEffect->End();
+		m_pEffect->End();
 
-	m_pEffect->SetTexture("g_BaseTexture", NULL);
-	
+		m_pEffect->SetTexture("g_BaseTexture", NULL);
+	}
 }
 
 CQuest* CQuest::Create(LPDIRECT3DDEVICE9 pGraphicDev)
