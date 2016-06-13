@@ -1,9 +1,10 @@
-#ifndef Player_h__
-#define Player_h__
+#ifndef Npc_h__
+#define Npc_h__
 
 #include "Defines.h"
 #include "LandObject.h"
 #include "MouseCol.h"
+#include "Material.h"
 
 namespace Engine
 {
@@ -11,11 +12,11 @@ namespace Engine
 	class CDynamicMesh;
 }
 
-class CPlayer	: public CLandObject
+class CNpc : public CLandObject
 {
 public:
-	explicit CPlayer(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual ~CPlayer(void);
+	explicit CNpc(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual ~CNpc(void);
 
 	virtual HRESULT	Initialize(void);
 	virtual HRESULT Add_Component(void);
@@ -23,41 +24,31 @@ public:
 	virtual void Render(void);
 
 	void Move(const _float& fTimeDelta);
-	void MoveToMonster(const _float& fTimeDelta);
-	void SetPush(int iIndex);
 public:
-	static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
-private:	
+	static CNpc* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+private:
 	Engine::CDynamicMesh*		m_pMeshCom;
 private:
 	LPD3DXEFFECT				m_pEffect;
 private:
 	_float						m_fTimeDelta;
-	_bool						m_bPush;
 	_uint						m_iAniIdx;
-
-	CMouseCol*					m_pMouseCol;
-	Engine::CGameObject*		m_pMonster;
 
 	bool			m_bMove;
 	D3DXVECTOR3		m_vDestPos;
 
-	Engine::CGameObject*		m_pNpc;
-	bool		m_bNpc;
+	Engine::CMaterial*			m_pMtrlCom;
+
+private:		// MonsterStat
+	int			m_iHP;
+	int			m_iAtt;
 
 private:
 	void Set_ContantTable(void);
-	void Check_KeyState(const _float& fTimeDelta);
-
-public:
-	void Set_MouseCol(CMouseCol* pMouse);
-
 
 public:
 	virtual _ulong Release(void);
-
-
 };
 
 
-#endif // Player_h__
+#endif // Monster_h__

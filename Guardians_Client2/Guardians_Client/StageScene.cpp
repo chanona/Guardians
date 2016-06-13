@@ -8,7 +8,10 @@
 #include "MouseCol.h"
 #include "StaticCamera.h"
 #include "Effect.h"
-#include "UI.h"
+#include "PlayerState.h"
+#include "Tree.h"
+#include "Npc.h"
+#include "Quest.h"
 #include "Export_Function.h"
 
 CStageScene::CStageScene(LPDIRECT3DDEVICE9 pGraphicDev)
@@ -148,10 +151,22 @@ HRESULT CStageScene::Ready_GameLogic(void)
 		return E_FAIL;
 	pLayer->Ready_Object(L"Monster", pGameObject);
 
-	pGameObject = CUI::Create(m_pGraphicDev);
+	// For.Npc-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	pGameObject = CNpc::Create(m_pGraphicDev);
 	if (NULL == pGameObject)
 		return E_FAIL;
-	pLayer->Ready_Object(L"UI", pGameObject);
+	pLayer->Ready_Object(L"Npc", pGameObject);
+
+	// UI
+	pGameObject = CQuest::Create(m_pGraphicDev);
+	if (NULL == pGameObject)
+		return E_FAIL;
+	pLayer->Ready_Object(L"Quest", pGameObject);
+
+	pGameObject = CPlayerState::Create(m_pGraphicDev);
+	if (NULL == pGameObject)
+		return E_FAIL;
+	pLayer->Ready_Object(L"PlayerState", pGameObject);
 
 	// For.Sword-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	/*pGameObject = CSword::Create(m_pGraphicDev);
@@ -161,7 +176,7 @@ HRESULT CStageScene::Ready_GameLogic(void)
 	//ifstream fin("stonePos.txt");
 
 	// For.TombStone-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	for (_int i = 0; i < 20; ++i)
+	for (_int i = 0; i < 30; ++i)
 	{
 		pGameObject = CTombStone::Create(m_pGraphicDev);
 		if(NULL == pGameObject)
@@ -169,6 +184,15 @@ HRESULT CStageScene::Ready_GameLogic(void)
 		pLayer->Ready_Object(L"TombStone", pGameObject);
 	}
 		
+	// For.Tree-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	/*for (_int i = 0; i < 20; ++i)
+	{
+		pGameObject = CTree::Create(m_pGraphicDev);
+		if (NULL == pGameObject)
+			return E_FAIL;
+		pLayer->Ready_Object(L"Tree", pGameObject);
+	}*/
+
 	/*for (_int i = 0; i < 20; ++i)
 	{
 		pGameObject = CEffect::Create(m_pGraphicDev);

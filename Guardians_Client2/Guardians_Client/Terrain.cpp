@@ -15,8 +15,6 @@ CTerrain::~CTerrain(void)
 
 HRESULT CTerrain::Initialize(void)
 {
-
-
 	m_pEffect = Engine::Get_EffectHandle(L"Shader_Terrain");
 	if(NULL == m_pEffect)
 		return E_FAIL;
@@ -39,17 +37,12 @@ HRESULT CTerrain::Initialize(void)
 
 		for (_int j = 0; j < 129; ++j)
 		{
-
-			
-
 			_ulong* pColor = ((_ulong*)pByte + j);
 
 			if(j > 65)
 				*pColor = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
 			else
 				*pColor = D3DXCOLOR(0.0f, 0.0f, 0.0f, 0.0f);
-
-
 		}
 	}
 
@@ -57,7 +50,7 @@ HRESULT CTerrain::Initialize(void)
 
 	D3DXSaveTextureToFile(L"../GaraTexture.jpg", D3DXIFF_JPG, m_pGaraTexture, NULL);*/
 
-	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Resource/Texture/StageScene/Terrain/a.tga", &m_pGaraTexture);
+	D3DXCreateTextureFromFile(m_pGraphicDev, L"../Resource/Texture/StageScene/Terrain/splatting.tga", &m_pGaraTexture);
 
 
 	return S_OK;
@@ -131,7 +124,6 @@ HRESULT CTerrain::Add_Component(void)
 		return E_FAIL;
 	m_mapComponent.insert(MAPCOMPONENT::value_type(L"Com_ColorHeightTexture", pComponent));
 
-		
 	return S_OK;
 }
 
@@ -219,7 +211,6 @@ void CTerrain::Set_ContantTable(void)
 
 	m_pEffect->SetVector("g_vTargetPos", &_vec4(10.0f, 0.0f, 10.0f, 1.0f));
 	m_pEffect->SetFloat("g_fTargetRange", 10.0f);
-	
 }
 
 

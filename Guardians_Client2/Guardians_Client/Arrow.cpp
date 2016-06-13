@@ -74,7 +74,7 @@ _int CArrow::Update(const _float& fTimeDelta)
 	m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y] = fAngle;
 
 	// 몹방향으로 이동
-	m_pTransCom->m_vPosition += vDir * 10.f * fTimeDelta;
+	m_pTransCom->m_vPosition += vDir * 40.f * fTimeDelta;
 
 	if (fDist < 1.f)
 	{

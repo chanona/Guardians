@@ -39,8 +39,7 @@ HRESULT Engine::CTerrainTex::Create_Buffer(const _ushort& wCntX, const _ushort& 
 
 	ReadFile(hFile, pdwPixel, sizeof(_ulong) * ih.biWidth * ih.biHeight, &dwByte, NULL);
 	CloseHandle(hFile);
-
-
+	
 	m_dwVtxSize = sizeof(VTXTEX);
 	m_dwVtxCnt = wCntX * wCntZ ;
 	m_dwVtxFVF = VTXFVF_TEX;

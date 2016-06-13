@@ -1,36 +1,39 @@
-#ifndef UI_h__
-#define UI_h__
+#ifndef Tree_h__
+#define Tree_h__
 
 #include "Defines.h"
-#include "GameObject.h"
+#include "LandObject.h"
+#include "Texture.h"
 
 namespace Engine
 {
 	class CTransform;
-	class CMaterial;
-	class CVIBuffer;
-	class CTexture;
+	class CStaticMesh;
 }
 
-class CUI : public Engine::CGameObject
+class CTree : public CLandObject
 {
 private:
-	explicit CUI(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual ~CUI(void);
+	explicit CTree(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual ~CTree(void);
 public:
 	virtual HRESULT	Initialize(void);
 	virtual HRESULT Add_Component(void);
 	virtual _int Update(const _float& fTimeDelta);
-	virtual void Render(void);	
+	virtual void Render(void);
 public:
-	static CUI* Create(LPDIRECT3DDEVICE9 pGraphicDev);
-private:
-	LPD3DXEFFECT				m_pEffect;
+	static CTree* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+
 private:
 	Engine::CTransform*			m_pTransCom;
-	Engine::CMaterial*			m_pMtrlCom;
 	Engine::CVIBuffer*			m_pBufferCom;
 	Engine::CTexture*			m_pTextureCom;
+
+	_vec3						m_vViewPos;
+
+private:
+	LPD3DXEFFECT				m_pEffect;
+
 private:
 	void Set_ContantTable(void);
 public:
@@ -38,5 +41,4 @@ public:
 };
 
 
-
-#endif // UI_h__
+#endif // 

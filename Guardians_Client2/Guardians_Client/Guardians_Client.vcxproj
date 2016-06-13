@@ -211,11 +211,13 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MouseCol.h" />
+    <ClInclude Include="Npc.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="PacketManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerManager.h" />
     <ClInclude Include="protocol.h" />
+    <ClInclude Include="Quest.h" />
     <ClInclude Include="RcTex.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Resource.h" />
@@ -241,8 +243,9 @@
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TombStone.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="Tree.h" />
     <ClInclude Include="Typedef.h" />
-    <ClInclude Include="UI.h" />
+    <ClInclude Include="PlayerState.h" />
     <ClInclude Include="VIBuffer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -279,10 +282,12 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MouseCol.cpp" />
+    <ClCompile Include="Npc.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="PacketManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerManager.cpp" />
+    <ClCompile Include="Quest.cpp" />
     <ClCompile Include="RcTex.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceMgr.cpp" />
@@ -310,7 +315,8 @@
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TombStone.cpp" />
     <ClCompile Include="Transform.cpp" />
-    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="PlayerState.cpp" />
+    <ClCompile Include="Tree.cpp" />
     <ClCompile Include="VIBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>

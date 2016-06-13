@@ -31,11 +31,14 @@ private:
 	Engine::CTransform*			m_pTransCom;	
 	Engine::CVIBuffer*			m_pBufferCom;
 	Engine::CTexture*			m_pTextureCom;
+
 private:
 	_float						m_fAccFrame;
 	_vec3						m_vViewPos;
+
 private:
 	LPD3DXEFFECT				m_pEffect;
+
 private:
 	void Set_ContantTable(void);
 public:

@@ -96,9 +96,6 @@
     <ClInclude Include="MainApp.h">
       <Filter>00.Client</Filter>
     </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
     <ClInclude Include="Font.h">
       <Filter>01.Engine\System</Filter>
     </ClInclude>
@@ -318,6 +315,18 @@
     <ClInclude Include="..\ShaderFiles\Shader_Terrain.hpp">
       <Filter>00.Client</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>00.Client</Filter>
+    </ClInclude>
+    <ClInclude Include="Tree.h">
+      <Filter>00.Client</Filter>
+    </ClInclude>
+    <ClInclude Include="Npc.h">
+      <Filter>00.Client</Filter>
+    </ClInclude>
+    <ClInclude Include="Quest.h">
+      <Filter>00.Client</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -325,9 +334,6 @@
     </ClCompile>
     <ClCompile Include="Guardians_Client.cpp">
       <Filter>99.Default</Filter>
-    </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>00.Client</Filter>
     </ClCompile>
     <ClCompile Include="StageScene.cpp">
       <Filter>00.Client</Filter>
@@ -501,6 +507,18 @@
       <Filter>00.Client</Filter>
     </ClCompile>
     <ClCompile Include="Monster.cpp">
+      <Filter>00.Client</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>00.Client</Filter>
+    </ClCompile>
+    <ClCompile Include="Tree.cpp">
+      <Filter>00.Client</Filter>
+    </ClCompile>
+    <ClCompile Include="Npc.cpp">
+      <Filter>00.Client</Filter>
+    </ClCompile>
+    <ClCompile Include="Quest.cpp">
       <Filter>00.Client</Filter>
     </ClCompile>
   </ItemGroup>

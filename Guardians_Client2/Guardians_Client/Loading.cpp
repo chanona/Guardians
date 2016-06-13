@@ -63,6 +63,7 @@ void CLoading::StageLoading(void)
 		return;
 	}
 
+	// 다이나믹 메쉬
 	if(FAILED(Engine::Ready_Mesh(m_pGraphicDev, RESOURCE_STAGE, Engine::CMesh::TYPE_DYNAMIC, L"Mesh_Player", L"../Resource/Meshes/DynamicMesh/PlayerXFile/", L"Player2.X")))
 	{
 		MSG_BOX("Ready_Mesh Ready Failed");
@@ -70,6 +71,12 @@ void CLoading::StageLoading(void)
 	}
 
 	if (FAILED(Engine::Ready_Mesh(m_pGraphicDev, RESOURCE_STAGE, Engine::CMesh::TYPE_DYNAMIC, L"Mesh_Monster", L"../Resource/Meshes/DynamicMesh/Monster/", L"Salamanda.X")))
+	{
+		MSG_BOX("Ready_Mesh Ready Failed");
+		return;
+	}
+
+	if (FAILED(Engine::Ready_Mesh(m_pGraphicDev, RESOURCE_STAGE, Engine::CMesh::TYPE_DYNAMIC, L"Mesh_Npc", L"../Resource/Meshes/DynamicMesh/Npc/", L"Npc.X")))
 	{
 		MSG_BOX("Ready_Mesh Ready Failed");
 		return;
@@ -101,6 +108,34 @@ void CLoading::StageLoading(void)
 		, L"Buffer_PlayerMp")))
 	{
 		MSG_BOX("Buffer_PlayerMp Ready Failed");
+		return;
+	}
+
+	if (FAILED(Engine::Ready_Buffer(m_pGraphicDev, RESOURCE_STATIC, Engine::CVIBuffer::TYPE_RCTEX
+		, L"Buffer_Tree")))
+	{
+		MSG_BOX("Buffer_Tree Ready Failed");
+		return;
+	}
+
+	if (FAILED(Engine::Ready_Buffer(m_pGraphicDev, RESOURCE_STATIC, Engine::CVIBuffer::TYPE_RCTEX
+		, L"Buffer_QuestStart")))
+	{
+		MSG_BOX("Buffer_Quest1 Ready Failed");
+		return;
+	}
+
+	if (FAILED(Engine::Ready_Buffer(m_pGraphicDev, RESOURCE_STATIC, Engine::CVIBuffer::TYPE_RCTEX
+		, L"Buffer_QuestIng")))
+	{
+		MSG_BOX("Buffer_Quest2 Ready Failed");
+		return;
+	}
+
+	if (FAILED(Engine::Ready_Buffer(m_pGraphicDev, RESOURCE_STATIC, Engine::CVIBuffer::TYPE_RCTEX
+		, L"Buffer_QuestOk")))
+	{
+		MSG_BOX("Buffer_Quest3 Ready Failed");
 		return;
 	}
 
@@ -204,6 +239,34 @@ void CLoading::StageLoading(void)
 		, L"../Resource/Texture/StageScene/UI/PlayerMp%d.png", 1)))
 	{
 		MSG_BOX("Texture_PlayerState Ready Failed");
+		return;
+	}
+
+	if (FAILED(Engine::Ready_Texture(m_pGraphicDev, RESOURCE_STAGE, L"Texture_Tree", Engine::CTexture::TYPE_NORMAL
+		, L"../Resource/Texture/StageScene/Tree/Tree%d.png", 1)))
+	{
+		MSG_BOX("Texture_Tree Ready Failed");
+		return;
+	}
+
+	if (FAILED(Engine::Ready_Texture(m_pGraphicDev, RESOURCE_STAGE, L"Texture_QuestStart", Engine::CTexture::TYPE_NORMAL
+		, L"../Resource/Texture/StageScene/Quest/QuestStart%d.png", 1)))
+	{
+		MSG_BOX("Texture_Quest00 Ready Failed");
+		return;
+	}
+
+	if (FAILED(Engine::Ready_Texture(m_pGraphicDev, RESOURCE_STAGE, L"Texture_QuestIng", Engine::CTexture::TYPE_NORMAL
+		, L"../Resource/Texture/StageScene/Quest/QuestIng%d.png", 1)))
+	{
+		MSG_BOX("Texture_Quest01 Ready Failed");
+		return;
+	}
+
+	if (FAILED(Engine::Ready_Texture(m_pGraphicDev, RESOURCE_STAGE, L"Texture_QuestOk", Engine::CTexture::TYPE_NORMAL
+		, L"../Resource/Texture/StageScene/Quest/QuestOk%d.png", 1)))
+	{
+		MSG_BOX("Texture_Quest02 Ready Failed");
 		return;
 	}
 

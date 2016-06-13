@@ -20,9 +20,7 @@ public:
 
 public:
 	void PickTerrain(D3DXVECTOR3* pOut, const Engine::VTXTEX* pTerrainVtx);
-	void PickObject(D3DXVECTOR3* pOut
-		, const Engine::VTXTEX* pVertex
-		, const D3DXMATRIX* pmatWorld);
+	void PickObject(D3DXVECTOR3* pOut, D3DXVECTOR3* pCubeVertex);
 
 private:
 	HRESULT Initialize(void);

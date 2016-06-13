@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
+#include "Npc.h"
 #include "Export_Function.h"
 #include "Arrow.h"
 
@@ -148,6 +149,7 @@ void CPlayer::MoveToMonster(const _float& fTimeDelta)
 
 	m_pTransCom->m_vPosition += vDir * 3.f * fTimeDelta;
 
+	// 몬스터와의 거리가 가까울때 공격 모션으로 상태변화
 	if (fDistance < 10.f)
 	{
 		m_pMeshCom->Set_AnimationSet(PLAYER_ATTACK);
@@ -162,12 +164,11 @@ void CPlayer::Move(const _float& fTimeDelta)
 	_float		fDistance = D3DXVec3Length(&vDir);
 	D3DXVec3Normalize(&vDir, &vDir);
 
-	/*_float fCos = D3DXVec3Dot(&vDir, &D3DXVECTOR3(0.f, 0.f, -1.f));
+	_float fCos = D3DXVec3Dot(&vDir, &D3DXVECTOR3(0.f, 0.f, -1.f));
 
-	_float fAngle = acosf(fCos);
+	/*_float fAngle = acosf(fCos);
 	if (vDir.x > 0.f)
 		fAngle = 2 * D3DX_PI - fAngle;
-
 	m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y] = fAngle;*/
 
 	m_pTransCom->m_vPosition += vDir * 3.f * fTimeDelta;
@@ -298,12 +299,37 @@ void CPlayer::Check_KeyState(const _float& fTimeDelta)
 			Engine::CComponent* pTransCom = (*iter)->Get_Component(L"Com_Transform");
 			D3DXVECTOR3 vPos = ((Engine::CTransform*)pTransCom)->m_vPosition;
 			D3DXVECTOR3 vDir = m_vDestPos - vPos;
-			if (D3DXVec3Length(&vDir) < 2.f)
+			
+			// 피킹한 지점과 몬스터의 거리 계산
+			if (D3DXVec3Length(&vDir) < 4.f)
 			{
 				// 몬스터 Lock
 				m_pMonster = (*iter);
 			}
 		}
+
+		m_pNpc = NULL;
+		m_bNpc = true;
+		m_pMouseCol->PickTerrain(&m_vDestPos, m_pVertex);
+		list<Engine::CGameObject*>* pNpc = Engine::Find_ObjectList(L"GameLogic", L"Npc");
+		auto Npciter = pNpc->begin();
+		auto Npciter_end = pNpc->end();
+
+		m_pMeshCom->Set_AnimationSet(PLAYER_WALK);
+
+		for (; iter != iter_end; ++iter)
+		{
+			Engine::CComponent* pTransCom = (*Npciter)->Get_Component(L"Com_Transform");
+			D3DXVECTOR3 vPos = ((Engine::CTransform*)pTransCom)->m_vPosition;
+			D3DXVECTOR3 vDir = m_vDestPos - vPos;
+
+			if (D3DXVec3Length(&vDir) < 4.f)
+			{
+				// 몬스터 Lock
+				m_pNpc = (*Npciter);
+			}
+		}
+		
 	}
 	//else m_bPush = false;
 }

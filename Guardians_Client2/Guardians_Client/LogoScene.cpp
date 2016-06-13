@@ -41,7 +41,7 @@ HRESULT CLogoScene::Init_Scene(void)
 		MSG_BOX("Ready_Environment Failed");
 		return E_FAIL;
 	}
-
+	
 	return S_OK;
 }
 

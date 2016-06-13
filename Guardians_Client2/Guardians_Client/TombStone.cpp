@@ -27,7 +27,7 @@ HRESULT CTombStone::Initialize(void)
 	if(FAILED(Add_Component()))
 		return E_FAIL;
 
-	m_pTransCom->m_vPosition = _vec3(0.f, 0.f, 0.f);
+	m_pTransCom->m_vPosition = _vec3((float)(rand() % 300), 0.f, (float)(rand() % 300));
 
 	m_pTransCom->m_vScale /= 300.f;
 
@@ -78,8 +78,7 @@ _int CTombStone::Update(const _float& fTimeDelta)
 
 	m_bColl = Engine::Collision_AABB(vDestMin, vDestMax, mDestWorld
 		, vSourMin, vSourMax, mSourWorld);
-
-
+	
 	//Engine::CMesh* pSwordMeshCom = (Engine::CMesh*)Engine::Get_Component(L"Com_Mesh", L"GameLogic", L"Sword");	
 	//pSwordMeshCom->Get_MinMax(&vSourMin, &vSourMax);
 
