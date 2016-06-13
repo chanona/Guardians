@@ -4,6 +4,7 @@
 #include "Export_Function.h"
 #include "Arrow.h"
 #include "ClientNetEngine.h"
+#include "Quest.h"
 #include "Monster.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
