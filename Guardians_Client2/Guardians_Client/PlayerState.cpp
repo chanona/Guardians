@@ -23,25 +23,25 @@ HRESULT CPlayerState::Initialize(void)
 
 	m_pMtrlCom = nullptr;
 
-	m_fSizeX[STATE_STATE] = 300.f;
-	m_fSizeY[STATE_STATE] = 150.f;
-	m_fX[STATE_STATE] = 650.f;
-	m_fY[STATE_STATE] = 80.f;
+	m_fSizeX[STATE_STATE] = 300.f * 1.5f;
+	m_fSizeY[STATE_STATE] = 150.f * 1.5f;
+	m_fX[STATE_STATE] = (WINSIZEX / 1.14f);
+	m_fY[STATE_STATE] = (WINSIZEY / 9.5f);
 
-	m_fSizeX[STATE_FACE] = 150.f;
-	m_fSizeY[STATE_FACE] = 150.f;
-	m_fX[STATE_FACE] = 725.f;
-	m_fY[STATE_FACE] = 80.f;
+	m_fSizeX[STATE_FACE] = 150.f * 1.5f;
+	m_fSizeY[STATE_FACE] = 150.f * 1.5f;
+	m_fX[STATE_FACE] = (WINSIZEX / 1.07f);
+	m_fY[STATE_FACE] = (WINSIZEY / 9.5f);
 
-	m_fSizeX[STATE_HP] = 130.f;
-	m_fSizeY[STATE_HP] = 50.f;
-	m_fX[STATE_HP] = 618.f;
-	m_fY[STATE_HP] = 83.f;
+	m_fSizeX[STATE_HP] = 130.f * 1.5f;
+	m_fSizeY[STATE_HP] = 50.f * 1.5f;
+	m_fX[STATE_HP] = (WINSIZEX / 1.175f);
+	m_fY[STATE_HP] = (WINSIZEY / 9.5f);
 
-	m_fSizeX[STATE_MP] = 150.f;
-	m_fSizeY[STATE_MP] = 50.f;
-	m_fX[STATE_MP] = 626.f;
-	m_fY[STATE_MP] = 100.f;
+	m_fSizeX[STATE_MP] = 150.f * 1.5f;
+	m_fSizeY[STATE_MP] = 50.f * 1.4f;
+	m_fX[STATE_MP] = (WINSIZEX / 1.165f);
+	m_fY[STATE_MP] = (WINSIZEY / 7.5f);
 
 	m_fHp = 100.f;
 	m_fMp = 100.f;

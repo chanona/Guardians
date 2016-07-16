@@ -30,6 +30,8 @@ bool CPlayerManager::Start()
 		if (i == 0) continue;
 
 		InsertPlayerToPool(player);
+
+		player->SetAlive(true);
 	}
 	return true;
 }

@@ -16,7 +16,7 @@ CMainApp::~CMainApp(void)
 HRESULT	CMainApp::Initialize(void)
 {
 	// 장치를 초기화한다.
-	if(FAILED(Engine::Ready_GraphicDev(Engine::CGraphicDev::MODE_WIN, g_hWnd, WINSIZEX, WINSIZEY)))
+	if(FAILED(Engine::Ready_GraphicDev(Engine::CGraphicDev::MODE_FULL, g_hWnd, WINSIZEX, WINSIZEY)))
 	{
 		MSG_BOX("Ready_GraphicDev Failed");
 		return E_FAIL;

@@ -55,6 +55,8 @@ public:
 	void SetAlive(const bool alive) { m_bAlive = alive; }
 	void SetHP(const int hp) { m_iHP = hp; }
 	int GetHP() { return m_iHP; }
+
+	void Reset();
 };
 
 

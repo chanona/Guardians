@@ -67,6 +67,9 @@
     <Filter Include="00.Client\Effect\Etc">
       <UniqueIdentifier>{69686290-19c3-464f-a37e-04d72c3f0e57}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00.Client\Picking">
+      <UniqueIdentifier>{ef64da9e-d16b-40ba-a910-0e3112513b5e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Guardians_Client.h">
@@ -349,6 +352,9 @@
     <ClInclude Include="Shop.h">
       <Filter>00.Client</Filter>
     </ClInclude>
+    <ClInclude Include="Picking.h">
+      <Filter>00.Client\Picking</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -537,6 +543,9 @@
     <ClCompile Include="Tree.cpp" />
     <ClCompile Include="Shop.cpp">
       <Filter>00.Client</Filter>
+    </ClCompile>
+    <ClCompile Include="Picking.cpp">
+      <Filter>00.Client\Picking</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

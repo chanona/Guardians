@@ -21,4 +21,5 @@ typedef D3DXVECTOR4				_vec4;
 
 typedef D3DXMATRIX				_matrix;
 
+
 #endif // Typedef_h__
