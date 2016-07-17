@@ -9,8 +9,8 @@
  * 상수값을 보관한다.
  */
 
-const _ushort WINSIZEX = 800;
-const _ushort WINSIZEY = 600;
+const _ushort WINSIZEX = 1920;
+const _ushort WINSIZEY = 1080;
 const _ushort VTXCNTX = 129;
 const _ushort VTXCNTZ = 129;
 const _ushort VTXITV = 5;

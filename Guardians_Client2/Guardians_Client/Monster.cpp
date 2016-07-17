@@ -64,8 +64,9 @@ HRESULT CMonster::Add_Component(void)
 
 _int CMonster::Update(const _float& fTimeDelta)
 {
-	if (m_bAlive == false) return -1;
-
+	if (m_bAlive == false)
+		return 0;
+	
 	m_fTimeDelta = fTimeDelta;
 
 	if (m_bMove)
@@ -103,6 +104,8 @@ _int CMonster::Update(const _float& fTimeDelta)
 
 void CMonster::Render(void)
 {
+	if (m_bAlive == false) return;
+
 	if (NULL == m_pEffect)
 		return;
 
@@ -194,4 +197,20 @@ _ulong CMonster::Release(void)
 	}
 
 	return dwRefCnt;
+}
+
+void CMonster::Reset()
+{
+	m_fTimeDelta = 0.f;
+	m_iAniIdx = SALA_CRY;
+	m_bMove = false;
+
+	m_pMeshCom->Set_AnimationSet(m_iAniIdx);
+
+	m_pTransCom->m_vScale = _vec3(3.f, 3.f, 3.f);
+
+	m_pTransCom->m_vPosition = _vec3(0.f, 0.f, 0.0f);
+
+	m_iHP = 100;
+	m_iAtt = 10;
 }

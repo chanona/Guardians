@@ -18,6 +18,9 @@ CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 , m_pMonster(NULL)
 , m_bConnected(false)
 , m_iQuestMonCnt(0)
+, m_bAlive(false)
+, m_bLMouseDown(false)
+, m_bRMouseDown(false)
 {
 
 }
@@ -45,6 +48,8 @@ HRESULT CPlayer::Initialize(void)
 
 	m_pTransCom->m_vPosition = _vec3(320.0f, 0.f, 320.0f);
 
+	picker = new CPicking(m_pGraphicDev);
+
 	return S_OK;
 }
 
@@ -63,13 +68,15 @@ HRESULT CPlayer::Add_Component(void)
 	if(NULL == pComponent)
 		return E_FAIL;
 	m_mapComponent.insert(MAPCOMPONENT::value_type(L"Com_Mesh", pComponent));
-
-		
+	
 	return S_OK;
 }
 
 _int CPlayer::Update(const _float& fTimeDelta)
 {
+	if (m_bAlive == false)
+		return 0;
+
 	if (m_bConnected == false) return -1;
 
 	m_fTimeDelta = fTimeDelta;
@@ -118,6 +125,9 @@ _int CPlayer::Update(const _float& fTimeDelta)
 
 void CPlayer::Render(void)
 {
+	if (m_bAlive == false)
+		return;
+
 	if(NULL == m_pEffect)
 		return;
 
@@ -148,8 +158,6 @@ void CPlayer::Clear()
 
 void CPlayer::MoveToMonster(const _float& fTimeDelta)
 {
-
-
 	Engine::CComponent* pTransCom = m_pMonster->Get_Component(L"Com_Transform");
 	
 	D3DXVECTOR3 vPos = ((Engine::CTransform*)pTransCom)->m_vPosition;
@@ -159,10 +167,18 @@ void CPlayer::MoveToMonster(const _float& fTimeDelta)
 	float		fDistance = D3DXVec3Length(&vDir);
 	D3DXVec3Normalize(&vDir, &vDir);
 
+	_float fCos = D3DXVec3Dot(&vDir, &D3DXVECTOR3(0.f, 0.f, -1.f));
+
+	_float fAngle = acosf(fCos);
+	if (vDir.x > 0.f)
+		fAngle = 2 * D3DX_PI - fAngle;
+
+	m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y] = fAngle;
+
 	m_pTransCom->m_vPosition += vDir * 3.f * fTimeDelta;
 
 	// 몬스터와의 거리가 가까울때 공격 모션으로 상태변화
-	if (fDistance < 10.f)
+	if (fDistance < 20.f)
 	{
 		m_pMeshCom->Set_AnimationSet(PLAYER_ATTACK);
 		m_bMove = false;
@@ -171,8 +187,6 @@ void CPlayer::MoveToMonster(const _float& fTimeDelta)
 
 void CPlayer::Move(const _float& fTimeDelta)
 {
-
-
 	_vec3		vDir = m_vDestPos - m_pTransCom->m_vPosition;
 
 	_float		fDistance = D3DXVec3Length(&vDir);
@@ -353,6 +367,7 @@ void CPlayer::Check_KeyState(const _float& fTimeDelta)
 	{
 		m_pMonster = NULL;
 		m_bMove = true;
+		m_bLMouseDown = true;
 
 		cs_packet_player_mouse_move pkt;
 		pkt.size = sizeof(pkt);
@@ -364,40 +379,23 @@ void CPlayer::Check_KeyState(const _float& fTimeDelta)
 		pkt.dest_y = m_vDestPos.y;
 		pkt.dest_z = m_vDestPos.z;
 		NETWORK_ENGINE->SendPacket((char *)&pkt);
-
-		m_pMouseCol->PickTerrain(&m_vDestPos, m_pVertex);
-		list<Engine::CGameObject*>* pTest = Engine::Find_ObjectList(L"GameLogic", L"Monster");
-		auto iter = pTest->begin();
-		auto iter_end = pTest->end();
-
+				
 		m_pMeshCom->Set_AnimationSet(PLAYER_WALK);
-
-		for (; iter != iter_end; ++iter)
-		{
-			Engine::CComponent* pTransCom = (*iter)->Get_Component(L"Com_Transform");
-			D3DXVECTOR3 vPos = ((Engine::CTransform*)pTransCom)->m_vPosition;
-			D3DXVECTOR3 vDir = m_vDestPos - vPos;
-			
-			// 피킹한 지점과 몬스터의 거리 계산
-			if (D3DXVec3Length(&vDir) < 4.f)
-			{
-				// 몬스터 Lock
-				m_pMonster = (*iter);
-
-				cs_packet_attack_monster pkt;
-				pkt.size = sizeof(pkt);
-				pkt.type = CSPacketType::CS_ATTACK_MONSTER;
-				pkt.monster_id = static_cast<CLandObject *>(m_pMonster)->GetID();
-				NETWORK_ENGINE->SendPacket((char *)&pkt);
-			}
-		}
 	}
+	else
+	{
+		if(m_bLMouseDown == true)
+			m_pMouseCol->PickTerrain(&m_vDestPos, m_pVertex);
+		m_bLMouseDown = false;
+	}
+		
 
 	if (Engine::GetDIMouseState(Engine::CInput::DIM_RBUTTON))
 	{
 		m_pNpc = NULL;
 		m_bNpc = true;
-		
+		m_bRMouseDown = true;
+
 		list<Engine::CGameObject*>* pNpc = Engine::Find_ObjectList(L"GameLogic", L"Npc");
 		auto Npciter = pNpc->begin();
 		auto Npciter_end = pNpc->end();
@@ -430,6 +428,51 @@ void CPlayer::Check_KeyState(const _float& fTimeDelta)
 			m_pQuest->Set_bQuest(true);
 			m_pQuest->SetQuestType(CQuest::QUEST_OK);
 		}
+
+		
+	}
+	else
+	{
+		if (m_bRMouseDown == true)
+		{
+			m_pMonster = NULL;
+			m_bMove = true;
+
+			GetCursorPos(&mousePoint);
+			Ray ray;
+			ray = picker->CalcPickingRay(mousePoint.x, mousePoint.y);
+
+			list<Engine::CGameObject*>* pTest = Engine::Find_ObjectList(L"GameLogic", L"Monster");
+			auto iter = pTest->begin();
+			auto iter_end = pTest->end();
+
+			for (; iter != iter_end; ++iter)
+			{
+				Engine::CComponent* pTransCom = (*iter)->Get_Component(L"Com_Transform");
+				D3DXVECTOR3 vPos = ((Engine::CTransform*)pTransCom)->m_vPosition;
+				D3DXVECTOR3 vDir = m_vDestPos - vPos;
+
+				D3DXVECTOR3 *position = new D3DXVECTOR3(vPos.x, vPos.y + 2.0f, vPos.z);
+				BoundingSphere sphere;
+				sphere.center = *position;
+				sphere.radius = 3;
+
+				if (picker->PickingTest(&ray, &sphere))
+				{
+					// 몬스터 Lock
+					m_pMonster = (*iter);
+
+					cs_packet_attack_monster pkt;
+					pkt.size = sizeof(pkt);
+					pkt.type = CSPacketType::CS_ATTACK_MONSTER;
+					pkt.monster_id = static_cast<CLandObject *>(m_pMonster)->GetID();
+					NETWORK_ENGINE->SendPacket((char *)&pkt);
+
+					m_pMeshCom->Set_AnimationSet(PLAYER_WALK);
+				}
+			}
+		}
+		m_bRMouseDown = false;
 	}
 
 	if (m_pQuest->Get_bQuest() == true)
@@ -445,12 +488,35 @@ void CPlayer::Check_KeyState(const _float& fTimeDelta)
 			m_pQuest->SetQuestType(CQuest::QUEST_ING);
 		}
 	}
-	//else m_bPush = false;
+
+	
 }
 
 void CPlayer::Set_MouseCol(CMouseCol* pMouse)
 {
 	m_pMouseCol = pMouse;
+}
+
+void CPlayer::Reset()
+{
+	m_pEffect = nullptr;
+	m_fTimeDelta = 0.f;
+	m_bPush = false;
+	m_iAniIdx = PLAYER_STAND;
+	m_pMouseCol = nullptr;
+	m_bMove = false;
+	m_pMonster = nullptr;
+	m_bConnected = false;
+	m_iQuestMonCnt = 0;
+	m_bAlive = false;
+	m_bLMouseDown = false;
+	m_bRMouseDown = false;
+
+	m_pMeshCom->Set_AnimationSet(m_iAniIdx);
+
+	m_pTransCom->m_vScale = _vec3(0.01f, 0.01f, 0.01f);
+
+	m_pTransCom->m_vPosition = _vec3(0.f, 0.f, 0.f);
 }
 
 _ulong CPlayer::Release(void)
@@ -464,3 +530,5 @@ _ulong CPlayer::Release(void)
 
 	return dwRefCnt;
 }
+
+

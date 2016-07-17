@@ -6,6 +6,7 @@
 #include "MouseCol.h"
 #include "Quest.h"
 #include "Monster.h"
+#include "Picking.h"
 
 namespace Engine
 {
@@ -59,6 +60,13 @@ public :
 
 	int			m_iQuestMonCnt;
 	CQuest*		m_pQuest;
+
+	bool		m_bAlive;
+	bool		m_bLMouseDown;
+	bool		m_bRMouseDown;
+	POINT		mousePoint;
+	CPicking*	picker;
+
 private:
 	void Set_ContantTable(void);
 	void Check_KeyState(const _float& fTimeDelta);
@@ -70,6 +78,10 @@ public:
 	void SetHP(const UINT hp) { m_hp = hp; }
 	void SetQuest(CQuest* pQuest) { m_pQuest = pQuest; }
 	UINT GetHP() const { return m_hp; }
+	void SetAlive(bool bAlive) { m_bAlive = bAlive; }
+
+	void Reset();
+
 public:
 	virtual _ulong Release(void);
 

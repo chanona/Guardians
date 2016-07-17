@@ -15,4 +15,19 @@ extern HINSTANCE	g_hInst;
 extern int g_iNum;
 extern int g_iGoal;
 
+//structs
+struct Ray
+{
+	D3DXVECTOR3 origin;
+	D3DXVECTOR3 direction;
+};
+
+struct BoundingSphere
+{
+	//BoundingSphere();
+
+	D3DXVECTOR3 center;
+	float radius;
+};
+
 #endif // Defines_h__
