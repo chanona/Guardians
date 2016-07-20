@@ -4,6 +4,11 @@
 #include "Player.h"
 #include "CSingleton.h"
 
+/*
+ * StateMachine에 State 추가할때
+ * m_pStateMachine->ChangeState(PlayerIdleState::GetInstance());
+ */
+
 class PlayerIdleState : public CState<CPlayer>, public CSingleton<PlayerIdleState>
 {
 public:
