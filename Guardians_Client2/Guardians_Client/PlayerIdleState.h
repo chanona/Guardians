@@ -26,6 +26,6 @@ public:
 
 	void Exit(CPlayer *pPlayer) override
 	{
-		cout << "Idle 상태 빠져나옴\n"
+		cout << "Idle 상태 빠져나옴\n";
 	}
 };

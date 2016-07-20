@@ -5,7 +5,7 @@ template <class T>
 class CSingleton
 {
 public :
-	T* GetInstance()
+	static T* GetInstance()
 	{
 		static T instnace;
 		return &T;
