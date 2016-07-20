@@ -22,7 +22,6 @@ private:
 	LPDIRECT3DDEVICE9			m_pGraphicDev;
 	LPD3DXEFFECT				m_pEffect;
 	LPD3DXBUFFER				m_pErrBuffer;
-
 public:
 	virtual _ulong Release(void);
 };

@@ -7,9 +7,6 @@
     <Filter Include="01.Engine\System">
       <UniqueIdentifier>{215bb86e-243b-48e2-8f35-fa12950605a6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Engine\Utility">
-      <UniqueIdentifier>{a01495a5-8774-4fbb-a1f5-da983ef3c205}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01.Engine\Resource">
       <UniqueIdentifier>{f34dcc91-35d8-4abe-b957-094f53091058}</UniqueIdentifier>
     </Filter>
@@ -69,6 +66,9 @@
     </Filter>
     <Filter Include="00.Client\Picking">
       <UniqueIdentifier>{ef64da9e-d16b-40ba-a910-0e3112513b5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Engine\Utility">
+      <UniqueIdentifier>{a01495a5-8774-4fbb-a1f5-da983ef3c205}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -345,7 +345,6 @@
     <ClInclude Include="Terrain.h">
       <Filter>00.Client\Map</Filter>
     </ClInclude>
-    <ClInclude Include="Npc.h" />
     <ClInclude Include="Quest.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="PlayerState.h" />
@@ -355,6 +354,13 @@
     <ClInclude Include="Picking.h">
       <Filter>00.Client\Picking</Filter>
     </ClInclude>
+    <ClInclude Include="Npc.h">
+      <Filter>00.Client\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachine.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="PlayerIdleState.h" />
+    <ClInclude Include="CSingleton.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -537,7 +543,6 @@
     <ClCompile Include="Terrain.cpp">
       <Filter>00.Client\Map</Filter>
     </ClCompile>
-    <ClCompile Include="Npc.cpp" />
     <ClCompile Include="Quest.cpp" />
     <ClCompile Include="PlayerState.cpp" />
     <ClCompile Include="Tree.cpp" />
@@ -546,6 +551,9 @@
     </ClCompile>
     <ClCompile Include="Picking.cpp">
       <Filter>00.Client\Picking</Filter>
+    </ClCompile>
+    <ClCompile Include="Npc.cpp">
+      <Filter>00.Client\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
