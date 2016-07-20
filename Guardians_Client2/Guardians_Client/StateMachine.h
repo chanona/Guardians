@@ -2,18 +2,6 @@
 
 #include "State.h"
 
-
-/*
- * 사용방법
- * FSM을 사용할 객체 클래스 안에 CStateMachine<Object Class> *m_pStateMachine; 선언
- * 처음 객체를 초기화 할시 m_pStateMachine = new CStateMachine<Object Class>(this);
- * m_pStateMachine->SetCurrentState() 함수를 통해 상태 설정
- * 업데이트 함수안에 m_pStateMachine->Update(); 호출
- * 객체 제거시 delete m_pStateMachine;
- *
- *
- */
-
 template <class EntityType>
 class CStateMachine
 {
@@ -28,20 +16,20 @@ public:
 
 	void Update() const
 	{
-		if (m_pGlobalState) m_pGlobalState->Execute(m_pOnwer);
-		if (m_pCurrentState) m_pCurrentState->Execute(m_pOnwer);
+		if (m_pGlobalState) m_pGlobalState->Execute(m_pOwner);
+		if (m_pCurrentState) m_pCurrentState->Execute(m_pOwner);
 	}
 
-	void ChangeState(State<EntityType>* pNewState)
+	void ChangeState(CState<EntityType>* pNewState)
 	{
 		assert(pNewState);
 
 		m_pPreviousState = m_pCurrentState;
-		m_pCurrentState->Exit(m_pOnwer);
+		m_pCurrentState->Exit(m_pOwner);
 
 		m_pCurrentState = pNewState;
 
-		m_pCurrentState->Enter(m_pOnwer);
+		m_pCurrentState->Enter(m_pOwner);
 	}
 
 	void RevertToPreviousState()
@@ -49,7 +37,7 @@ public:
 		ChangeState(m_pPreviousState);
 	}
 private:
-	EntityType* m_pOnwer;
+	EntityType* m_pOwner;
 	CState<EntityType> *m_pCurrentState;
 	CState<EntityType> *m_pPreviousState;
 	CState<EntityType> *m_pGlobalState;
