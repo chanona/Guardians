@@ -19,7 +19,7 @@ class CStateMachine
 {
 public:
 	CStateMachine() {}
-	CStateMachine(EntityType *pOnwer) : m_pOwner(pOwner),
+	CStateMachine(EntityType *pOwner) : m_pOwner(pOwner),
 		m_pCurrentState(nullptr),
 		m_pPreviousState(nullptr),
 		m_pGlobalState(nullptr)
