@@ -8,6 +8,6 @@ public :
 	static T* GetInstance()
 	{
 		static T instnace;
-		return &T;
+		return &instance;
 	}
 };
