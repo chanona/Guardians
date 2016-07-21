@@ -19,6 +19,7 @@ HINSTANCE g_hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
 HWND g_hWnd;
+bool g_bInit = true;
 
 // 이 코드 모듈에 들어 있는 함수의 정방향 선언입니다.
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -219,6 +220,48 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+	//case WM_SIZE: 
+	//{
+	//	if (g_bInit)
+	//	{
+	//		g_bInit = false;
+	//		break;
+	//	}
+	//	RECT			rcWindow = { 0, 0, WINSIZEX, WINSIZEY };
+	//	GetClientRect(hWnd, &rcWindow);
+	//	InvalidateRect(hWnd, NULL, TRUE);
+
+	//	D3DPRESENT_PARAMETERS	d3dpp;
+	//	ZeroMemory(&d3dpp, sizeof(D3DPRESENT_PARAMETERS));
+
+	//	/*d3dpp.BackBufferWidth = WINSIZEX;
+	//	d3dpp.BackBufferHeight = WINSIZEY;*/
+
+	//	d3dpp.BackBufferWidth = LOWORD(lParam);
+	//	d3dpp.BackBufferHeight = HIWORD(lParam);
+	//	d3dpp.BackBufferCount = 1;
+	//	d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;
+
+	//	d3dpp.MultiSampleQuality = 0;
+	//	d3dpp.MultiSampleType = D3DMULTISAMPLE_NONE;
+
+	//	d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;
+	//	d3dpp.EnableAutoDepthStencil = TRUE;
+
+	//	d3dpp.hDeviceWindow = hWnd;
+
+	//	if (d3dpp.Windowed == TRUE)
+	//		d3dpp.Windowed = FALSE;
+	//	else d3dpp.Windowed = TRUE;
+
+	//	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
+	//	d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
+	//	d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
+	//	
+	//	Engine::Get_GraphicDev()->Reset(&d3dpp);
+	//}
+	//break;
+
 	case WM_SOCKET:
 		if (WSAGETSELECTERROR(lParam)) {
 			closesocket((SOCKET)wParam);
@@ -252,6 +295,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
+
+	
+
     case WM_PAINT:
         { g_hWnd = hWnd;
             PAINTSTRUCT ps;

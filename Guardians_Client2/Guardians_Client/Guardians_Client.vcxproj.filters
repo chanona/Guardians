@@ -40,35 +40,101 @@
     <Filter Include="02.Server\Common">
       <UniqueIdentifier>{b598bd83-01b7-4654-a88e-be8b37ea4976}</UniqueIdentifier>
     </Filter>
-    <Filter Include="00.Client\Scene">
-      <UniqueIdentifier>{fcb9b434-dec6-4a20-9dee-02bae405012d}</UniqueIdentifier>
+    <Filter Include="00.Client\00.MainApp">
+      <UniqueIdentifier>{cae9897d-136d-4c9d-b0c1-0a4a0aaec725}</UniqueIdentifier>
     </Filter>
-    <Filter Include="00.Client\Object">
+    <Filter Include="00.Client\01.Scene">
+      <UniqueIdentifier>{2f7b6e86-081b-4494-b7c8-0b19dd10c755}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\01.Scene\00.LogoScene">
+      <UniqueIdentifier>{c0fa3752-d745-4249-a4c4-42683ceaf58c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\01.Scene\01.StageScene">
+      <UniqueIdentifier>{6971cf4a-2e11-45fb-9115-ba385ff33bcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object">
       <UniqueIdentifier>{fc79399b-3c07-4084-bd0e-94cc430c369d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="00.Client\Shader">
+    <Filter Include="00.Client\02.Object\00.Logo">
+      <UniqueIdentifier>{31afb0c4-4f43-49a0-860a-eed7f4552eb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\00.Logo\LogoBack">
+      <UniqueIdentifier>{ce81ad99-9466-4038-bf69-6afb456fe220}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\01.Stage">
+      <UniqueIdentifier>{cd801e98-524e-47b9-aa42-96ff790bfedc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\01.Stage\00.Player">
+      <UniqueIdentifier>{70f6b489-ff55-4034-8a76-ca48e94d8ee9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\01.Stage\01.Monster">
+      <UniqueIdentifier>{1cccaed6-c0e5-428c-87be-df4f3f3aab80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\01.Stage\03.Terrain">
+      <UniqueIdentifier>{9dd8b3ec-1efa-46b2-8214-07b0e8ef8fb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\01.Stage\04.SkyBox">
+      <UniqueIdentifier>{b7142129-6b74-430a-8221-535fe946e1c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\01.Stage\05.UI">
+      <UniqueIdentifier>{db1bc2d1-5556-49da-bdbb-4bb3a4fbbb3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\01.Stage\06.Effect">
+      <UniqueIdentifier>{accff4bb-d0bf-48c5-8247-17d1d0e2273e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\01.Stage\07.Camera">
+      <UniqueIdentifier>{8372f02d-c26a-4f36-9904-255a7c4b8d1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\01.Stage\02.StaticObject">
+      <UniqueIdentifier>{87621a92-4f60-4d31-b376-9bd1b11438f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\01.Stage\02.StaticObject\TombStone">
+      <UniqueIdentifier>{978abb8e-3a4e-46c7-bb02-67cad2640938}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\01.Stage\02.StaticObject\Arrow">
+      <UniqueIdentifier>{42042ead-5508-40eb-a773-1c8484fe6b55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\01.Scene\98.Loading">
+      <UniqueIdentifier>{dac5950d-d9a7-47ee-a68d-bbcdc427503e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\01.Stage\07.Camera\DynamicCamera">
+      <UniqueIdentifier>{741a2a09-abb6-48e7-84a6-99b742c0f916}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\01.Stage\07.Camera\StaticCamera">
+      <UniqueIdentifier>{7de5098c-4ed4-4a79-bc59-5c2b10dea043}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\99.Etc">
+      <UniqueIdentifier>{791b23a4-38cc-42d1-b08b-f2bc077f57f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\99.Etc\Picking">
+      <UniqueIdentifier>{ef64da9e-d16b-40ba-a910-0e3112513b5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\01.Scene\98.SceneSelector">
+      <UniqueIdentifier>{f89f748d-601b-4fdc-9bd6-812b40f8a2bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\01.Stage\02.StaticObject\Shop">
+      <UniqueIdentifier>{28e59d5e-1fc2-4674-91c3-0fd9550f7351}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\97.Shader_Files">
       <UniqueIdentifier>{2bbc8275-69c4-4bb8-b206-97689b949dd5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="00.Client\UI">
-      <UniqueIdentifier>{3bb43271-666c-4e06-a308-0e2364b95483}</UniqueIdentifier>
+    <Filter Include="00.Client\99.Etc\MouseCol">
+      <UniqueIdentifier>{e89d88df-4c8c-403f-b153-27d1384f53a6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="00.Client\Camera">
-      <UniqueIdentifier>{d4307650-d8ff-44c6-8ebc-3ac4ea939527}</UniqueIdentifier>
+    <Filter Include="00.Client\02.Object\01.Stage\08.Npc">
+      <UniqueIdentifier>{3db7ccaa-c10e-4a06-a279-1fdfa6c22ea5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="00.Client\Map">
-      <UniqueIdentifier>{2c7a3cfd-a6ac-435f-bb1e-66547e0f0ac0}</UniqueIdentifier>
+    <Filter Include="00.Client\02.Object\01.Stage\09.Pet">
+      <UniqueIdentifier>{55eda86f-4efd-490c-a919-d415757eda86}</UniqueIdentifier>
     </Filter>
-    <Filter Include="00.Client\SkyBox">
-      <UniqueIdentifier>{0c080407-8270-4a99-9969-0f691dc68820}</UniqueIdentifier>
+    <Filter Include="00.Client\02.Object\01.Stage\05.UI\Quest">
+      <UniqueIdentifier>{6b555eab-0eef-46a5-a21e-32cab7668c04}</UniqueIdentifier>
     </Filter>
-    <Filter Include="00.Client\Effect">
-      <UniqueIdentifier>{6d79758b-65cd-4ac7-b614-c608516c704f}</UniqueIdentifier>
+    <Filter Include="00.Client\02.Object\01.Stage\02.StaticObject\Tree">
+      <UniqueIdentifier>{d01fe3ee-9a61-4ab1-b937-7a6ba30d2155}</UniqueIdentifier>
     </Filter>
-    <Filter Include="00.Client\Effect\Etc">
-      <UniqueIdentifier>{69686290-19c3-464f-a37e-04d72c3f0e57}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00.Client\Picking">
-      <UniqueIdentifier>{ef64da9e-d16b-40ba-a910-0e3112513b5e}</UniqueIdentifier>
+    <Filter Include="00.Client\02.Object\01.Stage\05.UI\PlayerState">
+      <UniqueIdentifier>{38e4839c-f38c-442f-9557-b7f056a7fa08}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -83,9 +149,6 @@
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>99.Default</Filter>
-    </ClInclude>
-    <ClInclude Include="MainApp.h">
-      <Filter>00.Client</Filter>
     </ClInclude>
     <ClInclude Include="Font.h">
       <Filter>01.Engine\System</Filter>
@@ -243,9 +306,6 @@
     <ClInclude Include="Functor.h">
       <Filter>98.Headers</Filter>
     </ClInclude>
-    <ClInclude Include="MouseCol.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
     <ClInclude Include="ClientNetEngine.h">
       <Filter>02.Server\Manager</Filter>
     </ClInclude>
@@ -273,87 +333,101 @@
     <ClInclude Include="protocol.h">
       <Filter>02.Server\Common</Filter>
     </ClInclude>
-    <ClInclude Include="Enum.h">
-      <Filter>00.Client</Filter>
-    </ClInclude>
-    <ClInclude Include="Arrow.h">
-      <Filter>00.Client\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>00.Client\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Monster.h">
-      <Filter>00.Client\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="LogoScene.h">
-      <Filter>00.Client\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\ShaderFiles\Shader_Default.hpp">
-      <Filter>00.Client\Shader</Filter>
+      <Filter>00.Client\97.Shader_Files</Filter>
     </ClInclude>
     <ClInclude Include="..\ShaderFiles\Shader_Effect.hpp">
-      <Filter>00.Client\Shader</Filter>
+      <Filter>00.Client\97.Shader_Files</Filter>
     </ClInclude>
     <ClInclude Include="..\ShaderFiles\Shader_Meshes.hpp">
-      <Filter>00.Client\Shader</Filter>
+      <Filter>00.Client\97.Shader_Files</Filter>
     </ClInclude>
     <ClInclude Include="..\ShaderFiles\Shader_SkyBox.hpp">
-      <Filter>00.Client\Shader</Filter>
+      <Filter>00.Client\97.Shader_Files</Filter>
     </ClInclude>
     <ClInclude Include="..\ShaderFiles\Shader_Terrain.hpp">
-      <Filter>00.Client\Shader</Filter>
+      <Filter>00.Client\97.Shader_Files</Filter>
     </ClInclude>
     <ClInclude Include="..\ShaderFiles\Shader_UI.hpp">
-      <Filter>00.Client\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="StageScene.h">
-      <Filter>00.Client\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="DynamicCamera.h">
-      <Filter>00.Client\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="StaticCamera.h">
-      <Filter>00.Client\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="LandObject.h">
-      <Filter>00.Client\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="TombStone.h">
-      <Filter>00.Client\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="SkyBox.h">
-      <Filter>00.Client\SkyBox</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect.h">
-      <Filter>00.Client\Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="Sword.h">
-      <Filter>00.Client\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Loading.h">
-      <Filter>00.Client\UI</Filter>
+      <Filter>00.Client\97.Shader_Files</Filter>
     </ClInclude>
     <ClInclude Include="..\ShaderFiles\Shader_Base.hpp">
-      <Filter>00.Client\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="LogoBack.h">
-      <Filter>00.Client\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneSelector.h">
-      <Filter>00.Client\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Terrain.h">
-      <Filter>00.Client\Map</Filter>
-    </ClInclude>
-    <ClInclude Include="Npc.h" />
-    <ClInclude Include="Quest.h" />
-    <ClInclude Include="Tree.h" />
-    <ClInclude Include="PlayerState.h" />
-    <ClInclude Include="Shop.h">
-      <Filter>00.Client</Filter>
+      <Filter>00.Client\97.Shader_Files</Filter>
     </ClInclude>
     <ClInclude Include="Picking.h">
-      <Filter>00.Client\Picking</Filter>
+      <Filter>00.Client\99.Etc\Picking</Filter>
+    </ClInclude>
+    <ClInclude Include="MainApp.h">
+      <Filter>00.Client\00.MainApp</Filter>
+    </ClInclude>
+    <ClInclude Include="LogoScene.h">
+      <Filter>00.Client\01.Scene\00.LogoScene</Filter>
+    </ClInclude>
+    <ClInclude Include="StageScene.h">
+      <Filter>00.Client\01.Scene\01.StageScene</Filter>
+    </ClInclude>
+    <ClInclude Include="LogoBack.h">
+      <Filter>00.Client\02.Object\00.Logo\LogoBack</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>00.Client\02.Object\01.Stage\00.Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>00.Client\02.Object\01.Stage\01.Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="TombStone.h">
+      <Filter>00.Client\02.Object\01.Stage\02.StaticObject\TombStone</Filter>
+    </ClInclude>
+    <ClInclude Include="LandObject.h">
+      <Filter>00.Client\02.Object\01.Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Arrow.h">
+      <Filter>00.Client\02.Object\01.Stage\02.StaticObject\Arrow</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>00.Client\02.Object\01.Stage\03.Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>00.Client\02.Object\01.Stage\06.Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyBox.h">
+      <Filter>00.Client\02.Object\01.Stage\04.SkyBox</Filter>
+    </ClInclude>
+    <ClInclude Include="Loading.h">
+      <Filter>00.Client\01.Scene\98.Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticCamera.h">
+      <Filter>00.Client\02.Object\01.Stage\07.Camera\StaticCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicCamera.h">
+      <Filter>00.Client\02.Object\01.Stage\07.Camera\DynamicCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSelector.h">
+      <Filter>00.Client\01.Scene\98.SceneSelector</Filter>
+    </ClInclude>
+    <ClInclude Include="Shop.h">
+      <Filter>00.Client\02.Object\01.Stage\02.StaticObject\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="Enum.h">
+      <Filter>98.Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseCol.h">
+      <Filter>00.Client\99.Etc\MouseCol</Filter>
+    </ClInclude>
+    <ClInclude Include="Npc.h">
+      <Filter>00.Client\02.Object\01.Stage\08.Npc</Filter>
+    </ClInclude>
+    <ClInclude Include="Quest.h">
+      <Filter>00.Client\02.Object\01.Stage\05.UI\Quest</Filter>
+    </ClInclude>
+    <ClInclude Include="Tree.h">
+      <Filter>00.Client\02.Object\01.Stage\02.StaticObject\Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>00.Client\02.Object\01.Stage\05.UI\PlayerState</Filter>
+    </ClInclude>
+    <ClInclude Include="Pet.h">
+      <Filter>00.Client\02.Object\01.Stage\09.Pet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -362,9 +436,6 @@
     </ClCompile>
     <ClCompile Include="Guardians_Client.cpp">
       <Filter>99.Default</Filter>
-    </ClCompile>
-    <ClCompile Include="MainApp.cpp">
-      <Filter>00.Client</Filter>
     </ClCompile>
     <ClCompile Include="FontMgr.cpp">
       <Filter>01.Engine\System</Filter>
@@ -471,9 +542,6 @@
     <ClCompile Include="ResourceMgr.cpp">
       <Filter>01.Engine\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="MouseCol.cpp">
-      <Filter>00.Client</Filter>
-    </ClCompile>
     <ClCompile Include="ClientNetEngine.cpp">
       <Filter>02.Server\Manager</Filter>
     </ClCompile>
@@ -492,60 +560,74 @@
     <ClCompile Include="SendMemoryPool.cpp">
       <Filter>02.Server\Utility</Filter>
     </ClCompile>
-    <ClCompile Include="Arrow.cpp">
-      <Filter>00.Client\Object</Filter>
+    <ClCompile Include="Picking.cpp">
+      <Filter>00.Client\99.Etc\Picking</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>00.Client\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Monster.cpp">
-      <Filter>00.Client\Object</Filter>
+    <ClCompile Include="MainApp.cpp">
+      <Filter>00.Client\00.MainApp</Filter>
     </ClCompile>
     <ClCompile Include="LogoScene.cpp">
-      <Filter>00.Client\Scene</Filter>
+      <Filter>00.Client\01.Scene\00.LogoScene</Filter>
     </ClCompile>
     <ClCompile Include="StageScene.cpp">
-      <Filter>00.Client\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="DynamicCamera.cpp">
-      <Filter>00.Client\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="StaticCamera.cpp">
-      <Filter>00.Client\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="LandObject.cpp">
-      <Filter>00.Client\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="TombStone.cpp">
-      <Filter>00.Client\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="SkyBox.cpp">
-      <Filter>00.Client\SkyBox</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>00.Client\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Sword.cpp">
-      <Filter>00.Client\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Loading.cpp">
-      <Filter>00.Client\UI</Filter>
+      <Filter>00.Client\01.Scene\01.StageScene</Filter>
     </ClCompile>
     <ClCompile Include="LogoBack.cpp">
-      <Filter>00.Client\UI</Filter>
+      <Filter>00.Client\02.Object\00.Logo\LogoBack</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>00.Client\02.Object\01.Stage\00.Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>00.Client\02.Object\01.Stage\01.Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="TombStone.cpp">
+      <Filter>00.Client\02.Object\01.Stage\02.StaticObject\TombStone</Filter>
+    </ClCompile>
+    <ClCompile Include="LandObject.cpp">
+      <Filter>00.Client\02.Object\01.Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Arrow.cpp">
+      <Filter>00.Client\02.Object\01.Stage\02.StaticObject\Arrow</Filter>
     </ClCompile>
     <ClCompile Include="Terrain.cpp">
-      <Filter>00.Client\Map</Filter>
+      <Filter>00.Client\02.Object\01.Stage\03.Terrain</Filter>
     </ClCompile>
-    <ClCompile Include="Npc.cpp" />
-    <ClCompile Include="Quest.cpp" />
-    <ClCompile Include="PlayerState.cpp" />
-    <ClCompile Include="Tree.cpp" />
+    <ClCompile Include="Effect.cpp">
+      <Filter>00.Client\02.Object\01.Stage\06.Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>00.Client\02.Object\01.Stage\04.SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="Loading.cpp">
+      <Filter>00.Client\01.Scene\98.Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="StaticCamera.cpp">
+      <Filter>00.Client\02.Object\01.Stage\07.Camera\StaticCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicCamera.cpp">
+      <Filter>00.Client\02.Object\01.Stage\07.Camera\DynamicCamera</Filter>
+    </ClCompile>
     <ClCompile Include="Shop.cpp">
-      <Filter>00.Client</Filter>
+      <Filter>00.Client\02.Object\01.Stage\02.StaticObject\Shop</Filter>
     </ClCompile>
-    <ClCompile Include="Picking.cpp">
-      <Filter>00.Client\Picking</Filter>
+    <ClCompile Include="MouseCol.cpp">
+      <Filter>00.Client\99.Etc\MouseCol</Filter>
+    </ClCompile>
+    <ClCompile Include="Npc.cpp">
+      <Filter>00.Client\02.Object\01.Stage\08.Npc</Filter>
+    </ClCompile>
+    <ClCompile Include="Quest.cpp">
+      <Filter>00.Client\02.Object\01.Stage\05.UI\Quest</Filter>
+    </ClCompile>
+    <ClCompile Include="Tree.cpp">
+      <Filter>00.Client\02.Object\01.Stage\02.StaticObject\Tree</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>00.Client\02.Object\01.Stage\05.UI\PlayerState</Filter>
+    </ClCompile>
+    <ClCompile Include="Pet.cpp">
+      <Filter>00.Client\02.Object\01.Stage\09.Pet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

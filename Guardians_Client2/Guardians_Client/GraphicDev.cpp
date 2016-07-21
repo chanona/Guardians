@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "GraphicDev.h"
+#include "windows.h"
 
 IMPLEMENT_SINGLETON(Engine::CGraphicDev)
 
@@ -12,7 +13,7 @@ Engine::CGraphicDev::CGraphicDev(void)
 
 Engine::CGraphicDev::~CGraphicDev(void)
 {
-
+	
 }
 
 HRESULT Engine::CGraphicDev::Ready_GraphicDev(WINMODE Mode, HWND hWnd, const WORD& wSizeX, const WORD& wSizeY)

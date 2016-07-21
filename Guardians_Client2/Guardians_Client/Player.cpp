@@ -438,6 +438,8 @@ void CPlayer::Check_KeyState(const _float& fTimeDelta)
 			m_bMove = true;
 
 			GetCursorPos(&mousePoint);
+			ScreenToClient(g_hWnd, &mousePoint);
+
 			Ray ray;
 			ray = picker->CalcPickingRay(mousePoint.x, mousePoint.y);
 

@@ -250,7 +250,7 @@ LRESULT CALLBACK CGameFramework::OnProcessingWindowMessage(HWND hWnd, UINT nMess
 	switch (nMessageID)
 	{
 		/*윈도우의 크기가 변경될 때(현재는 “Alt+Enter“ 전체 화면 모드와 윈도우 모드로 전환될 때) 스왑 체인의 후면버퍼 크기를 조정하고 후면버퍼에 대한 렌더 타겟 뷰를 다시 생성한다. */
-	case WM_SIZE:
+	/*case WM_SIZE:
 	{
 		m_nWndClientWidth  = LOWORD(lParam);
 		m_nWndClientHeight = HIWORD(lParam);
@@ -263,16 +263,16 @@ LRESULT CALLBACK CGameFramework::OnProcessingWindowMessage(HWND hWnd, UINT nMess
 		m_pDXGISwapChain->ResizeBuffers(1, 0, 0, DXGI_FORMAT_R8G8B8A8_UNORM, 0);
 
 		CreateRenderTargetDepthStencilView();
-		
+
 		if (NETWORK_ENGINE->GetMyPlayer())
-		{ 
+		{
 			CCamera *pCamera = NETWORK_ENGINE->GetMyPlayer()->GetCamera();
 			pCamera->SetViewPort(m_pd3dDeviceContext, 0, 0,m_nWndClientWidth,
 				m_nWndClientHeight, 0.0f, 1.0f);
 
 		}
 		break;
-	}
+	}*/
 	case WM_LBUTTONDOWN:
 	case WM_RBUTTONDOWN:
 	case WM_LBUTTONUP:
