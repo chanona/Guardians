@@ -218,7 +218,7 @@ void CPacketManager::ProcessLogin(const char * packet, const UINT id)
 	Engine::CManagement::GetInstance()->Add_Object(L"GameLogic", L"MouseCol", pMouse);
 	pPlayer->Set_MouseCol((CMouseCol*)pMouse);
 
-	Engine::CGameObject *pCamera = CStaticCamera::Create(Engine::Get_GraphicDev(), &_vec3(0.f, 5.f, -5.f), &_vec3(0.f, 0.f, 0.f));
+	Engine::CGameObject *pCamera = CStaticCamera::Create(Engine::Get_GraphicDev(), &_vec3(0.f, 100.f, -10.f), &_vec3(0.f, 0.f, 0.f));
 	Engine::CManagement::GetInstance()->Add_Object(L"GameLogic", L"Camera", pCamera);
 
 	//wsprintf(name,L"Player%d", pkt->player_id);

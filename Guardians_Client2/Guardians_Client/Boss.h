@@ -1,5 +1,6 @@
-#ifndef Pet_h__
-#define Pet_h__
+#pragma once
+#ifndef Boss_h__
+#define Boss_h__
 
 #include "Defines.h"
 #include "LandObject.h"
@@ -12,11 +13,11 @@ namespace Engine
 	class CDynamicMesh;
 }
 
-class CPet : public CLandObject
+class CBoss : public CLandObject
 {
 public:
-	explicit CPet(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual ~CPet(void);
+	explicit CBoss(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual ~CBoss(void);
 
 	virtual HRESULT	Initialize(void);
 	virtual HRESULT Add_Component(void);
@@ -26,7 +27,7 @@ public:
 
 	void Move(const _float& fTimeDelta);
 public:
-	static CPet* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CBoss* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 private:
 	Engine::CDynamicMesh*		m_pMeshCom;
 private:
@@ -60,4 +61,4 @@ public:
 };
 
 
-#endif // Pet_h__
+#endif // Boss_h__

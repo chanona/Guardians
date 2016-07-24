@@ -9,6 +9,18 @@
  * m_pStateMachine->ChangeState(PlayerIdleState::GetInstance());
  */
 
+
+/*
+ - * 사용방법
+ - * FSM을 사용할 객체 클래스 안에 CStateMachine<Object Class> *m_pStateMachine; 선언
+ - * 처음 객체를 초기화 할시 m_pStateMachine = new CStateMachine<Object Class>(this);
+ - * m_pStateMachine->SetCurrentState() 함수를 통해 상태 설정
+ - * 업데이트 함수안에 m_pStateMachine->Update(); 호출
+ - * 객체 제거시 delete m_pStateMachine;
+ - *
+ - *
+ - */
+	
 class PlayerIdleState : public CState<CPlayer>, public CSingleton<PlayerIdleState>
 {
 public:

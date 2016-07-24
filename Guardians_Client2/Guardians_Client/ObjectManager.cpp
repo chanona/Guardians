@@ -24,6 +24,7 @@ bool CObjectManager::Start()
 
 		if (0 == i)
 		{
+			//pMonster->SetPosition(_vec3(rand() % 10, 0, rand() % 10));
 			//pMonster->SetMonsterType(MonsterType::MONSTER_TYPE_END);
 			continue;			// 0은 더미 NPC라서 풀에 넣을 필요없음
 		}

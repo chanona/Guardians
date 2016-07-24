@@ -27,20 +27,20 @@ HRESULT CQuest::Initialize(void)
 	m_eQuest = QUEST_START;
 	m_bQuest = false;
 
-	m_fSizeX[QUEST_START] = 300.f;
-	m_fSizeY[QUEST_START] = 500.f;
-	m_fX[QUEST_START] = 200.f;
-	m_fY[QUEST_START] = 250.f;
+	m_fSizeX[QUEST_START] = WINSIZEX / 6.4f * 1.3f;
+	m_fSizeY[QUEST_START] = WINSIZEY / 2.16f* 1.3f;
+	m_fX[QUEST_START] = WINSIZEX / 4.6f;
+	m_fY[QUEST_START] = WINSIZEY / 3.32f;
 
-	m_fSizeX[QUEST_ING] = 300.f;
-	m_fSizeY[QUEST_ING] = 500.f;
-	m_fX[QUEST_ING] = 200.f;
-	m_fY[QUEST_ING] = 250.f;
+	m_fSizeX[QUEST_ING] = WINSIZEX / 6.4f* 1.3f;
+	m_fSizeY[QUEST_ING] = WINSIZEY / 2.16f* 1.3f;
+	m_fX[QUEST_ING] = WINSIZEX / 4.6f;
+	m_fY[QUEST_ING] = WINSIZEY / 3.32f;
 
-	m_fSizeX[QUEST_OK] = 300.f;
-	m_fSizeY[QUEST_OK] = 500.f;
-	m_fX[QUEST_OK] = 200.f;
-	m_fY[QUEST_OK] = 250.f;
+	m_fSizeX[QUEST_OK] = WINSIZEX / 6.4f* 1.3f;
+	m_fSizeY[QUEST_OK] = WINSIZEY / 2.16f* 1.3f;
+	m_fX[QUEST_OK] = WINSIZEX / 4.6f;
+	m_fY[QUEST_OK] = WINSIZEY / 3.32f;
 
 	for (int i = 0; i < QUEST_END; ++i)
 	{

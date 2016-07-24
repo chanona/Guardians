@@ -120,10 +120,10 @@ PS_OUT PS_MAIN(vector vColor : COLOR0
 
 	vector			vResultColor[5];
 
-	vResultColor[0] = tex2D(TileSampler, vTexUV * 20.f);
-	vResultColor[1] = tex2D(TileSampler2, vTexUV * 20.f);
-	vResultColor[2] = tex2D(TileSampler3, vTexUV * 20.f);
-	vResultColor[3] = tex2D(TileSampler4, vTexUV * 20.f);
+	vResultColor[0] = tex2D(TileSampler, vTexUV * 50.f);
+	vResultColor[1] = tex2D(TileSampler2, vTexUV * 50.f);
+	vResultColor[2] = tex2D(TileSampler3, vTexUV * 50.f);
+	vResultColor[3] = tex2D(TileSampler4, vTexUV * 50.f);
 	vResultColor[4] = tex2D(ColorHeightSampler, vTexUV);
 	//vResultColor[0] = tex2D(BaseSampler, vTexUV * 20.0f);
 	//vResultColor[1] = (vector)0;

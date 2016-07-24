@@ -23,25 +23,30 @@ HRESULT CPlayerState::Initialize(void)
 
 	m_pMtrlCom = nullptr;
 
-	m_fSizeX[STATE_STATE] = 300.f * 1.5f;
-	m_fSizeY[STATE_STATE] = 150.f * 1.5f;
+	m_fSizeX[STATE_STATE] = WINSIZEX / 4.26f;	// 450
+	m_fSizeY[STATE_STATE] = WINSIZEY / 4.8f;	// 225
 	m_fX[STATE_STATE] = (WINSIZEX / 1.14f);
 	m_fY[STATE_STATE] = (WINSIZEY / 9.5f);
 
-	m_fSizeX[STATE_FACE] = 150.f * 1.5f;
-	m_fSizeY[STATE_FACE] = 150.f * 1.5f;
+	m_fSizeX[STATE_FACE] = WINSIZEY / 4.8f;
+	m_fSizeY[STATE_FACE] = WINSIZEY / 4.8f;
 	m_fX[STATE_FACE] = (WINSIZEX / 1.07f);
 	m_fY[STATE_FACE] = (WINSIZEY / 9.5f);
 
-	m_fSizeX[STATE_HP] = 130.f * 1.5f;
-	m_fSizeY[STATE_HP] = 50.f * 1.5f;
+	m_fSizeX[STATE_HP] = WINSIZEX / 9.846;	// 195
+	m_fSizeY[STATE_HP] = WINSIZEY / 14.4;	// 75
 	m_fX[STATE_HP] = (WINSIZEX / 1.175f);
 	m_fY[STATE_HP] = (WINSIZEY / 9.5f);
 
-	m_fSizeX[STATE_MP] = 150.f * 1.5f;
-	m_fSizeY[STATE_MP] = 50.f * 1.4f;
+	m_fSizeX[STATE_MP] = WINSIZEX / 8.533f;
+	m_fSizeY[STATE_MP] = WINSIZEY / 15.428f; // 70
 	m_fX[STATE_MP] = (WINSIZEX / 1.165f);
 	m_fY[STATE_MP] = (WINSIZEY / 7.5f);
+
+	m_fSizeX[STATE_EX] = WINSIZEX / 2.f;
+	m_fSizeY[STATE_EX] = WINSIZEY / 25.0f; // 70
+	m_fX[STATE_EX] = (WINSIZEX / 2.f);
+	m_fY[STATE_EX] = (WINSIZEY / 1.2f);
 
 	m_fHp = 100.f;
 	m_fMp = 100.f;
@@ -89,6 +94,12 @@ HRESULT CPlayerState::Add_Component(void)
 	m_mapComponent.insert(MAPCOMPONENT::value_type(L"Com_PlayerMp", pComponent));
 
 	// For.VIBuffer Component
+	pComponent = m_pBufferCom[STATE_EX] = (Engine::CVIBuffer*)Engine::Clone_Resource(RESOURCE_STATIC, L"Buffer_PlayerEx");
+	if (NULL == pComponent)
+		return E_FAIL;
+	m_mapComponent.insert(MAPCOMPONENT::value_type(L"Com_PlayerEx", pComponent));
+
+	// For.VIBuffer Component
 	pComponent = m_pBufferCom[STATE_STATE] = (Engine::CVIBuffer*)Engine::Clone_Resource(RESOURCE_STATIC, L"Buffer_PlayerState");
 	if (NULL == pComponent)
 		return E_FAIL;
@@ -111,6 +122,12 @@ HRESULT CPlayerState::Add_Component(void)
 	if (NULL == pComponent)
 		return E_FAIL;
 	m_mapComponent.insert(MAPCOMPONENT::value_type(L"Com_PlayerMp", pComponent));
+
+	// For.Texture Component
+	pComponent = m_pTextureCom[STATE_EX] = (Engine::CTexture*)Engine::Clone_Resource(RESOURCE_STATIC, L"Texture_PlayerEx");
+	if (NULL == pComponent)
+		return E_FAIL;
+	m_mapComponent.insert(MAPCOMPONENT::value_type(L"Com_PlayerEx", pComponent));
 
 	// For.Texture Component
 	pComponent = m_pTextureCom[STATE_STATE] = (Engine::CTexture*)Engine::Clone_Resource(RESOURCE_STATIC, L"Texture_PlayerState");
@@ -220,6 +237,13 @@ void CPlayerState::Render(void)
 	m_matView[STATE_MP]._33 = 1.f;
 	m_matView[STATE_MP]._41 = WINSIZEX * 0.5f - m_fX[STATE_MP];
 	m_matView[STATE_MP]._42 = WINSIZEY * 0.5f - m_fY[STATE_MP];
+
+	D3DXMatrixIdentity(&m_matView[STATE_EX]);
+	m_matView[STATE_EX]._11 = m_fSizeX[STATE_EX];
+	m_matView[STATE_EX]._22 = m_fSizeY[STATE_EX];
+	m_matView[STATE_EX]._33 = 1.f;
+	m_matView[STATE_EX]._41 = WINSIZEX * 0.5f - m_fX[STATE_EX];
+	m_matView[STATE_EX]._42 = WINSIZEY * 0.5f - m_fY[STATE_EX];
 
 	for (int i = 0; i < STATE_END; ++i)
 	{

@@ -224,17 +224,17 @@ void Engine::CDynamicMesh::Render_MeshForShader(LPD3DXEFFECT pEffect, _bool bCol
 {
 	Render_MeshContainer(pEffect, (D3DXFRAME_DERIVED*)m_pRootFrame);	
 
-#ifdef _DEBUG
-	if(true)
-	{
-		m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-		m_pGraphicDev->SetStreamSource(0, m_pVB, 0, sizeof(VTXCUBE));
-		m_pGraphicDev->SetFVF(VTXFVF_CUBE);
-		m_pGraphicDev->SetIndices(m_pIB);
-		m_pGraphicDev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12);
-		m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-	}
-#endif
+//#ifdef _DEBUG
+//	if(true)
+//	{
+//		m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+//		m_pGraphicDev->SetStreamSource(0, m_pVB, 0, sizeof(VTXCUBE));
+//		m_pGraphicDev->SetFVF(VTXFVF_CUBE);
+//		m_pGraphicDev->SetIndices(m_pIB);
+//		m_pGraphicDev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12);
+//		m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+//	}
+//#endif
 }
 
 void Engine::CDynamicMesh::Render_MeshContainer(LPD3DXEFFECT pEffect, D3DXFRAME_DERIVED* pFrame)

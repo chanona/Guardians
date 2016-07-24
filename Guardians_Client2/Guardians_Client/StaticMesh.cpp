@@ -212,17 +212,17 @@ void Engine::CStaticMesh::Render_MeshForShader(LPD3DXEFFECT pEffect, _bool bColl
 		m_pMesh->DrawSubset(i);
 	}
 
-#ifdef _DEBUG
-	if(true == bColliderDraw)
-	{
-		m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-		m_pGraphicDev->SetStreamSource(0, m_pVB, 0, sizeof(VTXCUBE));
-		m_pGraphicDev->SetFVF(VTXFVF_CUBE);
-		m_pGraphicDev->SetIndices(m_pIB);
-		m_pGraphicDev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12);
-		m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-	}
-#endif
+//#ifdef _DEBUG
+//	if(true == bColliderDraw)
+//	{
+//		m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+//		m_pGraphicDev->SetStreamSource(0, m_pVB, 0, sizeof(VTXCUBE));
+//		m_pGraphicDev->SetFVF(VTXFVF_CUBE);
+//		m_pGraphicDev->SetIndices(m_pIB);
+//		m_pGraphicDev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12);
+//		m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+//	}
+//#endif
 }
 
 Engine::CStaticMesh* Engine::CStaticMesh::Create(LPDIRECT3DDEVICE9 pDevice , const TCHAR* pPath, const TCHAR* pFileName)

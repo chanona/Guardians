@@ -159,6 +159,7 @@
     <ClInclude Include="AnimationCtrl.h" />
     <ClInclude Include="Arrow.h" />
     <ClInclude Include="Base.h" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ClientNetEngine.h" />
     <ClInclude Include="Collision.h" />
@@ -258,6 +259,7 @@
     <ClCompile Include="AnimationCtrl.cpp" />
     <ClCompile Include="Arrow.cpp" />
     <ClCompile Include="Base.cpp" />
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ClientNetEngine.cpp" />
     <ClCompile Include="Collision.cpp" />

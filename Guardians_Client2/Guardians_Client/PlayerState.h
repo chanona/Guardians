@@ -22,7 +22,7 @@ public:
 	virtual HRESULT Add_Component(void);
 	virtual _int Update(const _float& fTimeDelta);
 	virtual void Render(void);
-	enum STATE_TYPE { STATE_FACE, STATE_HP, STATE_MP, STATE_STATE,  STATE_END };
+	enum STATE_TYPE { STATE_FACE, STATE_HP, STATE_MP, STATE_STATE, STATE_EX,  STATE_END };
 public:
 	static CPlayerState* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 private:

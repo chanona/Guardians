@@ -33,7 +33,7 @@ HRESULT CStaticCamera::InitCamera(const D3DXVECTOR3* pEye, const D3DXVECTOR3* pA
 	m_fFar = 1000.f;
 	Invalidate_ProjMatrix();
 
-	m_fHeight = -2.f;
+	m_fHeight = -15.f;
 	return S_OK;
 }
 
@@ -53,11 +53,11 @@ void CStaticCamera::SetCameraPos(const _float& fTimeDelta)
 
 	int		iDistance = 0;
 
-	m_vAt = ((Engine::CTransform*)(Engine::Get_Component(L"Com_Transform", L"GameLogic", L"Player")))->m_vPosition + D3DXVECTOR3(0.f, 3.f, 0.f);
+	m_vAt = ((Engine::CTransform*)(Engine::Get_Component(L"Com_Transform", L"GameLogic", L"Player")))->m_vPosition + D3DXVECTOR3(0.f, 0.f, 0.f);
 
 	float fAngleY = ((Engine::CTransform*)(Engine::Get_Component(L"Com_Transform", L"GameLogic", L"Player")))->m_fAngle[Engine::CTransform::ANGLE_Y] + D3DX_PI / 2.f;
 
-	m_vEye = m_vAt - D3DXVECTOR3(m_fHeelUp * cosf(-fAngleY), m_fHeight, m_fHeelUp * sinf(-fAngleY));
+	m_vEye = m_vAt - D3DXVECTOR3(m_fHeelUp /** cosf(-fAngleY)*/, m_fHeight, m_fHeelUp /** sinf(-fAngleY)*/);
 	
 	if (true == m_bStart)
 	{

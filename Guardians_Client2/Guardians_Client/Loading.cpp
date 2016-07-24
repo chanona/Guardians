@@ -88,6 +88,18 @@ void CLoading::StageLoading(void)
 		return;
 	}
 
+	if (FAILED(Engine::Ready_Mesh(m_pGraphicDev, RESOURCE_STAGE, Engine::CMesh::TYPE_DYNAMIC, L"Mesh_Pet", L"../Resource/Meshes/DynamicMesh/Pet/", L"Wolf.X")))
+	{
+		MSG_BOX("Ready_Mesh Ready Failed");
+		return;
+	}
+
+	if (FAILED(Engine::Ready_Mesh(m_pGraphicDev, RESOURCE_STAGE, Engine::CMesh::TYPE_DYNAMIC, L"Mesh_Boss", L"../Resource/Meshes/DynamicMesh/Monster/Boss/", L"Kero_Binary.X")))
+	{
+		MSG_BOX("Ready_Mesh Ready Failed");
+		return;
+	}
+
 	// UI 
 	if (FAILED(Engine::Ready_Buffer(m_pGraphicDev, RESOURCE_STATIC, Engine::CVIBuffer::TYPE_RCTEX
 		, L"Buffer_PlayerState")))
@@ -114,6 +126,13 @@ void CLoading::StageLoading(void)
 		, L"Buffer_PlayerMp")))
 	{
 		MSG_BOX("Buffer_PlayerMp Ready Failed");
+		return;
+	}
+
+	if (FAILED(Engine::Ready_Buffer(m_pGraphicDev, RESOURCE_STATIC, Engine::CVIBuffer::TYPE_RCTEX
+		, L"Buffer_PlayerEx")))
+	{
+		MSG_BOX("Buffer_PlayerEx Ready Failed");
 		return;
 	}
 
@@ -154,28 +173,28 @@ void CLoading::StageLoading(void)
 	lstrcpy(m_szLoadMessage, L"텍스쳐 로딩중...");
 
 	if(FAILED(Engine::Ready_Texture(m_pGraphicDev, RESOURCE_STAGE, L"Texture_Tile", Engine::CTexture::TYPE_NORMAL
-		, L"../Resource/Texture/StageScene/Terrain/grass_%d.jpg", 1)))
+		, L"../Resource/Texture/StageScene/Terrain/grass_%d.tga", 1)))
 	{
 		MSG_BOX("Texture_Terrain Ready Failed");
 		return;
 	}
 
 	if (FAILED(Engine::Ready_Texture(m_pGraphicDev, RESOURCE_STAGE, L"Texture_Tile2", Engine::CTexture::TYPE_NORMAL
-		, L"../Resource/Texture/StageScene/Terrain/grass-ground_%d.jpg", 1)))
+		, L"../Resource/Texture/StageScene/Terrain/grass_%d.tga", 1)))
 	{
 		MSG_BOX("Texture_Terrain Ready Failed");
 		return;
 	}
 
 	if (FAILED(Engine::Ready_Texture(m_pGraphicDev, RESOURCE_STAGE, L"Texture_Tile3", Engine::CTexture::TYPE_NORMAL
-		, L"../Resource/Texture/StageScene/Terrain/ground_%d.jpg", 1)))
+		, L"../Resource/Texture/StageScene/Terrain/grass_%d.tga", 1)))
 	{
 		MSG_BOX("Texture_Terrain Ready Failed");
 		return;
 	}
 
 	if (FAILED(Engine::Ready_Texture(m_pGraphicDev, RESOURCE_STAGE, L"Texture_Tile4", Engine::CTexture::TYPE_NORMAL
-		, L"../Resource/Texture/StageScene/Terrain/rocks_%d.jpg", 1)))
+		, L"../Resource/Texture/StageScene/Terrain/grass_%d.tga", 1)))
 	{
 		MSG_BOX("Texture_Terrain Ready Failed");
 		return;
@@ -247,6 +266,33 @@ void CLoading::StageLoading(void)
 		MSG_BOX("Texture_PlayerState Ready Failed");
 		return;
 	}
+	/*if (FAILED(Engine::Ready_Texture(m_pGraphicDev, RESOURCE_STATIC, L"Texture_PlayerMp", Engine::CTexture::TYPE_NORMAL
+		, L"../Resource/Texture/StageScene/UI/PlayerMp%d.png", 1)))
+	{
+		MSG_BOX("Texture_PlayerMp Ready Failed");
+		return;
+	}*/
+
+	if (FAILED(Engine::Ready_Texture(m_pGraphicDev, RESOURCE_STATIC, L"Texture_PlayerEx", Engine::CTexture::TYPE_NORMAL,
+		L"../Resource/Texture/StageScene/UI/PlayerEx%d.tga", 1)))
+	{
+		MSG_BOX("Texture_PlayerEx Ready Failed");
+		return;
+	}
+
+	/*if (FAILED(Engine::Ready_Texture(m_pGraphicDev, RESOURCE_STATIC, L"Texture_PlayerExBack", Engine::CTexture::TYPE_NORMAL,
+		L"../Resource/Texture/StageScene/UI/PlayerExBack%d.tga", 1)))
+	{
+		MSG_BOX("Texture_PlayerStamina_Red Ready Failed");
+		return;
+	}
+
+	if (FAILED(Engine::Ready_Texture(m_pGraphicDev, RESOURCE_STATIC, L"Texture_PlayerExBack2", Engine::CTexture::TYPE_NORMAL,
+		L"../Resource/Texture/StageScene/UI/PlayerExBack2%d.tga", 1)))
+	{
+		MSG_BOX("Texture_PlayerStamina_Red Ready Failed");
+		return;
+	}*/
 
 	if (FAILED(Engine::Ready_Texture(m_pGraphicDev, RESOURCE_STAGE, L"Texture_Tree", Engine::CTexture::TYPE_NORMAL
 		, L"../Resource/Texture/StageScene/Tree/Tree%d.png", 1)))

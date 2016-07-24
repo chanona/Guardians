@@ -13,6 +13,8 @@
 #include "Npc.h"
 #include "Quest.h"
 #include "Shop.h"
+#include "Boss.h"
+#include "Pet.h"
 #include "Export_Function.h"
 #include "ClientNetEngine.h"
 
@@ -207,6 +209,21 @@ HRESULT CStageScene::Ready_GameLogic(void)
 	if (NULL == pGameObject)
 		return E_FAIL;
 	pLayer->Ready_Object(L"Shop", pGameObject);
+
+	pGameObject = CShop::Create(m_pGraphicDev);
+	if (NULL == pGameObject)
+		return E_FAIL;
+	pLayer->Ready_Object(L"Shop", pGameObject);
+
+	pGameObject = CBoss::Create(m_pGraphicDev);
+	if (NULL == pGameObject)
+		return E_FAIL;
+	pLayer->Ready_Object(L"Boss", pGameObject);
+
+	pGameObject = CPet::Create(m_pGraphicDev);
+	if (NULL == pGameObject)
+		return E_FAIL;
+	pLayer->Ready_Object(L"Pet", pGameObject);
 
 	// For.Sword-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//pGameObject = CSword::Create(m_pGraphicDev);

@@ -182,6 +182,7 @@ void CPlayer::MoveToMonster(const _float& fTimeDelta)
 	{
 		m_pMeshCom->Set_AnimationSet(PLAYER_ATTACK);
 		m_bMove = false;
+		((Engine::CTransform*)pTransCom)->m_fAngle[Engine::CTransform::ANGLE_Y] = fAngle + D3DXToRadian(180.f);
 	}
 }
 

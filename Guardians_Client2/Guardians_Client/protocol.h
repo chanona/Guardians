@@ -2,7 +2,7 @@
 
 #define MAX_CLIENT                 101		// 최대클라이언트에 + 1을 해줘야 한다 -> 0은 더미 클라
 #define ATTACKER_MONSTER_START 1
-#define DEFENDER_MONSTER_START 501
+#define DEFENDER_MONSTER_START 1001
 #define SURPPORT_MONSTER_START 1001
 #define MAX_MONSTER                1001
 #define MAX_ITEM                   2001

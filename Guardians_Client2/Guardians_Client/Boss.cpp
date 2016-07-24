@@ -1,24 +1,25 @@
 #include "stdafx.h"
-#include "Monster.h"
+#include "Boss.h"
 #include "Export_Function.h"
 #include "protocol.h"
 #include "ClientNetEngine.h"
-CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev)
+
+CBoss::CBoss(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CLandObject(pGraphicDev)
 	, m_pEffect(NULL)
 	, m_fTimeDelta(0.f)
-	, m_iAniIdx(SALA_CRY)
+	, m_iAniIdx(0)
 	, m_bMove(false)
 {
 
 }
 
-CMonster::~CMonster(void)
+CBoss::~CBoss(void)
 {
 
 }
 
-HRESULT CMonster::Initialize(void)
+HRESULT CBoss::Initialize(void)
 {
 	if (FAILED(CLandObject::Initialize()))
 		return E_FAIL;
@@ -32,9 +33,9 @@ HRESULT CMonster::Initialize(void)
 
 	m_pMeshCom->Set_AnimationSet(m_iAniIdx);
 
-	m_pTransCom->m_vScale = _vec3(3.f, 3.f, 3.f);
-		
-	m_pTransCom->m_vPosition = _vec3((float)(rand() % 10), 0.f, (float)(rand() % 10));
+	m_pTransCom->m_vScale = _vec3(0.01f, 0.01f, 0.01f);
+
+	m_pTransCom->m_vPosition = _vec3(320.f, 0.f, 380.f);
 
 	m_iHP = 100;
 	m_iAtt = 10;
@@ -42,7 +43,7 @@ HRESULT CMonster::Initialize(void)
 	return S_OK;
 }
 
-HRESULT CMonster::Add_Component(void)
+HRESULT CBoss::Add_Component(void)
 {
 	Engine::CComponent*			pComponent = NULL;
 
@@ -53,7 +54,7 @@ HRESULT CMonster::Add_Component(void)
 	m_mapComponent.insert(MAPCOMPONENT::value_type(L"Com_Transform", pComponent));
 
 	// For.Mesh Component
-	pComponent = m_pMeshCom = (Engine::CDynamicMesh*)Engine::Clone_Resource(RESOURCE_STAGE, L"Mesh_Monster");
+	pComponent = m_pMeshCom = (Engine::CDynamicMesh*)Engine::Clone_Resource(RESOURCE_STAGE, L"Mesh_Boss");
 	if (NULL == pComponent)
 		return E_FAIL;
 	m_mapComponent.insert(MAPCOMPONENT::value_type(L"Com_Mesh", pComponent));
@@ -62,11 +63,11 @@ HRESULT CMonster::Add_Component(void)
 	return S_OK;
 }
 
-_int CMonster::Update(const _float& fTimeDelta)
+_int CBoss::Update(const _float& fTimeDelta)
 {
 	if (m_bAlive == false)
 		return 0;
-	
+
 	m_fTimeDelta = fTimeDelta;
 
 	if (m_bMove)
@@ -74,27 +75,8 @@ _int CMonster::Update(const _float& fTimeDelta)
 
 	if ((m_pMeshCom->Check_EndPeriod()) && !m_bMove)
 	{
-		if (m_pMeshCom->Get_AnimationSet() == SALA_DAMAGED)
-			m_iHP -= 50;
-
-		if (m_pMeshCom->Get_AnimationSet() == SALA_DIE)
-		{
-			cs_packet_remove_monster pkt;
-			pkt.size = sizeof(pkt);
-			pkt.type = CSPacketType::CS_REMOVE_MONSTER;
-			pkt.monster_id = m_id;
-
-			NETWORK_ENGINE->SendPacket((char *)&pkt);
-			return -1;
-		}
-			
-
-		if (m_iHP <= 0)
-			m_pMeshCom->Set_AnimationSet(SALA_DIE);
-		else
-			m_pMeshCom->Set_AnimationSet(SALA_CRY);
 	}
-	
+
 	Engine::Add_RenderGroup(Engine::CRenderer::RENDER_ZSORT, this);
 
 	CLandObject::Update(fTimeDelta);
@@ -102,7 +84,7 @@ _int CMonster::Update(const _float& fTimeDelta)
 	return 0;
 }
 
-void CMonster::Render(void)
+void CBoss::Render(void)
 {
 	if (m_bAlive == false) return;
 
@@ -130,16 +112,16 @@ void CMonster::Render(void)
 	m_pMeshCom->Render_MeshForShader(m_pEffect, true);
 }
 
-void CMonster::Clear()
+void CBoss::Clear()
 {
-	m_iAniIdx = SALA_CRY;
+	m_iAniIdx = 0;
 	m_bMove = false;
 	m_pTransCom->m_vPosition = _vec3(25.f, 0.f, 25.0f);
 	m_iHP = 100;
 	m_iAtt = 10;
 }
 
-void CMonster::Move(const _float& fTimeDelta)
+void CBoss::Move(const _float& fTimeDelta)
 {
 	D3DXVECTOR3		vDir = m_vDestPos - m_pTransCom->m_vPosition;
 
@@ -155,19 +137,19 @@ void CMonster::Move(const _float& fTimeDelta)
 	}
 }
 
-CMonster* CMonster::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+CBoss* CBoss::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CMonster*		pGameObject = new CMonster(pGraphicDev);
+	CBoss*		pGameObject = new CBoss(pGraphicDev);
 
 	if (FAILED(pGameObject->Initialize()))
 	{
-		MSG_BOX("CMonster Create Faild");
+		MSG_BOX("CBoss Create Faild");
 		::Safe_Release(pGameObject);
 	}
 	return pGameObject;
 }
 
-void CMonster::Set_ContantTable(void)
+void CBoss::Set_ContantTable(void)
 {
 	m_pEffect->SetMatrix("g_matWorld", &m_pTransCom->m_matWorld);
 
@@ -187,7 +169,7 @@ void CMonster::Set_ContantTable(void)
 	m_pEffect->SetVector("g_vLightAmbient", &_vec4((_float*)&pLightInfo->Ambient));
 }
 
-_ulong CMonster::Release(void)
+_ulong CBoss::Release(void)
 {
 	_ulong dwRefCnt = CLandObject::Release();
 
@@ -199,10 +181,10 @@ _ulong CMonster::Release(void)
 	return dwRefCnt;
 }
 
-void CMonster::Reset()
+void CBoss::Reset()
 {
 	m_fTimeDelta = 0.f;
-	m_iAniIdx = SALA_CRY;
+	m_iAniIdx = 0;
 	m_bMove = false;
 
 	m_pMeshCom->Set_AnimationSet(m_iAniIdx);

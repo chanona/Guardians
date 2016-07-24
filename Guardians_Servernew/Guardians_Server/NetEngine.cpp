@@ -215,7 +215,7 @@ void CNetEngine::Accept()
 		for (int j = 0; j < 5; ++j)
 		{
 			CMonster* pMon = OBJECT_MANAGER->GetNewMonster(rand() % MonsterType::MONSTER_TYPE_END);
-			pMon->SetPosition(PLAYER_INIT_X - 50 + 70 * j  , 0, PLAYER_INIT_Z - 50 + 70 * i );
+			pMon->SetPosition(PLAYER_INIT_X - 50 + 70 * j, 0, PLAYER_INIT_Z - 50 + 70 * i);
 			pMon->SetWorld(WORLD_MANAGER->GetWorld(WORLD_TYPE::FOREST));
 			pMon->UpdateSector(pMon->GetPositionX() / SECTOR_WIDTH, pMon->GetPositionZ() / SECTOR_HEIGHT);
 			pMon->SetAlive(true);

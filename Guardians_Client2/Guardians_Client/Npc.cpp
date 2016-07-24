@@ -33,7 +33,7 @@ HRESULT CNpc::Initialize(void)
 
 	m_pTransCom->m_vScale /= 55.f;
 
-	m_pTransCom->m_vPosition = _vec3(320.f, 0.f, 330.0f);
+	m_pTransCom->m_vPosition = _vec3(320.f, 0.f, 328.0f);
 
 	return S_OK;
 }

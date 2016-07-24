@@ -136,6 +136,12 @@
     <Filter Include="00.Client\02.Object\01.Stage\05.UI\PlayerState">
       <UniqueIdentifier>{38e4839c-f38c-442f-9557-b7f056a7fa08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00.Client\02.Object\01.Stage\05.UI\ExBar">
+      <UniqueIdentifier>{3b46c693-cd08-4260-b4f3-d174777fd620}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Client\02.Object\01.Stage\01.Monster\Boss">
+      <UniqueIdentifier>{4011d460-ed23-4681-b242-485d2ab5a833}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Guardians_Client.h">
@@ -426,8 +432,15 @@
     <ClInclude Include="PlayerState.h">
       <Filter>00.Client\02.Object\01.Stage\05.UI\PlayerState</Filter>
     </ClInclude>
+    <ClInclude Include="CSingleton.h" />
+    <ClInclude Include="PlayerIdleState.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="StateMachine.h" />
     <ClInclude Include="Pet.h">
       <Filter>00.Client\02.Object\01.Stage\09.Pet</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>00.Client\02.Object\01.Stage\01.Monster\Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -628,6 +641,9 @@
     </ClCompile>
     <ClCompile Include="Pet.cpp">
       <Filter>00.Client\02.Object\01.Stage\09.Pet</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>00.Client\02.Object\01.Stage\01.Monster\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

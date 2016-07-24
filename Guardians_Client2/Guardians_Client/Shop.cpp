@@ -30,7 +30,7 @@ HRESULT CShop::Initialize(void)
 	m_pTransCom->m_vPosition = _vec3(318.f, 0.f, 332.f);
 	m_pTransCom->m_fAngle[Engine::CTransform::ANGLE_Y] = D3DXToRadian(-90.f);
 
-	m_pTransCom->m_vScale /= 270.f;
+	m_pTransCom->m_vScale /= 100.f;
 
 	return S_OK;
 }
